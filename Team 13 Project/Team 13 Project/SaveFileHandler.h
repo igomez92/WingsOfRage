@@ -21,4 +21,10 @@ SaveFile loadSaveFileThree(std::string saveThree);
 
 SaveFile readFile(std::string saveFileToRead);
 
+void saveFileOne(std::string saveOne);
+void saveFileTwo(std::string saveTwo);
+void saveFileThree(std::string saveThree);
+
+void saveFiles(std::string saveFileToWrite);
+
 #endif // SAVE_FILE_HANDLER_H

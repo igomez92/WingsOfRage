@@ -19,3 +19,20 @@ SaveFile readFile(std::string saveFileToRead)
 
 	return file;
 }
+
+void saveFileOne(std::string saveOne)
+{
+	saveFiles(saveOne);
+}
+void saveFileTwo(std::string saveTwo)
+{
+	saveFiles(saveTwo);
+}
+void saveFileThree(std::string saveThree)
+{
+	saveFiles(saveThree);
+}
+void saveFiles(std::string saveFileToWrite)
+{
+
+}
