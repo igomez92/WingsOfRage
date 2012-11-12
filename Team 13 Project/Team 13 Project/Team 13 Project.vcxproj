@@ -62,11 +62,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assassin.cpp" />
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Commander.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="SaveFileHandler.cpp" />
+    <ClCompile Include="Soldier.cpp" />
+    <ClCompile Include="Status.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assassin.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Commander.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="SaveFileHandler.h" />
+    <ClInclude Include="Soldier.h" />
+    <ClInclude Include="Status.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

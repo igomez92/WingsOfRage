@@ -1,23 +1,30 @@
 #include "Character.h"
 
+
+
+// Creates a default Character for the start of the game
 Character::Character(int initialX, int initialY, int initialHealth, int initialAttack)
 	:xPosition(initialX), yPosition(initialY), currentHealth(initialHealth), 
-	maxHealth(initialHealth), level(1), experience(0), attack(initialAttack)
-{
+	maxHealth(initialHealth), attack(initialAttack), listOfStatus(new Status[5])
+{}
 
-}
-
-Character::Character(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedLevel, int savedExperience, int savedAttack, std::vector<Status> savedList)
-	:xPosition(savedX), yPosition(savedY), currentHealth(savedCurrentHealth), maxHealth(savedMaxHealth), 
-	level(savedLevel), experience(savedExperience), attack(savedAttack), listOfStatus()
+// Creates a saved Character from a saved file
+Character::Character(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, Status* savedList)
+	:xPosition(savedX), yPosition(savedY), currentHealth(savedCurrentHealth), maxHealth(savedMaxHealth),
+	attack(savedAttack), listOfStatus(new Status[5])
 {
-	for(int current = 0; current < savedList.size(); current++)
+	// Copies all of the statuses affecting the player
+	for(int current = 0; current < 5; current++)
 	{
-	
+		listOfStatus[current] = savedList[current];
 	}
+
+	// Deletes the saved list of statuses so we don't forget to delete it later
+	delete[] savedList;
 }
 
+// Destroys any dynamically-allocated pointers in the Character class
 Character::~Character()
 {
-
+	delete[] listOfStatus;
 }
