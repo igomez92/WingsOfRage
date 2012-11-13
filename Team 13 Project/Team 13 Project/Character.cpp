@@ -1,12 +1,12 @@
 #include "Character.h"
 
-
-
 // Creates a default Character for the start of the game
 Character::Character(int initialX, int initialY, int initialHealth, int initialAttack)
 	:xPosition(initialX), yPosition(initialY), currentHealth(initialHealth), 
 	maxHealth(initialHealth), attack(initialAttack), listOfStatus(new Status[5])
-{}
+{
+
+}
 
 // Creates a saved Character from a saved file
 Character::Character(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, Status* savedList)

@@ -33,9 +33,11 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\SFML.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\SFML.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -67,8 +69,11 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Commander.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="PathfindingAI.cpp" />
     <ClCompile Include="SaveFileHandler.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="Status.cpp" />
@@ -79,7 +84,10 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Commander.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="NPC.h" />
+    <ClInclude Include="PathfindingAI.h" />
     <ClInclude Include="SaveFileHandler.h" />
     <ClInclude Include="Soldier.h" />
     <ClInclude Include="Status.h" />

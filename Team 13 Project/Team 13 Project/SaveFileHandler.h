@@ -10,20 +10,21 @@ struct SaveFile
 	int playerY;
 	int currentHealth;
 	int currentMaxHealth;
+	int currentAttack;
 	int currentLevel;
 	int currentExperience;
 	Status* listOfStatuses;
 };
 
-SaveFile loadSaveFileOne(std::string saveOne);
-SaveFile loadSaveFileTwo(std::string saveTwo);
-SaveFile loadSaveFileThree(std::string saveThree);
+SaveFile* loadSaveFileOne();
+SaveFile* loadSaveFileTwo();
+SaveFile* loadSaveFileThree();
 
-SaveFile readFile(std::string saveFileToRead);
+SaveFile* readFile(std::string saveFileToRead);
 
-void saveFileOne(std::string saveOne);
-void saveFileTwo(std::string saveTwo);
-void saveFileThree(std::string saveThree);
+void saveFileOne();
+void saveFileTwo();
+void saveFileThree();
 
 void saveFiles(std::string saveFileToWrite);
 
