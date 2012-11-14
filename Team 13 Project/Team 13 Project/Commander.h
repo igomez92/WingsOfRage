@@ -12,7 +12,8 @@ public:
 	// Constructs a starting Commander character
 	Commander(int initialX, int initialY, int initialHealth, int initialAttack, std::string startName);
 	// Constructs a saved Commander character
-	Commander(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, Status* savedStatuses, std::string savedName);
+	Commander(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, std::string savedName);
+		//Status* savedStatuses, std::string savedName);
 	// In case we need to remove any dynamically-allocated pointer
 	~Commander();
 private:

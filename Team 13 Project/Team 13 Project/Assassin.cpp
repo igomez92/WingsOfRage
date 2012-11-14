@@ -7,8 +7,12 @@ Assassin::Assassin(int initialX, int initialY, int initialHealth, int initialAtt
 {}
 
 // Constructs a saved Character object, setting up for continuing the game
-Assassin::Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, Status* savedList, std::string savedName)
-	:Commander(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel, savedEXP, savedList, savedName)
+Assassin::Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP,
+				   //Status* savedList,
+				   std::string savedName)
+	:Commander(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel, savedEXP,
+	//savedList,
+	savedName)
 {}
 
 // Can be removed if not needed

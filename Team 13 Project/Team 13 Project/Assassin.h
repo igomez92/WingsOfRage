@@ -12,7 +12,9 @@ public:
 	// Starting constructor
 	Assassin(int initialX, int initialY, int initialHealth, int initialAttack, std::string playerName);
 	// Saved Character constructor
-	Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, Status* savedList, std::string savedName);
+	Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP,
+		//Status* savedList,
+		std::string savedName);
 	// Destructor in case we need any dynamically-allocated pointer removed
 	~Assassin();
 private:

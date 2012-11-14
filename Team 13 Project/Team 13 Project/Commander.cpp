@@ -8,8 +8,11 @@ Commander::Commander(int initialX, int initialY, int initialHealth, int initialA
 
 // This is the saved Commander constructor
 Commander::Commander(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel,
-					 int savedEXP, Status* savedStatuses, std::string savedName)
-	:Character(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedStatuses), level(savedLevel),
+					 int savedEXP, std::string savedName)
+					 // Status* savedStatuses, std::string savedName)
+	:Character(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack),
+	//savedStatuses)
+			  level(savedLevel),
 	experience(savedEXP), playerName(savedName)
 {}
 
