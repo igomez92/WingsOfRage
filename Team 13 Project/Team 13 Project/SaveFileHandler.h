@@ -19,13 +19,15 @@ struct SaveFile
 SaveFile* loadSaveFileOne();
 SaveFile* loadSaveFileTwo();
 SaveFile* loadSaveFileThree();
-
 SaveFile* readFile(std::string saveFileToRead);
 
-void saveFileOne();
-void saveFileTwo();
-void saveFileThree();
-
-void saveFiles(std::string saveFileToWrite);
+void saveFileOne(int playerX, int playerY, int currentHealth, int maxHealth, int currentAttack, 
+				 int currentLevel, int currentExperience, Status* listOfStatuses);
+void saveFileTwo(int playerX, int playerY, int currentHealth, int maxHealth, int currentAttack, 
+				 int currentLevel, int currentExperience, Status* listOfStatuses);
+void saveFileThree(int playerX, int playerY, int currentHealth, int maxHealth, int currentAttack, 
+				 int currentLevel, int currentExperience, Status* listOfStatuses);
+void saveFiles(std::string saveFileToWrite, int playerX, int playerY, int currentHealth, int maxHealth, int currentAttack, 
+				 int currentLevel, int currentExperience, Status* listOfStatuses);
 
 #endif // SAVE_FILE_HANDLER_H
