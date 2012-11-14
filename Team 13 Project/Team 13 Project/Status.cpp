@@ -10,6 +10,7 @@ Status::Status(int enteredStatus)
 
 }
 
+/*
 void Status::doAction(Character& being)
 {
 
@@ -58,4 +59,4 @@ void Status::doAction(Character& being)
 		// Decreases the Character's amount of movement
 		// Only for a set amount of turns
 	}
-}
+}*/

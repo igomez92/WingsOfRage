@@ -25,7 +25,7 @@ public:
 	Status(int enteredStatus);
 
 	// Does a status effect on the character
-	void doAction(Character& being);
+//	void doAction(Character& being);
 
 private:
 	// The Status should know what it is

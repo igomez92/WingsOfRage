@@ -7,7 +7,9 @@ Soldier::Soldier(int initialX, int initialY, int initialHealth, int initialAttac
 
 // Constructs a saved Soldier object
 Soldier::Soldier(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, Status* savedList, std::string savedName)
-	:Commander(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel, savedEXP, savedList, savedName)
+	:Commander(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel, savedEXP,
+	//savedList,
+	savedName)
 {}
 
 // Can be removed if not needed
