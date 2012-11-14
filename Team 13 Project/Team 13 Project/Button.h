@@ -60,7 +60,7 @@ private:
 	sf::Texture btnTexture;
 	sf::Sprite btnSprite;
 	std::string imageLocation;
-	ButtonTypeEnum btnType
+	ButtonTypeEnum btnType;
 };
 
 
