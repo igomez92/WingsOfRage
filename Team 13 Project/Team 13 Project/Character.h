@@ -1,28 +1,63 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "Status.h"
+#include "Animation.h"
+#include <SFML/Graphics.hpp>
 
-// A Character is an entity in the game.  All Characters(Player, enemies, NPC, etc.) branch from this class
+enum Direction
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	NONE
+};
+
+// The various animation types so far
+const Animation RUNNING_RIGHT_ANIMATION(RUNNING_RIGHT);
+const Animation RUNNING_LEFT_ANIMATION(RUNNING_LEFT);
+const Animation STANDING_RIGHT_ANIMATION(STANDING_RIGHT);
+const Animation STANDING_LEFT_ANIMATION(STANDING_LEFT);
+
+// The speed of motion
+const float SPEED = 100.0f;
+
 class Character
 {
 public:
-	// Constructs a default Character
-	Character(int initialX, int initialY, int initialHealth, int initialAttack);
-	// Constructs a saved Characer(Mainly for the player)
-	Character(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack);// Status* savedList);
-	// In case we need to destroy any dynamically-allocated pointer
+	Character();
+	
+	Character(int xPos, int yPos, Direction startDir, Animation animationToUse, 
+		unsigned int mHealth, unsigned int startAttack);
+	
+	Character(int savedX, int savedY, Direction savedDir, Animation savedAnimation, unsigned int savedCurrentHealth, 
+		unsigned int savedMaxHealth, unsigned int savedAttack, unsigned int savedLevel);
+
 	~Character();
 
+	// These are for Key presses and Motion
+	void move(sf::Time elapsed);
+	void doPressedCommand(sf::Keyboard::Key keyCode);
+	void doReleasedCommand(sf::Keyboard::Key keyCode);
+	sf::Sprite getSprite();
+
+	// Command Options
+	void attackTarget(Character& being);
+
+	unsigned int currentHealth;
+	unsigned int maxHealth;
+	unsigned int attackPower;
+	unsigned int level;
+
+
 private:
-	// We may need to add additional members here
-	int xPosition;
-	int yPosition;
-	int currentHealth;
-	int maxHealth;
-	int attack;
-	// WE CAN CHANGE THE LISTOF STATUS TO NOT BE AN ARRAY
-	//Status* listOfStatus;
+	// All the details necessary for the movement of the Character
+	Animation animation;
+	Direction dir;
+	float x;
+	float y;
+	bool changeDirection;
+	void setAnimation(Animation nextAnimation);
 };
 
 #endif

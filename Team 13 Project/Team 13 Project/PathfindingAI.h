@@ -12,7 +12,7 @@ struct AI_Choice
 class PathfindingAI
 {
 public:
-	AI_Choice decidePath(Character being);
+	AI_Choice decidePath(Character* being);
 };
 
 #endif // PATHFINDING_AT_H

@@ -1,16 +1,19 @@
 #include "Enemy.h"
-// The enemy class contains all the info every enemy will contain.
-// Create new enemies that branch from this class
 
-// Creates an enemy object, holding an x Position, y Position, initial health, initial level and initial attack
-Enemy::Enemy(int xPosition, int yPosition, int initialHealth, int initialLevel, int initialAttack)
-	:Character(xPosition, yPosition, initialHealth, initialAttack), level(initialLevel)
+Enemy::Enemy()
+		:Character()
 {
-
 }
 
-// Just in case we need to destroy any dynamically-allocated pointers.  Can be removed later
+Enemy::Enemy(int xPos, int yPos, Direction startDir, Animation animationToUse, 
+		unsigned int mHealth, unsigned int startAttack, std::string name)
+		:Character(xPos, yPos, startDir, animationToUse, mHealth, startAttack), enemyName(name)
+{}
+
+Enemy::Enemy(int savedX, int savedY, Direction savedDir, Animation savedAnimation, unsigned int savedCurrentHealth, 
+		unsigned int savedMaxHealth, unsigned int savedAttack, unsigned int savedLevel, std::string savedName)
+		:Character(savedX, savedY, savedDir, savedAnimation, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel), enemyName(savedName)
+{}
+
 Enemy::~Enemy()
-{
-
-}
+{}

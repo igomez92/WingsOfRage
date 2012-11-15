@@ -1,20 +1,19 @@
 //Assassin.cpp
 #include "Assassin.h"
 
-// Constructs a starting Character, setting up for starting the game
-Assassin::Assassin(int initialX, int initialY, int initialHealth, int initialAttack, std::string startName)
-	:Commander(initialX, initialY, initialHealth, initialAttack, startName)
+Assassin::Assassin()
+	:Commander()
 {}
 
-// Constructs a saved Character object, setting up for continuing the game
-Assassin::Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP,
-				   //Status* savedList,
-				   std::string savedName)
-	:Commander(savedX, savedY, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel, savedEXP,
-	//savedList,
-	savedName)
+Assassin::Assassin(int xPos, int yPos, Direction startDir, Animation animationToUse, 
+	unsigned int mHealth, unsigned int startAttack, std::string name)
+	:Commander(xPos, yPos, startDir, animationToUse, mHealth, startAttack, name)
 {}
 
-// Can be removed if not needed
-Assassin::~Assassin ()
+Assassin::Assassin(int savedX, int savedY, Direction savedDir, Animation savedAnimation, unsigned int savedCurrentHealth, 
+		unsigned int savedMaxHealth, unsigned int savedAttack, unsigned int savedLevel, std::string savedName)
+		:Commander(savedX, savedY, savedDir, savedAnimation, savedCurrentHealth, savedMaxHealth, savedAttack, savedLevel,savedName)
+{}
+
+Assassin::~Assassin()
 {}

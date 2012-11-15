@@ -1,7 +1,7 @@
 #include "PathfindingAI.h"
 #include "Node.h"
 
-AI_Choice decidePath(Character being)
+AI_Choice decidePath(Character* being)
 {
 	AI_Choice decision;
 

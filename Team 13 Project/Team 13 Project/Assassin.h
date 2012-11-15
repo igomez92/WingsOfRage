@@ -9,16 +9,19 @@
 class Assassin : public Commander
 {
 public:
-	// Starting constructor
-	Assassin(int initialX, int initialY, int initialHealth, int initialAttack, std::string playerName);
-	// Saved Character constructor
-	Assassin(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP,
-		//Status* savedList,
-		std::string savedName);
-	// Destructor in case we need any dynamically-allocated pointer removed
+
+	Assassin();
+
+	Assassin(int xPos, int yPos, Direction startDir, Animation animationToUse, 
+		unsigned int mHealth, unsigned int startAttack, std::string name);
+
+	Assassin(int savedX, int savedY, Direction savedDir, Animation savedAnimation, unsigned int savedCurrentHealth, 
+		unsigned int savedMaxHealth, unsigned int savedAttack, unsigned int savedLevel, std::string savedName);
+
 	~Assassin();
+
 private:
-	// You will need to add members here
+
 };
 
 #endif // ASSASSIN_H

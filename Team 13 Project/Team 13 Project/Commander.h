@@ -9,17 +9,14 @@
 class Commander : public Character
 {
 public:
-	// Constructs a starting Commander character
-	Commander(int initialX, int initialY, int initialHealth, int initialAttack, std::string startName);
-	// Constructs a saved Commander character
-	Commander(int savedX, int savedY, int savedCurrentHealth, int savedMaxHealth, int savedAttack, int savedLevel, int savedEXP, std::string savedName);
-		//Status* savedStatuses, std::string savedName);
-	// In case we need to remove any dynamically-allocated pointer
+	Commander();
+	Commander(int xPos, int yPos, Direction startDir, Animation animationToUse, 
+		unsigned int mHealth, unsigned int startAttack, std::string name);
+	Commander(int savedX, int savedY, Direction savedDir, Animation savedAnimation, unsigned int savedCurrentHealth, 
+		unsigned int savedMaxHealth, unsigned int savedAttack, unsigned int savedLevel, std::string savedName);
 	~Commander();
+
 private:
-	// You may need to add more members here
-	int level;
-	int experience;
 	std::string playerName;
 };
 
