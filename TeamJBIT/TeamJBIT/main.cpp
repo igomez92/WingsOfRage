@@ -1,7 +1,11 @@
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
+
 #include "VisibleObject.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <iostream>
+#include <vector>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -10,9 +14,18 @@ int main(char argc, char* argv[]) {
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Team JBIT SFML Test");
 	window.setFramerateLimit(60);
 
-	VisibleObject object("ball.png");
-	VisibleObject object2("ball.png");
-	object2.setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	Player p1("ball.png", 0, 0);
+
+	Enemy e0("ball.png", 100, 100);
+	Enemy e1("ball.png", 300, 100);
+	Enemy e2("ball.png", 500, 100);
+	Enemy e3("ball.png", 700, 100);
+
+	std::vector<Enemy> enemyVec;
+	enemyVec.push_back(e0);
+	enemyVec.push_back(e1);
+	enemyVec.push_back(e2);
+	enemyVec.push_back(e3);
 	sf::Clock clock;
 
     while (window.isOpen())
@@ -24,47 +37,27 @@ int main(char argc, char* argv[]) {
                 window.close();
         }
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			object.setPosition(object.getX(), object.getY() + 5);
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			object.setPosition(object.getX(), object.getY() - 5);
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			object.setPosition(object.getX() - 5, object.getY());
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			object.setPosition(object.getX() + 5, object.getY());
-		}
-
-		if(object.getBounds().top + object.getBounds().height > SCREEN_HEIGHT)
-		{
-			object.setPosition(object.getX(), SCREEN_HEIGHT - object.getBounds().height);
-		}
-		if(object.getBounds().top < 0)
-		{
-			object.setPosition(object.getX(), 0.01);
-		}
-		if(object.getBounds().left + object.getBounds().width > SCREEN_WIDTH)
-		{
-			object.setPosition(SCREEN_WIDTH - object.getBounds().width, object.getY());
-		}
-		if(object.getBounds().left < 0)
-		{
-			object.setPosition(0.01, object.getY());
-		}
-
 		window.clear(sf::Color(50, 50, 50));
 
-		window.draw(object.getSprite());
+		p1.update();
+		window.draw(p1.getSprite());
 
-		if(clock.getElapsedTime().asSeconds() >= 2)
+	/*	if(clock.getElapsedTime().asSeconds() >= 2)
 		{
-			window.draw(object2.getSprite());
+			e1.update();
+			window.draw(e1.getSprite());
+		}*/
+
+		for(int i = 0; i < enemyVec.size(); i++)
+		{
+			int thresholdX = abs(enemyVec.at(i).xPos - p1.xPos);
+			int thresholdY = abs(enemyVec.at(i).yPos - p1.yPos);
+			if(thresholdX < 22 && thresholdY < 22)
+			{
+				enemyVec.at(i).continueDraw = false;
+			}
+			enemyVec.at(i).update();
+			window.draw(enemyVec.at(i).getSprite());
 		}
 
 		window.display();
