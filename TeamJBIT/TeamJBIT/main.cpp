@@ -1,54 +1,46 @@
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
 
-#include "VisibleObject.h"
-#include "Player.h"
-#include "Enemy.h"
-#include <iostream>
+#include "IScene.h"
+#include "GameScene.h"
 #include <vector>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-int main(char argc, char* argv[]) {
+int main(char argc, char* argv[]) 
+{
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Team JBIT SFML Test");
 	window.setFramerateLimit(60);
 
-	Player p1("ball.png", 0, 0);
+	std::vector<IScene*> sceneList;
+	IScene* currentScene = nullptr;
 
-	Enemy e0("ball.png", 100, 100);
-	Enemy e1("ball.png", 300, 100);
-	Enemy e2("ball.png", 500, 100);
-	Enemy e3("ball.png", 700, 100);
+	GameScene gameScene = GameScene();
+	sceneList.push_back(&gameScene);
+	currentScene = &gameScene;
 
-	std::vector<Enemy> enemyVec;
-	enemyVec.push_back(e0);
-	enemyVec.push_back(e1);
-	enemyVec.push_back(e2);
-	enemyVec.push_back(e3);
-	sf::Clock clock;
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
+			if (currentScene->handleEvent(event)) continue;
+
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
+		//update
+		currentScene->update();
+
+		//draw
 		window.clear(sf::Color(50, 50, 50));
+		currentScene->draw(window);
 
-		p1.update();
-		window.draw(p1.getSprite());
 
-	/*	if(clock.getElapsedTime().asSeconds() >= 2)
-		{
-			e1.update();
-			window.draw(e1.getSprite());
-		}*/
-
-		for(int i = 0; i < enemyVec.size(); i++)
+/*		for(int i = 0; i < enemyVec.size(); i++)
 		{
 			int thresholdX = abs(enemyVec.at(i).xPos - p1.xPos);
 			int thresholdY = abs(enemyVec.at(i).yPos - p1.yPos);
@@ -58,7 +50,7 @@ int main(char argc, char* argv[]) {
 			}
 			enemyVec.at(i).update();
 			window.draw(enemyVec.at(i).getSprite());
-		}
+		}*/
 
 		window.display();
     }

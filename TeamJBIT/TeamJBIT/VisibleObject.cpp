@@ -8,7 +8,6 @@ VisibleObject::VisibleObject(std::string file)
 	sprite.setTexture(image);
 }
 
-
 VisibleObject::~VisibleObject(void)
 {
 }
