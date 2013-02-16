@@ -39,7 +39,7 @@ void Player::update(float deltaTime)
 
 	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)
 	{
-		pos.y = 600 - sprite.getGlobalBounds().height;
+		pos.y = 600 - sprite.getGlobalBounds().height/2 - 0.01;
 		sprite.setPosition(pos);
 	}
 	if(sprite.getGlobalBounds().top < 0)
@@ -49,7 +49,7 @@ void Player::update(float deltaTime)
 	}
 	if(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > 800)
 	{
-		pos.x = 800 - sprite.getGlobalBounds().width;
+		pos.x = 800 - sprite.getGlobalBounds().width/2 - 0.01;
 		sprite.setPosition(pos);
 	}
 	if(sprite.getGlobalBounds().left < 0)
