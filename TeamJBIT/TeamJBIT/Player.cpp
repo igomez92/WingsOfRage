@@ -1,9 +1,11 @@
 #include "Player.h"
 
-Player::Player(std::string file, int x, int y)
-	:VisibleObject(file), health(3), xPos(x), yPos(y)
+Player::Player(std::string file, sf::Vector2f pos)
+	:health(3), pos(pos)
 {
-	getSprite().setOrigin(getSprite().getLocalBounds().width/2, getSprite().getLocalBounds().height/2);
+	image.loadFromFile(file);
+	sprite.setTexture(image);
+	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 }
 
 
@@ -12,47 +14,52 @@ Player::~Player()
 }
 
 
-void Player::update()
+void Player::update(float deltaTime)
 {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		yPos += 5;
-		setPosition(xPos, yPos);
+		pos.y += 300 * deltaTime;
+		sprite.setPosition(pos);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		yPos -= 5;
-		setPosition(xPos, yPos);
+		pos.y -= 300 * deltaTime;
+		sprite.setPosition(pos);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		xPos -= 5;
-		setPosition(xPos, yPos);
+		pos.x -= 300 * deltaTime;
+		sprite.setPosition(pos);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		xPos += 5;
-		setPosition(xPos, yPos);
+		pos.x += 300 * deltaTime;
+		sprite.setPosition(pos);
 	}
 
-	if(getBounds().top + getBounds().height > 600)
+	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)
 	{
-		yPos = 600 - getBounds().height;
-		setPosition(xPos, yPos);
+		pos.y = 600 - sprite.getGlobalBounds().height;
+		sprite.setPosition(pos);
 	}
-	if(getBounds().top < 0)
+	if(sprite.getGlobalBounds().top < 0)
 	{
-		yPos = 0.01;
-		setPosition(xPos, yPos);
+		pos.y = sprite.getGlobalBounds().height / 2;
+		sprite.setPosition(pos);
 	}
-	if(getBounds().left + getBounds().width > 800)
+	if(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > 800)
 	{
-		xPos = 800 - getBounds().width;
-		setPosition(xPos, yPos);
+		pos.x = 800 - sprite.getGlobalBounds().width;
+		sprite.setPosition(pos);
 	}
-	if(getBounds().left < 0)
+	if(sprite.getGlobalBounds().left < 0)
 	{
-		xPos = 0.01;
-		setPosition(xPos, yPos);
+		pos.x = sprite.getGlobalBounds().width / 2;
+		sprite.setPosition(pos);
 	}
+}
+
+void Player::draw(sf::RenderWindow& window)
+{
+	window.draw(sprite);
 }

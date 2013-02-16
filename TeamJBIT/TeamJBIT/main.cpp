@@ -49,7 +49,7 @@ int main(char argc, char* argv[])
 				enemyVec.at(i).continueDraw = false;
 			}
 			enemyVec.at(i).update();
-			window.draw(enemyVec.at(i).getSprite());
+			window.draw(enemyVec.at(i).sprite);
 		}*/
 
 		window.display();

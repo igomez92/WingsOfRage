@@ -1,11 +1,13 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(std::string file, int x, int y)
-	:VisibleObject(file), continueDraw(true), xPos(x), yPos(y)
+Enemy::Enemy(std::string file, sf::Vector2f pos)
+	:continueDraw(true), pos(pos)
 {
-	setPosition(x,y);
-	getSprite().setOrigin(getSprite().getLocalBounds().width/2, getSprite().getLocalBounds().height/2);
+	image.loadFromFile(file);
+	sprite.setTexture(image);
+	sprite.setPosition(pos);
+	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 }
 
 
@@ -13,20 +15,25 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::update()
+void Enemy::update(float deltaTime)
 {
 	if(continueDraw == false)
 	{
-		setPosition(-100, -100);
+		sprite.setPosition(-100, -100);
 	}
 	else
 	{
-		yPos += 5;
-		setPosition(xPos, yPos);
-		if(yPos > 600 + getSprite().getLocalBounds().height)
+		pos.y += 300 * deltaTime;
+		sprite.setPosition(pos);
+		if(pos.y > 600 + sprite.getLocalBounds().height)
 		{
-			yPos -= 600 + getSprite().getLocalBounds().height;
-			setPosition(xPos, yPos);
+			pos.y -= 600 + sprite.getLocalBounds().height;
+			sprite.setPosition(pos);
 		}
 	}
+}
+
+void Enemy::draw(sf::RenderWindow& window)
+{
+	window.draw(sprite);
 }
