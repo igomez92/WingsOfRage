@@ -19,7 +19,7 @@ GameScene::~GameScene() {
 }
 	
 void GameScene::update() {
-	float deltaTime = clock.getElapsedTime().asSeconds() - lastFrameTime.asSeconds();
+	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
 
 
