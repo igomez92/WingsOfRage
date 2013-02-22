@@ -24,14 +24,12 @@ void GameScene::update() {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
 
-
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > .1){
 		playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
-		shotTimer= clock.getElapsedTime();
+		shotTimer = clock.getElapsedTime();
 		}
 	}
-
 
 	//update bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
@@ -83,8 +81,23 @@ void GameScene::update() {
 			continue;
 		}
 
-		(**it).update(deltaTime);
+		(**it).update(deltaTime, enemyBullets);
 		
+		it++;
+	}
+
+	for (auto it = enemyBullets.begin(); it != enemyBullets.end();) {
+		(**it).update(deltaTime);
+
+		//offscreen check
+		if ((**it).getPosition().y > 700) {
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			enemyBullets.erase(itToErase);
+			continue;
+		}
+
 		it++;
 	}
 
@@ -95,14 +108,22 @@ void GameScene::update() {
 void GameScene::draw(sf::RenderWindow& window) {
 	window.draw(testSprite);
 
-	//draw bullets
+	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
 		(**it).draw(window);
 	}	
+
+	//draw enemy bullets
+	for (auto it = enemyBullets.begin(); it != enemyBullets.end(); it++) {
+		(**it).draw(window);
+	}
+
+	//draw enemies
 	for (auto it = enemyList.begin(); it != enemyList.end(); it++) 
 	{
 		(**it).draw(window);
 	}
+
 	player.draw(window);	
 }
 

@@ -15,7 +15,7 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::update(float deltaTime)
+void Enemy::update(float deltaTime, std::list<Bullet*>& eList)
 {
 	pos.y += 100 * deltaTime;
 	sprite.setPosition(pos);
@@ -23,6 +23,12 @@ void Enemy::update(float deltaTime)
 	{
 		pos.y -= 600 + sprite.getLocalBounds().height;
 		sprite.setPosition(pos);
+	}
+
+	if (bulletClock.getElapsedTime().asSeconds() > 0.2)
+	{
+		eList.push_back(new Bullet("ball.png", pos, sf::Vector2f(0, 200)));
+		bulletClock.restart();
 	}
 }
 
