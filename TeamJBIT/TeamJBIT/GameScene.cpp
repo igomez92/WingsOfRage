@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), enemy("ball.png", sf::Vector2f(300, 50)) {
+GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)) {
 
 	//TEST STUFF
 	animSpriteTexture.loadFromFile("yeah.jpg");
@@ -12,6 +12,8 @@ GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), enemy("ball
 	testSprite.setOrigin(100, 108);
 	testSprite.setPosition(400, 300);
 	testSprite.setScale(800.f/200, 600.f/217);
+
+	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
 }
 
 GameScene::~GameScene() {
@@ -24,8 +26,12 @@ void GameScene::update() {
 
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		if((clock.getElapsedTime() - shotTimer).asSeconds() > .1){
 		playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
+		shotTimer= clock.getElapsedTime();
+		}
 	}
+
 
 	//update bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
@@ -40,10 +46,48 @@ void GameScene::update() {
 			continue;
 		}
 
+		bool removeBullet = false;
+		for (auto enemyIt = enemyList.begin(); enemyIt != enemyList.end(); enemyIt++)
+		{
+			int thresholdX = abs((**enemyIt).pos.x - (**it).pos.x);
+			int thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
+			if(thresholdX < 22 && thresholdY < 22)
+			{
+				(**enemyIt).takeDam((**it).dam);
+				removeBullet = true;
+				break;
+			}
+		}
+
+		if (removeBullet)
+		{
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			playerBullets.erase(itToErase);
+			continue;
+		}
+
+
 		it++;
 	}
 
-	enemy.update(deltaTime);
+	for (auto it = enemyList.begin(); it != enemyList.end();) 
+	{
+		if((**it).isDead())
+		{
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			enemyList.erase(itToErase);
+			continue;
+		}
+
+		(**it).update(deltaTime);
+		
+		it++;
+	}
+
 	player.update(deltaTime);
 	testSprite.update(deltaTime);
 }
@@ -55,8 +99,10 @@ void GameScene::draw(sf::RenderWindow& window) {
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
 		(**it).draw(window);
 	}	
-
-	enemy.draw(window);
+	for (auto it = enemyList.begin(); it != enemyList.end(); it++) 
+	{
+		(**it).draw(window);
+	}
 	player.draw(window);	
 }
 

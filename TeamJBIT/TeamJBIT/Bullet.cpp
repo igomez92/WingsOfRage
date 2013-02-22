@@ -1,8 +1,8 @@
 #include "Bullet.h"
 
 
-Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel)
-	:pos(pos), vel(vel)
+Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam)
+	:pos(pos), vel(vel), dam(dam)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);

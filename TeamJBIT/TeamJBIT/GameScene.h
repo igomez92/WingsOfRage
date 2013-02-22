@@ -23,8 +23,9 @@ private:
 	AnimSprite testSprite;
 
 	Player player;
-	Enemy enemy;
+	sf::Time shotTimer;
 
+	std::list<Enemy*> enemyList;
 	std::list<Bullet*> playerBullets;
 	std::list<Bullet*> enemyBullets;
 

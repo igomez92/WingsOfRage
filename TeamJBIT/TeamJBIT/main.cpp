@@ -38,19 +38,7 @@ int main(char argc, char* argv[])
 		//draw
 		window.clear(sf::Color(50, 50, 50));
 		currentScene->draw(window);
-
-
-/*		for(int i = 0; i < enemyVec.size(); i++)
-		{
-			int thresholdX = abs(enemyVec.at(i).xPos - p1.xPos);
-			int thresholdY = abs(enemyVec.at(i).yPos - p1.yPos);
-			if(thresholdX < 22 && thresholdY < 22)
-			{
-				enemyVec.at(i).continueDraw = false;
-			}
-			enemyVec.at(i).update();
-			window.draw(enemyVec.at(i).sprite);
-		}*/
+	
 
 		window.display();
     }

@@ -1,8 +1,8 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(std::string file, sf::Vector2f pos)
-	:continueDraw(true), pos(pos)
+Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
+	:pos(pos), health(health)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);
@@ -17,23 +17,29 @@ Enemy::~Enemy(void)
 
 void Enemy::update(float deltaTime)
 {
-	if(continueDraw == false)
+	pos.y += 100 * deltaTime;
+	sprite.setPosition(pos);
+	if(pos.y > 600 + sprite.getLocalBounds().height)
 	{
-		sprite.setPosition(-100, -100);
-	}
-	else
-	{
-		pos.y += 300 * deltaTime;
+		pos.y -= 600 + sprite.getLocalBounds().height;
 		sprite.setPosition(pos);
-		if(pos.y > 600 + sprite.getLocalBounds().height)
-		{
-			pos.y -= 600 + sprite.getLocalBounds().height;
-			sprite.setPosition(pos);
-		}
 	}
 }
 
 void Enemy::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Enemy::takeDam(int dam)
+{
+	health -= dam;
+}
+
+bool Enemy::isDead()
+{
+	if(health <= 0)
+		return true;
+	
+	return false;
 }
