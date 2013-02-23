@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="AnimSprite.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="EndGameScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="AnimSprite.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="EndGameScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player.h" />
