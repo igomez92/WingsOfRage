@@ -1,5 +1,4 @@
 #include "Player.h"
-
 Player::Player(std::string file, sf::Vector2f pos)
 	:health(3), pos(pos)
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
+#include "AnimSprite.h"
 class Player
 {
 public:
@@ -16,6 +16,6 @@ private:
 	unsigned int health;
 	unsigned int level;
 
-	sf::Sprite sprite;
+	AnimSprite sprite;
 	sf::Texture image;
 };

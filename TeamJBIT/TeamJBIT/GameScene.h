@@ -24,6 +24,7 @@ private:
 
 	Player player;
 	sf::Time shotTimer;
+	int enemyDisplacement;
 
 	std::list<Enemy*> enemyList;
 	std::list<Bullet*> playerBullets;

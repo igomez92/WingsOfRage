@@ -3,7 +3,8 @@
 
 #include "IScene.h"
 #include "GameScene.h"
-#include <vector>
+#include "EndGameScene.h"
+#include "SceneManager.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -13,31 +14,32 @@ int main(char argc, char* argv[])
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Team JBIT SFML Test");
 	window.setFramerateLimit(60);
 
-	std::vector<IScene*> sceneList;
-	IScene* currentScene = nullptr;
+	IScene* endGameScene = new EndGameScene();
+	IScene* gameScene = new GameScene();
+	
+	SceneManager::getInstance().addScene("start",gameScene);
+	SceneManager::getInstance().addScene("end",endGameScene);
+	SceneManager::getInstance().changeScene("start");
 
-	GameScene gameScene = GameScene();
-	sceneList.push_back(&gameScene);
-	currentScene = &gameScene;
-
+	
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-			if (currentScene->handleEvent(event)) continue;
+			if (SceneManager::getInstance().getCurrentScene()->handleEvent(event)) continue;
 
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
 		//update
-		currentScene->update();
+		SceneManager::getInstance().getCurrentScene()->update();
 
 		//draw
 		window.clear(sf::Color(50, 50, 50));
-		currentScene->draw(window);
+		SceneManager::getInstance().getCurrentScene()->draw(window);
 	
 
 		window.display();

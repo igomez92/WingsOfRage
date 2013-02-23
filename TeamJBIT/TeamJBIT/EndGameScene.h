@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IScene.h"
-
+#include "AnimSprite.h"
 class EndGameScene : public IScene {
 	public:
 		EndGameScene();
@@ -12,6 +12,9 @@ class EndGameScene : public IScene {
 		virtual bool handleEvent(sf::Event& event);
 
 	private:
+		sf::Texture animSpriteTexture;
+		AnimSprite testSprite;
+
 		sf::Font tempestaSevenFont;
 		sf::Text gameOverMessage;
 		
