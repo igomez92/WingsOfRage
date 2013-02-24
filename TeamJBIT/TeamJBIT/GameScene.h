@@ -31,15 +31,20 @@ private:
 	std::list<Bullet*> playerBullets;
 	std::list<Bullet*> enemyBullets;
 
+	sf::Clock clock;
+	sf::Time lastFrameTime;
+
+	// Score stuff
 	std::stringstream scoreStr;
 	sf::Text score;
 	sf::Font tempestaSevenFont;
 	unsigned int scoreNum;
 
-	sf::Clock clock;
-	sf::Time lastFrameTime;
+	// Time stuff
+	std::stringstream timeStr;
+	sf::Text timer;
 
-	void initializeScore();
-	void updateScore();
-	void printScore(sf::RenderWindow& window);
+	void initializeScoreAndTime();
+	void updateScoreAndTime();
+	void printScoreAndTime(sf::RenderWindow& window);
 };

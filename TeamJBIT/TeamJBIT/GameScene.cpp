@@ -14,7 +14,7 @@ GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), scoreNum(0)
 	testSprite.setScale(800.f/200, 600.f/217);*/
 
 	// Initialize score info
-	initializeScore();
+	initializeScoreAndTime();
 
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
@@ -134,7 +134,7 @@ void GameScene::update() {
 
 		it++;
 	}
-	updateScore();
+	updateScoreAndTime();
 	player.update(deltaTime);
 	//testSprite.update(deltaTime);
 }
@@ -158,33 +158,58 @@ void GameScene::draw(sf::RenderWindow& window) {
 		(**it).draw(window);
 	}
 	player.draw(window);	
-	printScore(window);
+	printScoreAndTime(window);
 }
 
 bool GameScene::handleEvent(sf::Event& event) {
 	return false;
 }
 
-void GameScene::initializeScore()
+void GameScene::initializeScoreAndTime()
 {
 	tempestaSevenFont.loadFromFile("pf_tempesta_seven.ttf");
+
+	timer = sf::Text("0:00", tempestaSevenFont, 20);
+	//timer.setOrigin(timer.getLocalBounds().width / 2.f, timer.getLocalBounds().height / 2.f);
+	timer.setPosition(5, 10);
+
 	scoreStr << scoreNum;
-	score = sf::Text(scoreStr.str(), tempestaSevenFont, 50);
-	score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
-	score.setPosition(50, 50);
+	score = sf::Text(scoreStr.str(), tempestaSevenFont, 20);
+	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
+	score.setPosition(5, 35);
 	scoreStr.str("");
 	scoreStr.clear();
 }
 
-void GameScene::updateScore()
+void GameScene::updateScoreAndTime()
 {
-	scoreStr << scoreNum;
+	int time = clock.getElapsedTime().asSeconds();
+	timeStr << "Time: ";
+	if(time/60 == 0)
+		timeStr << "0:";
+	else
+	{
+		timeStr << time/60 << ":";
+		// Get Seconds
+		time = time%60;
+	}
+	if(time < 10)
+		timeStr << "0" <<time;
+	else
+		timeStr << time;
+
+	timer.setString(timeStr.str());
+	timeStr.str("");
+	timeStr.clear();
+
+	scoreStr << "Score: " << scoreNum;
 	score.setString(scoreStr.str());
 	scoreStr.str("");
 	scoreStr.clear();
 }
 
-void GameScene::printScore(sf::RenderWindow& window)
+void GameScene::printScoreAndTime(sf::RenderWindow& window)
 {
+	window.draw(timer);
 	window.draw(score);
 }
