@@ -20,8 +20,15 @@ GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), scoreNum(0)
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
 }
 
-GameScene::~GameScene() {
-
+GameScene::~GameScene() 
+{
+	
+	for(auto it = enemyList.begin(); it != enemyList.end(); it++)
+		delete (*it);
+	for(auto it = playerBullets.begin(); it != playerBullets.end(); it++)
+		delete (*it);
+	for (auto it = enemyBullets.begin(); it != enemyBullets.end(); it++) 
+		delete (*it);
 }
 	
 void GameScene::update() {
@@ -30,8 +37,9 @@ void GameScene::update() {
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		if((clock.getElapsedTime() - shotTimer).asSeconds() > .1){
-		playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
+		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
+		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
+		player.shoot(playerBullets);
 		shotTimer = clock.getElapsedTime();
 		}
 	}
@@ -52,9 +60,9 @@ void GameScene::update() {
 		bool removeBullet = false;
 		for (auto enemyIt = enemyList.begin(); enemyIt != enemyList.end(); enemyIt++)
 		{
-			int thresholdX = abs((**enemyIt).pos.x - (**it).pos.x);
-			int thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
-			if(thresholdX < 22 && thresholdY < 22)
+			float thresholdX = abs((**enemyIt).pos.x - (**it).pos.x);
+			float thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
+			if(thresholdX < 22.f && thresholdY < 22.f)
 			{
 				(**enemyIt).takeDam((**it).dam);
 				removeBullet = true;

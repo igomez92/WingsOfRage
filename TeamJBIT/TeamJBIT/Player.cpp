@@ -1,6 +1,6 @@
 #include "Player.h"
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(3), pos(pos)
+	:health(3), pos(pos), shotType(new SingleShot)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);
@@ -10,6 +10,7 @@ Player::Player(std::string file, sf::Vector2f pos)
 
 Player::~Player()
 {
+	 delete shotType;
 }
 
 
@@ -56,9 +57,35 @@ void Player::update(float deltaTime)
 		pos.x = sprite.getGlobalBounds().width / 2;
 		sprite.setPosition(pos);
 	}
+
+	switchShot();
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Player::shoot(std::list<Bullet*>& playerBullets)
+{
+	shotType->doShot(playerBullets, pos);
+}
+
+void Player::switchShot()
+{
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	{
+		delete shotType;
+		shotType = new SingleShot;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		delete shotType;
+		shotType = new TriCannonShot;
+	}
+}
+
+ShotType* Player::getShotType()
+{
+	return shotType;
 }
