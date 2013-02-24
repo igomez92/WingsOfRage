@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include <list>
+#include <sstream>
 
 class GameScene : public IScene
 {
@@ -30,6 +31,15 @@ private:
 	std::list<Bullet*> playerBullets;
 	std::list<Bullet*> enemyBullets;
 
+	std::stringstream scoreStr;
+	sf::Text score;
+	sf::Font tempestaSevenFont;
+	unsigned int scoreNum;
+
 	sf::Clock clock;
 	sf::Time lastFrameTime;
+
+	void initializeScore();
+	void updateScore();
+	void printScore(sf::RenderWindow& window);
 };

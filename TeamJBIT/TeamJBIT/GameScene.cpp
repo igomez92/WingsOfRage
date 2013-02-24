@@ -1,6 +1,6 @@
 #include "GameScene.h"
 #include "SceneManager.h"
-GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)) {
+GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), scoreNum(0) {
 
 	//TEST STUFF
 	/*animSpriteTexture.loadFromFile("yeah.jpg");
@@ -12,6 +12,10 @@ GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)) {
 	testSprite.setOrigin(100, 108);
 	testSprite.setPosition(400, 300);
 	testSprite.setScale(800.f/200, 600.f/217);*/
+
+	// Initialize score info
+	initializeScore();
+
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
 }
@@ -23,7 +27,7 @@ GameScene::~GameScene() {
 void GameScene::update() {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
-	if(deltaTime >=.1){ deltaTime = .1;};
+	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > .1){
@@ -75,6 +79,8 @@ void GameScene::update() {
 	{
 		if((**it).isDead())
 		{
+			scoreNum += 100;
+
 			auto itToErase = it;
 			it++;
 			delete (*itToErase);
@@ -128,7 +134,7 @@ void GameScene::update() {
 
 		it++;
 	}
-
+	updateScore();
 	player.update(deltaTime);
 	//testSprite.update(deltaTime);
 }
@@ -152,8 +158,33 @@ void GameScene::draw(sf::RenderWindow& window) {
 		(**it).draw(window);
 	}
 	player.draw(window);	
+	printScore(window);
 }
 
 bool GameScene::handleEvent(sf::Event& event) {
 	return false;
+}
+
+void GameScene::initializeScore()
+{
+	tempestaSevenFont.loadFromFile("pf_tempesta_seven.ttf");
+	scoreStr << scoreNum;
+	score = sf::Text(scoreStr.str(), tempestaSevenFont, 50);
+	score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
+	score.setPosition(50, 50);
+	scoreStr.str("");
+	scoreStr.clear();
+}
+
+void GameScene::updateScore()
+{
+	scoreStr << scoreNum;
+	score.setString(scoreStr.str());
+	scoreStr.str("");
+	scoreStr.clear();
+}
+
+void GameScene::printScore(sf::RenderWindow& window)
+{
+	window.draw(score);
 }
