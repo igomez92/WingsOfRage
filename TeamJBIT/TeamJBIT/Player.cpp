@@ -73,15 +73,20 @@ void Player::shoot(std::list<Bullet*>& playerBullets)
 
 void Player::switchShot()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 	{
 		delete shotType;
 		shotType = new SingleShot;
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
 	{
 		delete shotType;
 		shotType = new TriCannonShot;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		delete shotType;
+		shotType = new MultiPhotonShot;
 	}
 }
 

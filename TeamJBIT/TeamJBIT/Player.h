@@ -6,6 +6,7 @@
 #include "ShotType.h"
 #include "SingleShot.h"
 #include "TriCannonShot.h"
+#include "MultiPhotonShot.h"
 #include <list>
 
 class Player

@@ -27,7 +27,7 @@ void Enemy::update(float deltaTime, std::list<Bullet*>& eList)
 
 	if (bulletClock.getElapsedTime().asSeconds() > 0.2)
 	{
-		eList.push_back(new Bullet("ball.png", pos, sf::Vector2f(0, 200)));
+		eList.push_back(new Bullet("ball.png", pos, sf::Vector2f(0, 400)));
 		bulletClock.restart();
 	}
 }
