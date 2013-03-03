@@ -11,7 +11,8 @@ class AnimSprite : public sf::Sprite {
 		AnimSprite();
 		void setFrameSize(int width, int height);
 		void setBorderSize(int width, int height);
-		void update(float frameTime);		
+		void update(float frameTime);
+		void showFrame(unsigned int frameNum);
 		void addAnim(std::string name, int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true);
 		bool playAnim(std::string name);
 
@@ -24,8 +25,6 @@ class AnimSprite : public sf::Sprite {
 			float framerate;
 			bool isCyclic;
 		};
-
-		void showFrame(unsigned int frameNum);
 
 		sf::Vector2i frameSize;
 		sf::Vector2i borderSize;

@@ -23,6 +23,9 @@ void AnimSprite::setBorderSize(int width, int height) {
 }
 
 void AnimSprite::update(float deltaTime) {
+	//don't play animations with negative framerate
+	if (currentAnim->framerate < 0) return;
+
 	//accumulate time
 	timeSinceLastFrame += deltaTime;
 
@@ -77,7 +80,7 @@ bool AnimSprite::playAnim(std::string name) {
 }
 
 void AnimSprite::showFrame(unsigned int frameNum) {
-	if (frameNum > currentAnim->numFrames - 1) return;
+	//if (frameNum > currentAnim->numFrames - 1) return;
 
 	sf::Vector2i frameCoordinates (frameNum % currentAnim->numPerRow, frameNum / currentAnim->numPerRow);
 	sf::Vector2i offsetSize = frameSize + borderSize;

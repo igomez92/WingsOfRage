@@ -4,6 +4,10 @@ Player::Player(std::string file, sf::Vector2f pos)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);
+	sprite.setFrameSize(42,43);
+	sprite.addAnim("ship", 0, 0, 9, 3, -1);
+	sprite.playAnim("ship");
+	sprite.showFrame(4);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 }
 
@@ -16,25 +20,32 @@ Player::~Player()
 
 void Player::update(float deltaTime)
 {
+	sprite.update(deltaTime);
+	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		pos.y += 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		pos.y -= 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		pos.x -= 300 * deltaTime;
 		sprite.setPosition(pos);
+		sprite.showFrame(3);
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		pos.x += 300 * deltaTime;
 		sprite.setPosition(pos);
+		sprite.showFrame(5);
+	}else
+	{
+		sprite.showFrame(4);
 	}
 
 	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)

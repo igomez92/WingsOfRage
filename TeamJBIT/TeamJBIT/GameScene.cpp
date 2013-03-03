@@ -1,6 +1,6 @@
 #include "GameScene.h"
 #include "SceneManager.h"
-GameScene::GameScene() : player("ball.png", sf::Vector2f(400, 300)), scoreNum(0) {
+GameScene::GameScene() : player("Ship.png", sf::Vector2f(400, 300)), scoreNum(0) {
 
 	//TEST STUFF
 	/*animSpriteTexture.loadFromFile("yeah.jpg");
