@@ -4,8 +4,9 @@
 #include "AnimSprite.h"
 #include "IScene.h"
 #include "Player.h"
-#include "GunnerMode.h"
+
 #include "Enemy.h"
+#include "TankEnemy.h"
 #include "Bullet.h"
 #include <list>
 #include <sstream>
@@ -24,7 +25,7 @@ private:
 	sf::Texture animSpriteTexture;
 	AnimSprite testSprite;
 
-	GunnerMode player;
+	Player player;
 	sf::Time shotTimer;
 	int enemyDisplacement;
 

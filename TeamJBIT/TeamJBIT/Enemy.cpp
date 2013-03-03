@@ -15,7 +15,7 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::update(float deltaTime, std::list<Bullet*>& eList)
+void Enemy::update(float deltaTime, std::list<Bullet*>& eList,sf::Vector2f player_pos)
 {
 	pos.y += 100 * deltaTime;
 	sprite.setPosition(pos);

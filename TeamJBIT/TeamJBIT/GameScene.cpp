@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "SceneManager.h"
+
 GameScene::GameScene() : player("Ship.png", sf::Vector2f(400, 300)), scoreNum(0) {
 
 	//TEST STUFF
@@ -18,6 +19,7 @@ GameScene::GameScene() : player("Ship.png", sf::Vector2f(400, 300)), scoreNum(0)
 
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
+	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
 }
 
 GameScene::~GameScene() 
@@ -97,7 +99,7 @@ void GameScene::update(sf::RenderWindow& window) {
 			continue;
 		}
 		
-		(**it).update(deltaTime, enemyBullets);
+		(**it).update(deltaTime, enemyBullets,player.pos);
 		
 		it++;
 	}

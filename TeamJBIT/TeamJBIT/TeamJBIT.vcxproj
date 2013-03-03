@@ -89,12 +89,12 @@
     <ClCompile Include="EndGameScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GunnerMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MultiPhotonShot.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SingleShot.cpp" />
+    <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TriCannonShot.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,13 +103,14 @@
     <ClInclude Include="EndGameScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GunnerMode.h" />
+    <ClInclude Include="Utility.h" />
     <ClInclude Include="MultiPhotonShot.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShotType.h" />
     <ClInclude Include="SingleShot.h" />
+    <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="TriCannonShot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
