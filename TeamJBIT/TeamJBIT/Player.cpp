@@ -22,23 +22,23 @@ void Player::update(float deltaTime)
 {
 	sprite.update(deltaTime);
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		pos.y += 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		pos.y -= 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		pos.x -= 300 * deltaTime;
 		sprite.setPosition(pos);
 		sprite.showFrame(3);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		pos.x += 300 * deltaTime;
 		sprite.setPosition(pos);
@@ -104,4 +104,25 @@ void Player::switchShot()
 ShotType* Player::getShotType()
 {
 	return shotType;
+}
+
+void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window)
+{
+
+// Get the Position of the mouse
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	
+	// Get the Direction of the shot
+	sf::Vector2f dir;
+	dir.x = (float)mousePos.x - pos.x;
+	dir.y = (float)mousePos.y - pos.y;
+	float norm = sqrt((dir.x*dir.x)+(dir.y*dir.y));
+	
+	// Compute the direction of our shot
+	if(norm != 0.f)
+	{
+		dir.x = dir.x/norm;
+		dir.y = dir.y/norm;
+	}
+	playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
 }

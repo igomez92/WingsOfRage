@@ -35,7 +35,7 @@ int main(char argc, char* argv[])
         }
 
 		//update
-		SceneManager::getInstance().getCurrentScene()->update();
+		SceneManager::getInstance().getCurrentScene()->update(window);
 
 		//draw
 		window.clear(sf::Color(50, 50, 50));

@@ -22,7 +22,7 @@ EndGameScene::~EndGameScene() {
 
 }
 
-void EndGameScene::update() {
+void EndGameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
 	if(deltaTime >=.1){ deltaTime = .1;};

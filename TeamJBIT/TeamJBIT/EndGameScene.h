@@ -7,7 +7,7 @@ class EndGameScene : public IScene {
 		EndGameScene();
 		~EndGameScene();
 
-		virtual void update();
+		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);
 

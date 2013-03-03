@@ -48,6 +48,9 @@
     <ClCompile Include="MultiPhotonShot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GunnerMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MultiPhotonShot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GunnerMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

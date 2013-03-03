@@ -4,6 +4,7 @@
 #include "AnimSprite.h"
 #include "IScene.h"
 #include "Player.h"
+#include "GunnerMode.h"
 #include "Enemy.h"
 #include "Bullet.h"
 #include <list>
@@ -15,7 +16,7 @@ public:
 	GameScene();
 	~GameScene();
 	
-	virtual void update();
+	virtual void update(sf::RenderWindow& window);
 	virtual void draw(sf::RenderWindow& window);
 	virtual bool handleEvent(sf::Event& event);
 
@@ -23,7 +24,7 @@ private:
 	sf::Texture animSpriteTexture;
 	AnimSprite testSprite;
 
-	Player player;
+	GunnerMode player;
 	sf::Time shotTimer;
 	int enemyDisplacement;
 

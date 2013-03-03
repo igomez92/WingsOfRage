@@ -21,6 +21,7 @@ public:
 	void shoot(std::list<Bullet*>& playerBullets);
 	void switchShot();
 	ShotType* getShotType();
+	void mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window);
 
 private:
 	unsigned int health;

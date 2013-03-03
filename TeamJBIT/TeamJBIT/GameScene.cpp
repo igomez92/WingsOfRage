@@ -31,15 +31,16 @@ GameScene::~GameScene()
 		delete (*it);
 }
 	
-void GameScene::update() {
+void GameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
 		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
-		player.shoot(playerBullets);
+		player.mouseShot(playerBullets, window);
 		shotTimer = clock.getElapsedTime();
 		}
 	}

@@ -89,6 +89,7 @@
     <ClCompile Include="EndGameScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GunnerMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MultiPhotonShot.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="EndGameScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GunnerMode.h" />
     <ClInclude Include="MultiPhotonShot.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="IScene.h" />
