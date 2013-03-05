@@ -25,6 +25,7 @@ GameScene::GameScene() : player("ship.png", sf::Vector2f(400, 300)), scoreNum(0)
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
 	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(300,100)));
 
 }
 
