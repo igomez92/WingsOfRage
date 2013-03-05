@@ -18,17 +18,21 @@ public:
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 	sf::Vector2f pos;
-	void shoot(std::list<Bullet*>& playerBullets);
+	void shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir);
 	void switchShot();
 	ShotType* getShotType();
 	void mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window);
+	void powerUP();
+	int currentWeaponLevel;
+	int currentPlayerMode;
+	int enemiesKilled;
 
 private:
 	unsigned int health;
 	unsigned int level;
-
+	bool playerSwitch;
 	ShotType* shotType;
-
+	bool powerUpFound;
 	AnimSprite sprite;
 	sf::Texture image;
 };

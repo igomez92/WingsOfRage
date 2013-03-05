@@ -11,7 +11,7 @@ MultiPhotonShot::~MultiPhotonShot(void)
 {
 }
 
-void MultiPhotonShot::doShot(std::list<Bullet*>& playerBullets, sf::Vector2f pos)
+void MultiPhotonShot::doShot(std::list<Bullet*>& playerBullets, sf::Vector2f pos, sf::Vector2f dir)
 {
 	// Left bullets
 	playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(-(sin(37.5*PI/180)*400), cos(37.5*PI/180)*-400)));

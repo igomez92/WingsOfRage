@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "TankEnemy.h"
 #include "Bullet.h"
+#include "PowerUp.h"
 #include <list>
 #include <sstream>
 
@@ -26,6 +27,7 @@ private:
 	AnimSprite testSprite;
 
 	Player player;
+	PowerUp testDummy;
 	sf::Time shotTimer;
 	int enemyDisplacement;
 

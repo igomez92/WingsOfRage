@@ -8,7 +8,7 @@
 class ShotType
 {
 public:
-	virtual void doShot(std::list<Bullet*>& playerBullets, sf::Vector2f pos) = 0;
+	virtual void doShot(std::list<Bullet*>& playerBullets, sf::Vector2f pos, sf::Vector2f dir) = 0;
 	virtual float shotTime() = 0;
 };
 

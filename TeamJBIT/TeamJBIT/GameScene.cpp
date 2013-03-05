@@ -1,10 +1,13 @@
 #include "GameScene.h"
 #include "SceneManager.h"
+#include <SFML/Graphics.hpp>
 
-GameScene::GameScene() : player("Ship.png", sf::Vector2f(400, 300)), scoreNum(0) {
+GameScene::GameScene() : player("ship.png", sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500))
+{
 
 	//TEST STUFF
-	/*animSpriteTexture.loadFromFile("yeah.jpg");
+	/*
+	animSpriteTexture.loadFromFile("ball.jpg");
 	animSpriteTexture.setSmooth(true);
 	testSprite.setTexture(animSpriteTexture);
 	testSprite.addAnim("yeah", 0, 0, 95, 10, 30, true);
@@ -12,14 +15,17 @@ GameScene::GameScene() : player("Ship.png", sf::Vector2f(400, 300)), scoreNum(0)
 	testSprite.playAnim("yeah");
 	testSprite.setOrigin(100, 108);
 	testSprite.setPosition(400, 300);
-	testSprite.setScale(800.f/200, 600.f/217);*/
-
+	testSprite.setScale(800.f/200, 600.f/217);
+	*/
 	// Initialize score info
 	initializeScoreAndTime();
+	
+	
 
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
 	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
+
 }
 
 GameScene::~GameScene() 
@@ -145,6 +151,13 @@ void GameScene::update(sf::RenderWindow& window) {
 
 		it++;
 	}
+	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
+	{
+		player.powerUP();
+		
+	}
+
+
 	updateScoreAndTime();
 	player.update(deltaTime);
 	//testSprite.update(deltaTime);
@@ -168,7 +181,8 @@ void GameScene::draw(sf::RenderWindow& window) {
 	{
 		(**it).draw(window);
 	}
-	player.draw(window);	
+	player.draw(window);
+	testDummy.draw(window);
 	printScoreAndTime(window);
 }
 

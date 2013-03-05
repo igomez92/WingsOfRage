@@ -1,6 +1,6 @@
 #include "Player.h"
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(3), pos(pos), shotType(new SingleShot)
+	:health(3), pos(pos), shotType(new TriCannonShot)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);
@@ -9,6 +9,10 @@ Player::Player(std::string file, sf::Vector2f pos)
 	sprite.playAnim("ship");
 	sprite.showFrame(4);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
+	powerUpFound = false;
+	playerSwitch = false;
+	currentWeaponLevel = 1;
+	currentPlayerMode = 0;
 }
 
 
@@ -21,33 +25,55 @@ Player::~Player()
 void Player::update(float deltaTime)
 {
 	sprite.update(deltaTime);
-	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		playerSwitch = true;
+	}
+	else if(playerSwitch)
+	{
+		currentPlayerMode++;
+		
+		if(currentPlayerMode == 3)
+			currentPlayerMode = 0;
+		if(currentPlayerMode == 0)
+		{
+			delete shotType;
+			shotType = new TriCannonShot;
+		}
+		else if(currentPlayerMode == 1)
+		{
+			delete shotType;
+			shotType = new SingleShot(1.25f);
+		}
+		playerSwitch = false;
+	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		pos.y += 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		pos.y -= 300 * deltaTime;
 		sprite.setPosition(pos);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		pos.x -= 300 * deltaTime;
 		sprite.setPosition(pos);
 		sprite.showFrame(3);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		pos.x += 300 * deltaTime;
 		sprite.setPosition(pos);
 		sprite.showFrame(5);
-	}else
+	}
+	else
 	{
 		sprite.showFrame(4);
 	}
-
+	
 	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)
 	{
 		pos.y = 600 - sprite.getGlobalBounds().height/2 - 0.01;
@@ -68,7 +94,7 @@ void Player::update(float deltaTime)
 		pos.x = sprite.getGlobalBounds().width / 2;
 		sprite.setPosition(pos);
 	}
-
+	
 	switchShot();
 }
 
@@ -77,28 +103,29 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
-void Player::shoot(std::list<Bullet*>& playerBullets)
+void Player::shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir)
 {
-	shotType->doShot(playerBullets, pos);
+	shotType->doShot(playerBullets, pos, dir);
 }
 
 void Player::switchShot()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+	if(currentPlayerMode == 1)
 	{
 		delete shotType;
-		shotType = new SingleShot;
+		shotType = new SingleShot(1.25f);
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-	{
-		delete shotType;
-		shotType = new TriCannonShot;
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	
+	else if(powerUpFound && currentWeaponLevel == 1)
 	{
 		delete shotType;
 		shotType = new MultiPhotonShot;
 	}
+}
+
+void Player::powerUP()
+{
+	powerUpFound = true;
 }
 
 ShotType* Player::getShotType()
@@ -124,5 +151,11 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 		dir.x = dir.x/norm;
 		dir.y = dir.y/norm;
 	}
-	playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
+	if(currentPlayerMode == 0 || currentPlayerMode == 1)
+		shoot(playerBullets, dir);
+	//else
+		//do the melee attack 
+
+	//playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
+
 }

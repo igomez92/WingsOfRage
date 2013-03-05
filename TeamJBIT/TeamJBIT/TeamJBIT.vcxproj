@@ -92,6 +92,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MultiPhotonShot.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SingleShot.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="MultiPhotonShot.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShotType.h" />
     <ClInclude Include="SingleShot.h" />

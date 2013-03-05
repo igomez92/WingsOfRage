@@ -10,7 +10,7 @@ void TankEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f 
 {
 	sf::Vector2f enemyMove = normalize(pos - player_pos);
 
-	pos -= enemyMove * (50 * deltaTime);
+	pos -= enemyMove * (150 * deltaTime);
 	sprite.setPosition(pos);
 	if(pos.y > 600 + sprite.getLocalBounds().height)
 	{
