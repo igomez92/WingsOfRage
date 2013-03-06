@@ -1,6 +1,6 @@
 #include "Player.h"
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(3), pos(pos), shotType(new TriCannonShot)
+	:health(15), pos(pos), shotType(new TriCannonShot)
 {
 	image.loadFromFile(file);
 	sprite.setTexture(image);
@@ -158,4 +158,17 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 
 	//playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
 
+}
+
+void Player::damaged(int damagedealt)
+{
+	health -= damagedealt;
+}
+
+bool Player::isDead()
+{
+	if(health <= 0)
+		return true;
+
+	return false;
 }

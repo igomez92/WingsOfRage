@@ -142,10 +142,14 @@ void GameScene::update(sf::RenderWindow& window) {
 		}else if( thresholdX < 22 && thresholdY < 22)
 		{
 			auto itToErase = it;
+			player.damaged((**it).dam);
 			it++;
 			delete *itToErase;
 			enemyBullets.erase(itToErase);
+
+			if(player.isDead())
 			SceneManager::getInstance().changeScene("end");
+
 			continue;
 		}
 		

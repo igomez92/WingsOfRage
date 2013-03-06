@@ -26,6 +26,8 @@ public:
 	int currentWeaponLevel;
 	int currentPlayerMode;
 	int enemiesKilled;
+	void damaged(int damagedealt);
+	bool isDead();
 
 private:
 	unsigned int health;
