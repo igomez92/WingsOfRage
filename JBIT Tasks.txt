@@ -1,0 +1,32 @@
+Priorities(Order of importance):
+-------------------------------------------------------------------------------------------
+
+Tank enemy does damage on contact. (Cooldown damage)
+
+Tank enemy only damaged by gunner weapons(Laser and Railgun)
+
+Set up sprites for *different modes, enemies*, etc.
+
+More enemies
+
+Take out "Magic Numbers", making the code clearer. IE distanceFromEnemy rather than 22.
+
+Collision Checks in different functions
+
+Image Loader
+
+Keyboard function
+
+Level Designer Tool
+
+Moving background
+
+Sound effects(8bit)
+
+Sound Loader
+
+Boss
+
+
+
+http://showcase.gamesig.org
