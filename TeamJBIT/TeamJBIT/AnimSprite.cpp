@@ -26,6 +26,9 @@ void AnimSprite::update(float deltaTime) {
 	//don't play animations with negative framerate
 	if (currentAnim->framerate < 0) return;
 
+	//no need to play finished animation
+	if (!currentAnim->isCyclic && (currentFrame == currentAnim->numFrames - 1)) return;
+
 	//accumulate time
 	timeSinceLastFrame += deltaTime;
 
@@ -48,11 +51,16 @@ void AnimSprite::update(float deltaTime) {
 		}
 	}
 
+	//run finished callback if we've just hit the last frame
+	if (!currentAnim->isCyclic && (currentFrame == currentAnim->numFrames - 1)) {
+		currentAnim->finishedFunc();
+	}
+
 	showFrame(currentFrame);
 }
 
-//default params: int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true
-void AnimSprite::addAnim(std::string name, int startX, int startY, int numFrames, int numPerRow, float framerate, bool isCyclic) {
+//default params: int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true, callbackFunc = [] {}
+void AnimSprite::addAnim(std::string name, int startX, int startY, int numFrames, int numPerRow, float framerate, bool isCyclic, std::function<void ()> finishedFunc) {
 	AnimSprAnimation * newAnim = new AnimSprAnimation;
 	newAnim->name = name;
 	newAnim->numFrames = numFrames;
@@ -60,6 +68,7 @@ void AnimSprite::addAnim(std::string name, int startX, int startY, int numFrames
 	newAnim->numPerRow = numPerRow;
 	newAnim->framerate = framerate;
 	newAnim->isCyclic = isCyclic;
+	newAnim->finishedFunc = finishedFunc;
 
 	AnimsList.insert(std::make_pair(name,newAnim));
 }
@@ -77,6 +86,10 @@ bool AnimSprite::playAnim(std::string name) {
 	}
 
 	return false;
+}
+
+std::string AnimSprite::getCurrentAnim() {
+	return currentAnim->name;
 }
 
 void AnimSprite::showFrame(unsigned int frameNum) {

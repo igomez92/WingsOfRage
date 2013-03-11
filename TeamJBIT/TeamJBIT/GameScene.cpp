@@ -4,26 +4,13 @@
 
 GameScene::GameScene() : player("ship.png", sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500))
 {
-
-	//TEST STUFF
-	/*
-	animSpriteTexture.loadFromFile("ball.jpg");
-	animSpriteTexture.setSmooth(true);
-	testSprite.setTexture(animSpriteTexture);
-	testSprite.addAnim("yeah", 0, 0, 95, 10, 30, true);
-	testSprite.setFrameSize(200, 217);
-	testSprite.playAnim("yeah");
-	testSprite.setOrigin(100, 108);
-	testSprite.setPosition(400, 300);
-	testSprite.setScale(800.f/200, 600.f/217);
-	*/
 	// Initialize score info
 	initializeScoreAndTime();
 	
 	
 
 	enemyDisplacement = 0;
-	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(400, 100)));
+	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(500, 100)));
 	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
 	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(300,100)));
 
@@ -128,8 +115,9 @@ void GameScene::update(sf::RenderWindow& window) {
 	for (auto it = enemyBullets.begin(); it != enemyBullets.end();) {
 		(**it).update(deltaTime);
 		//threshholds for enemy bullet to player collision
-			int thresholdX = abs(player.pos.x - (**it).pos.x);
-			int thresholdY = abs(player.pos.y - (**it).pos.y);
+		float thresholdX = abs(player.pos.x - (**it).pos.x);
+		float thresholdY = abs(player.pos.y - (**it).pos.y);
+
 		//offscreen check
 		if ((**it).getPosition().y > 700) {
 			auto itToErase = it;
@@ -139,8 +127,7 @@ void GameScene::update(sf::RenderWindow& window) {
 			continue;
 
 			//check for collision
-		}else if( thresholdX < 22 && thresholdY < 22)
-		{
+		} else if ( thresholdX < 22 && thresholdY < 22) {
 			auto itToErase = it;
 			player.damaged((**it).dam);
 			it++;
@@ -165,12 +152,9 @@ void GameScene::update(sf::RenderWindow& window) {
 
 	updateScoreAndTime();
 	player.update(deltaTime);
-	//testSprite.update(deltaTime);
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
-	//window.draw(testSprite);
-
 	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
 		(**it).draw(window);

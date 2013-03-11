@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <map>
+#include <functional>
 
 class AnimSprite : public sf::Sprite {
 	public:
@@ -13,8 +14,9 @@ class AnimSprite : public sf::Sprite {
 		void setBorderSize(int width, int height);
 		void update(float frameTime);
 		void showFrame(unsigned int frameNum);
-		void addAnim(std::string name, int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true);
+		void addAnim(std::string name, int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true, std::function<void ()> finishedFunc = [] {});
 		bool playAnim(std::string name);
+		std::string getCurrentAnim();
 
 	protected:
 		struct AnimSprAnimation {
@@ -24,6 +26,7 @@ class AnimSprite : public sf::Sprite {
 			sf::Vector2i startPos;
 			float framerate;
 			bool isCyclic;
+			std::function<void ()> finishedFunc;
 		};
 
 		sf::Vector2i frameSize;

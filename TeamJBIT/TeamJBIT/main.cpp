@@ -2,9 +2,10 @@
 #include <SFML\Graphics.hpp>
 
 #include "IScene.h"
+#include "SceneManager.h"
+#include "SplashScene.h"
 #include "GameScene.h"
 #include "EndGameScene.h"
-#include "SceneManager.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -14,14 +15,11 @@ int main(char argc, char* argv[])
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Team JBIT SFML Test");
 	window.setFramerateLimit(60);
 
-	IScene* endGameScene = new EndGameScene();
-	IScene* gameScene = new GameScene();
-	
-	SceneManager::getInstance().addScene("start",gameScene);
-	SceneManager::getInstance().addScene("end",endGameScene);
+	//set up scenes
+	SceneManager::getInstance().addScene("splash", new SplashScene());
+	SceneManager::getInstance().addScene("start", new GameScene());
+	SceneManager::getInstance().addScene("end", new EndGameScene());
 	SceneManager::getInstance().changeScene("start");
-
-	
 
     while (window.isOpen())
     {
@@ -39,8 +37,7 @@ int main(char argc, char* argv[])
 
 		//draw
 		window.clear(sf::Color(50, 50, 50));
-		SceneManager::getInstance().getCurrentScene()->draw(window);
-	
+		SceneManager::getInstance().getCurrentScene()->draw(window);	
 
 		window.display();
     }

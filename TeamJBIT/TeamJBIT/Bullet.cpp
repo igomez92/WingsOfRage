@@ -1,11 +1,13 @@
 #include "Bullet.h"
+#include "TextureManager.h"
 
 
 Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam)
 	:pos(pos), vel(vel), dam(dam)
 {
-	image.loadFromFile(file);
-	sprite.setTexture(image);
+	sf::Texture* image = TextureManager::getInstance().getTexture(file);
+	image->setSmooth(true);
+	sprite.setTexture(*image);
 
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);

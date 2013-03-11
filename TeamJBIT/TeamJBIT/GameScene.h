@@ -24,8 +24,6 @@ public:
 	virtual bool handleEvent(sf::Event& event);
 
 private:
-	sf::Texture animSpriteTexture;
-	AnimSprite testSprite;
 
 	Player player;
 	PowerUp testDummy;

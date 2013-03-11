@@ -36,5 +36,4 @@ private:
 	ShotType* shotType;
 	bool powerUpFound;
 	AnimSprite sprite;
-	sf::Texture image;
 };

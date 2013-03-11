@@ -1,14 +1,13 @@
 #include "PowerUp.h"
+#include "TextureManager.h"
 
 PowerUp::PowerUp(std::string file, sf::Vector2f pos)
 	:pos(pos)
 {
-	image.loadFromFile(file);
-	sprite.setTexture(image);
+	sf::Texture* image = TextureManager::getInstance().getTexture(file);
+	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
-	
-
 }
 
 PowerUp::~PowerUp()

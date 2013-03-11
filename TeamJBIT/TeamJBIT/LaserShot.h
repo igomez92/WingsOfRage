@@ -17,6 +17,5 @@ public:
 
 private:
 	sf::Sprite sprite;
-	sf::Texture image;
 };
 

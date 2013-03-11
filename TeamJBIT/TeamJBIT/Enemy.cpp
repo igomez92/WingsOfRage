@@ -1,11 +1,11 @@
 #include "Enemy.h"
-
+#include "TextureManager.h"
 
 Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 	:pos(pos), health(health)
 {
-	image.loadFromFile(file);
-	sprite.setTexture(image);
+	sf::Texture* image = TextureManager::getInstance().getTexture(file);
+	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 }

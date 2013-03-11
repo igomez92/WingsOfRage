@@ -1,10 +1,11 @@
 #include "LaserShot.h"
+#include "TextureManager.h"
 
 LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	:dam(dam), totalTime(timeLim)
 {
-	image.loadFromFile("greenLaserRay.png");
-	sprite.setTexture(image);
+	sf::Texture* image = TextureManager::getInstance().getTexture("greenLaserRay.png");
+	sprite.setTexture(*image);
 	sprite.scale(sf::Vector2f(5, 1));
 	sprite.setOrigin(0, sprite.getLocalBounds().height/2);
 	sprite.setPosition(pos);

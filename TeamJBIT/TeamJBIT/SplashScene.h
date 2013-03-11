@@ -2,21 +2,20 @@
 
 #include "IScene.h"
 #include "AnimSprite.h"
+#include "dbtweener.h"
 
-class EndGameScene : public IScene {
+class SplashScene : public IScene {
 	public:
-		EndGameScene();
-		~EndGameScene();
+		SplashScene();
+		~SplashScene();
 
 		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);
 
 	private:
-		AnimSprite testSprite;
-
-		sf::Font tempestaSevenFont;
-		sf::Text gameOverMessage;
+		sf::Sprite JBITLogoSprite;
+		CDBTweener fadeInTweener;
 		
 		sf::Clock clock;
 		sf::Time lastFrameTime;

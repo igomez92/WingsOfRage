@@ -17,8 +17,5 @@ public:
 	float startTime;
 
 private:
-
-	sf::Texture image;
 	AnimSprite sprite;
-
 };

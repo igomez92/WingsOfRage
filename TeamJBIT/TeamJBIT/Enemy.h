@@ -21,6 +21,5 @@ public:
 protected:
 	int health;
 	sf::Sprite sprite;
-	sf::Texture image;
 };
 
