@@ -66,10 +66,10 @@
     <ClCompile Include="LaserShot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sequence.cpp">
+    <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
+    <ClCompile Include="SwordSlash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordSlash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
