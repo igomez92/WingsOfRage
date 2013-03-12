@@ -48,7 +48,7 @@ void Player::update(float deltaTime)
 			currentPlayerMode = 0;
 		if(currentPlayerMode == 0)
 		{
-			delete shotType;
+			delete meleeType;
 			shotType = new TriCannonShot;
 		}
 		else if(currentPlayerMode == 1)
@@ -56,6 +56,12 @@ void Player::update(float deltaTime)
 			delete shotType;
 			shotType = new SingleShot(1.25f);
 		}
+		else
+		{
+			delete shotType;
+			meleeType = new SwordSlash(.75f);
+		}
+
 		playerSwitch = false;
 	}
 	
@@ -125,6 +131,12 @@ void Player::shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir)
 	shotType->doShot(playerBullets, pos, dir);
 }
 
+/*void Player::doMelee(sf::Vector2f pos, Melee* currentAtt)
+{
+    meleeType->doMeleeAttack(pos);
+}
+*/
+
 void Player::switchShot()
 {
 	if(currentPlayerMode == 1)
@@ -148,6 +160,11 @@ void Player::powerUP()
 ShotType* Player::getShotType()
 {
 	return shotType;
+}
+
+MeleeType* Player::getMeleeType()
+{
+	return meleeType;
 }
 
 void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window)

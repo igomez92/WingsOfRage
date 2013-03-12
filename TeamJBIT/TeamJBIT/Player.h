@@ -7,6 +7,8 @@
 #include "SingleShot.h"
 #include "TriCannonShot.h"
 #include "MultiPhotonShot.h"
+#include "MeleeType.h"
+#include "SwordSlash.h"
 #include <list>
 
 class Player
@@ -21,6 +23,7 @@ public:
 	void shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir);
 	void switchShot();
 	ShotType* getShotType();
+	MeleeType* getMeleeType();
 	void mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window);
 	void powerUP();
 	int currentWeaponLevel;
@@ -34,6 +37,7 @@ private:
 	unsigned int level;
 	bool playerSwitch;
 	ShotType* shotType;
+	MeleeType* meleeType;
 	bool powerUpFound;
 	AnimSprite sprite;
 };

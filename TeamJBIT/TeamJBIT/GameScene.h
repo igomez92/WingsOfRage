@@ -10,6 +10,8 @@
 #include "SliderEnemy.h"
 #include "Bullet.h"
 #include "PowerUp.h"
+#include "MeleeType.h"
+
 #include <list>
 #include <sstream>
 
@@ -33,6 +35,7 @@ private:
 	std::list<Enemy*> enemyList;
 	std::list<Bullet*> playerBullets;
 	std::list<Bullet*> enemyBullets;
+	MeleeType* currentMeleeAttack;
 
 	sf::Clock clock;
 	sf::Time lastFrameTime;
