@@ -10,6 +10,7 @@
 #include "MeleeType.h"
 #include "SwordSlash.h"
 #include <list>
+#include "LaserShot.h"
 
 class Player
 {
@@ -31,6 +32,10 @@ public:
 	int enemiesKilled;
 	void damaged(int damagedealt);
 	bool isDead();
+
+	bool laserShooting;
+	LaserShot* laser;
+	void laserShot(sf::RenderWindow& window);
 
 private:
 	unsigned int health;

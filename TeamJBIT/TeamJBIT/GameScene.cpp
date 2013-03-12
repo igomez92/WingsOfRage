@@ -41,6 +41,12 @@ void GameScene::update(sf::RenderWindow& window) {
 		}
 	}
 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if(player.laserShooting == false)
+			player.laserShot(window);
+	}
+
 	//update bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
 		(**it).update(deltaTime);
@@ -79,7 +85,16 @@ void GameScene::update(sf::RenderWindow& window) {
 
 		it++;
 	}
-
+	if(player.laserShooting == true)
+	{
+		for (auto it = enemyList.begin(); it != enemyList.end(); it++)
+		{
+			if(player.laser->collidesWith(**it))
+			{
+				(**it).takeDam(player.laser->dam);
+			}
+		}
+	}
 	for (auto it = enemyList.begin(); it != enemyList.end();) 
 	{
 		if((**it).isDead())
@@ -135,7 +150,7 @@ void GameScene::update(sf::RenderWindow& window) {
 			enemyBullets.erase(itToErase);
 
 			if(player.isDead())
-			SceneManager::getInstance().changeScene("end");
+				SceneManager::getInstance().changeScene("end");
 
 			continue;
 		}

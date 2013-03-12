@@ -18,6 +18,8 @@ public:
 
 	sf::Clock bulletClock;
 
+	sf::FloatRect getSize();
+
 protected:
 	int health;
 	sf::Sprite sprite;

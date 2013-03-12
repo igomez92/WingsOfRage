@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(15), pos(pos), shotType(new TriCannonShot)
+	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false)
 {
 	sf::Texture* image = TextureManager::getInstance().getTexture(file);
 	sprite.setTexture(*image);
@@ -29,6 +29,9 @@ Player::Player(std::string file, sf::Vector2f pos)
 Player::~Player()
 {
 	 delete shotType;
+
+	 if(laserShooting == true)
+		 delete laser;
 }
 
 
@@ -66,6 +69,8 @@ void Player::update(float deltaTime)
 	}
 	
 	sf::Vector2f movementVec(0, 0);
+	if(laserShooting == false)
+	{
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		movementVec.y += 1;
@@ -97,6 +102,7 @@ void Player::update(float deltaTime)
 	sprite.setPosition(pos);
 
 	//Collide with borders
+	}
 	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)
 	{
 		pos.y = 600 - sprite.getGlobalBounds().height/2 - 0.01;
@@ -119,10 +125,27 @@ void Player::update(float deltaTime)
 	}
 	
 	switchShot();
+
+	if(laserShooting == true)
+	{
+
+		laser->update(deltaTime);
+
+		if(laser->continueDraw == false)
+		{
+			delete laser;
+			laserShooting = false;
+		}
+	}
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
+	if(laserShooting == true)
+	{
+		laser->draw(window);
+	}
+
 	window.draw(sprite);
 }
 
@@ -205,4 +228,25 @@ bool Player::isDead()
 		return true;
 
 	return false;
+}
+
+void Player::laserShot(sf::RenderWindow& window)
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	
+	// Get the Direction of the shot
+	sf::Vector2f dir;
+	dir.x = (float)mousePos.x - pos.x;
+	dir.y = (float)mousePos.y - pos.y;
+	float norm = sqrt((dir.x*dir.x)+(dir.y*dir.y));
+	
+	// Compute the direction of our shot
+	if(norm != 0.f)
+	{
+		dir.x = dir.x/norm;
+		dir.y = dir.y/norm;
+	}
+
+	laser = new LaserShot(pos, dir);
+	laserShooting = true;	
 }

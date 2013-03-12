@@ -1,10 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
+#include "Enemy.h"
 
 class LaserShot
 {
 public:
-	LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim = 5, int dam = 1000);
+	LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim = 2, int dam = 1000);
 	~LaserShot(void);
 
 	void update(float deltaTime);
@@ -14,6 +16,11 @@ public:
 	float accumTime;
 	int dam;
 	bool continueDraw;
+
+	sf::Vector2f pos;
+	sf::Vector2f dir;
+
+	bool collidesWith(Enemy& enemy);
 
 private:
 	sf::Sprite sprite;

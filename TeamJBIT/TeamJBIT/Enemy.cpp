@@ -49,3 +49,8 @@ bool Enemy::isDead()
 	
 	return false;
 }
+
+sf::FloatRect Enemy::getSize()
+{
+	return sprite.getLocalBounds();
+}
