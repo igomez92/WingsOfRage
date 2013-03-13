@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(2), allowLaser(true),
+	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
 	sf::Texture* image = TextureManager::getInstance().getTexture(file);
