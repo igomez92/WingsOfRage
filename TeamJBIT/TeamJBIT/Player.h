@@ -33,9 +33,13 @@ public:
 	void damaged(int damagedealt);
 	bool isDead();
 
+	// For laser
 	bool laserShooting;
 	LaserShot* laser;
 	void laserShot(sf::RenderWindow& window);
+	float laserShotDelay;
+	bool allowLaser;
+	float accumDelayTime;
 
 private:
 	unsigned int health;

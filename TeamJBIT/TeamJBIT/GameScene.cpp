@@ -33,7 +33,7 @@ void GameScene::update(sf::RenderWindow& window) {
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
 		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
 		player.mouseShot(playerBullets, window);
@@ -41,7 +41,7 @@ void GameScene::update(sf::RenderWindow& window) {
 		}
 	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.allowLaser == true)
 	{
 		if(player.laserShooting == false)
 			player.laserShot(window);

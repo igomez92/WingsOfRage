@@ -3,7 +3,8 @@
 #include "TextureManager.h"
 
 Player::Player(std::string file, sf::Vector2f pos)
-	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false)
+	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(2), allowLaser(true),
+	accumDelayTime(0)
 {
 	sf::Texture* image = TextureManager::getInstance().getTexture(file);
 	sprite.setTexture(*image);
@@ -137,6 +138,16 @@ void Player::update(float deltaTime)
 			laserShooting = false;
 		}
 	}
+
+	if(allowLaser == false && laserShooting == false)
+	{
+		accumDelayTime += deltaTime;
+		if(accumDelayTime >= laserShotDelay)
+		{
+			allowLaser = true;
+			accumDelayTime = 0;
+		}
+	}
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -249,4 +260,5 @@ void Player::laserShot(sf::RenderWindow& window)
 
 	laser = new LaserShot(pos, dir);
 	laserShooting = true;	
+	allowLaser = false;
 }
