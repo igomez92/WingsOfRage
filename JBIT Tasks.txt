@@ -13,13 +13,9 @@ Take out "Magic Numbers", making the code clearer. IE distanceFromEnemy rather t
 
 Collision Checks in different functions
 
-Image Loader
-
 Keyboard function
 
 Level Designer Tool
-
-Moving background
 
 Sound effects(8bit)
 

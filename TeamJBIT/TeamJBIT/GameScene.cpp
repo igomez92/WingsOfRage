@@ -1,19 +1,23 @@
 #include "GameScene.h"
 #include "SceneManager.h"
 #include <SFML/Graphics.hpp>
+#include "TextureManager.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500))
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500)), backgroundOffset(0)
 {
 	// Initialize score info
 	initializeScoreAndTime();
 	
-	
-
 	enemyDisplacement = 0;
 	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(500, 100)));
 	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
 	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(300,100)));
 
+	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/stars.png");
+	bgImage->setRepeated(true);
+	backgroundSprite.setTexture(*bgImage);
+	backgroundSprite.setTextureRect(sf::IntRect(0, 0, 800, 600 * 2));
+	backgroundSprite.setOrigin(0, 600);
 }
 
 GameScene::~GameScene() 
@@ -31,6 +35,12 @@ void GameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
 	if(deltaTime >=.1f){ deltaTime = .1f;};
+
+	//scroll bacgkround "up"
+	backgroundOffset += 1;
+	if (backgroundOffset > 600 * 2)
+		backgroundOffset -= (600 * 2);
+	backgroundSprite.setPosition(0, backgroundOffset);
 
 	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
@@ -166,6 +176,9 @@ void GameScene::update(sf::RenderWindow& window) {
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
+	//draw background behind everything
+	window.draw(backgroundSprite);
+
 	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
 		(**it).draw(window);

@@ -40,6 +40,9 @@ private:
 	sf::Clock clock;
 	sf::Time lastFrameTime;
 
+	sf::Sprite backgroundSprite;
+	float backgroundOffset;
+
 	// Score stuff
 	std::stringstream scoreStr;
 	sf::Text score;
