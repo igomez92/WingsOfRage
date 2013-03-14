@@ -30,7 +30,8 @@ GameScene::~GameScene()
 	for (auto it = enemyBullets.begin(); it != enemyBullets.end(); it++) 
 		delete (*it);
 }
-	
+
+
 void GameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
@@ -43,80 +44,19 @@ void GameScene::update(sf::RenderWindow& window) {
 	backgroundSprite.setPosition(0, backgroundOffset);
 
 	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
-		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
-		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
-		player.mouseShot(playerBullets, window);
-		shotTimer = clock.getElapsedTime();
-		}
-	}
 
-	//update bullets
-	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
-		(**it).update(deltaTime);
+//shooting update
+	updateplayershot(window);
 
-		//offscreen check
-		if ((**it).getPosition().y < -100) {
-			auto itToErase = it;
-			it++;
-			delete (*itToErase);
-			playerBullets.erase(itToErase);
-			continue;
-		}
+//update bullets
+	updateBullets(deltaTime);
+//laser shot
+	updateLaser();
 
-		bool removeBullet = false;
-		for (auto enemyIt = enemyList.begin(); enemyIt != enemyList.end(); enemyIt++)
-		{
-			float thresholdX = abs((**enemyIt).pos.x - (**it).pos.x);
-			float thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
-			if(thresholdX < 22.f && thresholdY < 22.f)
-			{
-				(**enemyIt).takeDam((**it).dam);
-				removeBullet = true;
-				break;
-			}
-		}
+//enemys update
+	updateEnemies(deltaTime);
 
-		if (removeBullet)
-		{
-			auto itToErase = it;
-			it++;
-			delete (*itToErase);
-			playerBullets.erase(itToErase);
-			continue;
-		}
-
-
-		it++;
-	}
-	if(player.laserShooting == true)
-	{
-		for (auto it = enemyList.begin(); it != enemyList.end(); it++)
-		{
-			if(player.laser->collidesWith(**it))
-			{
-				(**it).takeDam(player.laser->dam);
-			}
-		}
-	}
-	for (auto it = enemyList.begin(); it != enemyList.end();) 
-	{
-		if((**it).isDead())
-		{
-			scoreNum += 100;
-
-			auto itToErase = it;
-			it++;
-			delete (*itToErase);
-			enemyList.erase(itToErase);
-			continue;
-		}
-		
-		(**it).update(deltaTime, enemyBullets,player.pos);
-		
-		it++;
-	}
-
+//add enemies to screen if there is none
 	if(enemyList.empty())
 		{
 			if(enemyDisplacement >= 600)
@@ -128,55 +68,24 @@ void GameScene::update(sf::RenderWindow& window) {
 			}
 			enemyList.push_back(new Enemy("ball.png", sf::Vector2f(enemyDisplacement , 0)));
 			enemyList.push_back(new Enemy("ball.png", sf::Vector2f(enemyDisplacement+100, 0)));
-			
 		}
 
-	for (auto it = enemyBullets.begin(); it != enemyBullets.end();) {
-		(**it).update(deltaTime);
-		//threshholds for enemy bullet to player collision
-		float thresholdX = abs(player.pos.x - (**it).pos.x);
-		float thresholdY = abs(player.pos.y - (**it).pos.y);
 
-		//offscreen check
-		if ((**it).getPosition().y > 700) {
-			auto itToErase = it;
-			it++;
-			delete (*itToErase);
-			enemyBullets.erase(itToErase);
-			continue;
+//bullet to player collision
+	bulletToPlayerCollision(deltaTime);
 
-			//check for collision
-		} else if ( thresholdX < 22 && thresholdY < 22) {
-			auto itToErase = it;
-			player.damaged((**it).dam);
-			it++;
-			delete *itToErase;
-			enemyBullets.erase(itToErase);
-
-			if(player.isDead())
-				SceneManager::getInstance().changeScene("end");
-
-			continue;
-		}
-		
-
-		it++;
-	}
+//powerup collison
 	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
 	{
 		player.powerUP();
 		testDummy.setPosition(sf::Vector2f(-100.,-100.));
-		
-		
 	}
-
 
 	updateScoreAndTime();
 	player.update(deltaTime);
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
-	//draw background behind everything
 	window.draw(backgroundSprite);
 
 	//draw our bullets
@@ -250,4 +159,126 @@ void GameScene::printScoreAndTime(sf::RenderWindow& window)
 {
 	window.draw(timer);
 	window.draw(score);
+}
+
+void GameScene::updateplayershot(sf::RenderWindow& window)
+{
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
+		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
+		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
+		player.mouseShot(playerBullets, window);
+		shotTimer = clock.getElapsedTime();
+		}
+	}
+}
+
+void GameScene::updateBullets(float deltaTime)
+{
+	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
+		(**it).update(deltaTime);
+
+		//offscreen check
+		if ((**it).getPosition().y < -100) {
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			playerBullets.erase(itToErase);
+			continue;
+		}
+
+		bool removeBullet = false;
+		for (auto enemyIt = enemyList.begin(); enemyIt != enemyList.end(); enemyIt++)
+		{
+			float thresholdX = abs((**enemyIt).pos.x - (**it).pos.x);
+			float thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
+			if(thresholdX < 22.f && thresholdY < 22.f)
+			{
+				(**enemyIt).takeDam((**it).dam);
+				removeBullet = true;
+				break;
+			}
+		}
+
+		if (removeBullet)
+		{
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			playerBullets.erase(itToErase);
+			continue;
+		}
+
+
+		it++;
+	}
+}
+
+void GameScene::updateLaser()
+{
+	if(player.laserShooting == true)
+	{
+		for (auto it = enemyList.begin(); it != enemyList.end(); it++)
+		{
+			if(player.laser->collidesWith(**it))
+			{
+				(**it).takeDam(player.laser->dam);
+			}
+		}
+	}
+}
+
+void GameScene::updateEnemies(float deltaTime)
+{
+	for (auto it = enemyList.begin(); it != enemyList.end();) 
+	{
+		if((**it).isDead())
+		{
+			scoreNum += 100;
+
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			enemyList.erase(itToErase);
+			continue;
+		}
+		
+		(**it).update(deltaTime, enemyBullets, player.pos);
+		
+		it++;
+	}
+}
+
+void GameScene::bulletToPlayerCollision(float deltaTime)
+{
+	for (auto it = enemyBullets.begin(); it != enemyBullets.end();) {
+		(**it).update(deltaTime);
+		//threshholds for enemy bullet to player collision
+		float thresholdX = abs(player.pos.x - (**it).pos.x);
+		float thresholdY = abs(player.pos.y - (**it).pos.y);
+
+		//offscreen check
+		if ((**it).getPosition().y > 700) {
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			enemyBullets.erase(itToErase);
+			continue;
+
+			//check for collision
+		} else if ( thresholdX < 22 && thresholdY < 22) {
+			auto itToErase = it;
+			player.damaged((**it).dam);
+			it++;
+			delete *itToErase;
+			enemyBullets.erase(itToErase);
+
+			if(player.isDead())
+				SceneManager::getInstance().changeScene("end");
+
+			continue;
+		}
+		
+
+		it++;
+	}
 }

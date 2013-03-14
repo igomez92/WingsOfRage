@@ -56,4 +56,9 @@ private:
 	void initializeScoreAndTime();
 	void updateScoreAndTime();
 	void printScoreAndTime(sf::RenderWindow& window);
+	void updateplayershot(sf::RenderWindow& window);
+	void updateBullets(float deltaTime);
+	void updateLaser();
+	void updateEnemies(float deltaTime);
+	void bulletToPlayerCollision(float deltaTime);
 };
