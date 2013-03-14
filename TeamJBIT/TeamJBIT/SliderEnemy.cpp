@@ -60,7 +60,7 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2
 			aiming.x = temp.x * -100;
 			aiming.y = temp.y * -100;
 
-		eList.push_back(new Bullet("bullet.png", pos, aiming));
+		eList.push_back(new Bullet("bullet.png", pos, aiming, 5, sf::Color(255, 50, 50)));
 		
 		bulletClock.restart();
 	}
