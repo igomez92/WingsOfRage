@@ -57,7 +57,8 @@ void Player::update(float deltaTime)
 			currentPlayerMode = PLANE_MODE;
 		if(currentPlayerMode == PLANE_MODE)
 		{
-			delete meleeType;
+			if(meleeType != NULL)
+				delete meleeType;
 			shotType = new TriCannonShot;
 			sprite.setTexture(*planeImage);
 			sprite.setFrameSize(41,43);
@@ -197,10 +198,13 @@ void Player::shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir)
 
 void Player::switchShot()
 {
-	if(currentPlayerMode == 1)
+	if(currentPlayerMode == GUNNER_MODE)
 	{
-		delete shotType;
-		shotType = new SingleShot(1.25f);
+		if(!powerUpFound)
+		{
+			delete shotType;
+			shotType = new SingleShot(1.25f);
+		}
 	}
 	
 	else if(powerUpFound && currentWeaponLevel == 1)
@@ -243,7 +247,13 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 		dir.x = dir.x/norm;
 		dir.y = dir.y/norm;
 	}
-	if(currentPlayerMode == 0 || currentPlayerMode == 1)
+	if(powerUpFound && currentPlayerMode == GUNNER_MODE)
+	{
+		laserShot(window);
+		
+	
+	}
+	else if(currentPlayerMode == PLANE_MODE || currentPlayerMode == GUNNER_MODE)
 		shoot(playerBullets, dir);
 	//else
 		//do the melee attack 
