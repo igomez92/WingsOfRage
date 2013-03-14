@@ -2,12 +2,13 @@
 #include "Utility.h"
 #include "TextureManager.h"
 
-Player::Player(std::string file, sf::Vector2f pos)
+Player::Player(sf::Vector2f pos)
 	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
-	sf::Texture* image = TextureManager::getInstance().getTexture(file);
-	sprite.setTexture(*image);
+	planeImage = TextureManager::getInstance().getTexture("ship.png");
+	gunnerImage = TextureManager::getInstance().getTexture("gundam.png");
+	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(41,43);
 	/*sprite.addAnim("ship", 0, 0, 9, 3, -1);
 	sprite.playAnim("ship");
@@ -19,6 +20,10 @@ Player::Player(std::string file, sf::Vector2f pos)
 	sprite.addAnim("R", 82, 43, 2, 1, 90);
 	sprite.playAnim("F");
 
+	sprite.addAnim("L2", 95, 36, 1, 1, 1);
+	sprite.addAnim("F2", 63, 36, 1, 1, 1);
+	sprite.addAnim("R2", (32*6 - 1), 36, 1, 1, 1);
+	
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 	powerUpFound = false;
 	playerSwitch = false;
@@ -54,11 +59,17 @@ void Player::update(float deltaTime)
 		{
 			delete meleeType;
 			shotType = new TriCannonShot;
+			sprite.setTexture(*planeImage);
+			sprite.setFrameSize(41,43);
+			sprite.setScale(1,1);
 		}
 		else if(currentPlayerMode == GUNNER_MODE)
 		{
 			delete shotType;
 			shotType = new SingleShot(1.25f);
+			sprite.setTexture(*gunnerImage);
+			sprite.setFrameSize(31,36);
+			sprite.setScale(1.5,1.5);
 		}
 		else
 		{
@@ -90,14 +101,27 @@ void Player::update(float deltaTime)
 	}
 	
 	//play correct animation (if it isn't already playing)
-	if (abs(movementVec.x) < 0.5) {
-		if (sprite.getCurrentAnim() != "F") sprite.playAnim("F");
-	} else if (movementVec.x > 0.5) {
-		if (sprite.getCurrentAnim() != "R") sprite.playAnim("R");
-	} else {
-		if (sprite.getCurrentAnim() != "L") sprite.playAnim("L");
+	if(currentPlayerMode == PLANE_MODE)
+	{
+		if (abs(movementVec.x) < 0.5) {
+			if (sprite.getCurrentAnim() != "F") sprite.playAnim("F");
+		} else if (movementVec.x > 0.5) {
+			if (sprite.getCurrentAnim() != "R") sprite.playAnim("R");
+		} else {
+			if (sprite.getCurrentAnim() != "L") sprite.playAnim("L");
+		}
 	}
 
+	if(currentPlayerMode == GUNNER_MODE)
+	{
+		if (abs(movementVec.x) < 0.5) {
+			if (sprite.getCurrentAnim() != "F2") sprite.playAnim("F2");
+		} else if (movementVec.x > 0.5) {
+			if (sprite.getCurrentAnim() != "R2") sprite.playAnim("R2");
+		} else {
+			if (sprite.getCurrentAnim() != "L2") sprite.playAnim("L2");
+		}
+	}
 	//apply the movement
 	pos += normalize(movementVec) * (300 * deltaTime);
 	sprite.setPosition(pos);

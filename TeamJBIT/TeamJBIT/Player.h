@@ -12,6 +12,7 @@
 #include <list>
 #include "LaserShot.h"
 
+
 enum currentMode {PLANE_MODE , GUNNER_MODE, FIGHTER_MODE, NO_MODE};
 
 
@@ -21,7 +22,7 @@ enum currentMode {PLANE_MODE , GUNNER_MODE, FIGHTER_MODE, NO_MODE};
 class Player
 {
 public:
-	Player(std::string file, sf::Vector2f pos);
+	Player(sf::Vector2f pos);
 	~Player();
 
 	void update(float deltaTime);
@@ -55,4 +56,7 @@ private:
 	MeleeType* meleeType;
 	bool powerUpFound;
 	AnimSprite sprite;
+	sf::Texture* planeImage;
+	sf::Texture* gunnerImage;
+	sf::Texture* fighterImage;
 };

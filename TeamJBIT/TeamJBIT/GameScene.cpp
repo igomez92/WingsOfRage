@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include <SFML/Graphics.hpp>
 
-GameScene::GameScene() : player("ship.png", sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500))
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500))
 {
 	// Initialize score info
 	initializeScoreAndTime();
