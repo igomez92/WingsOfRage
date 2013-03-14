@@ -41,12 +41,6 @@ void GameScene::update(sf::RenderWindow& window) {
 		}
 	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.allowLaser == true)
-	{
-		if(player.laserShooting == false)
-			player.laserShot(window);
-	}
-
 	//update bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
 		(**it).update(deltaTime);
