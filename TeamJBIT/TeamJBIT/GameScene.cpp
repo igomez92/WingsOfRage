@@ -38,9 +38,9 @@ void GameScene::update(sf::RenderWindow& window) {
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	//scroll bacgkround "up"
-	backgroundOffset += 1;
-	if (backgroundOffset > 600 * 2)
-		backgroundOffset -= (600 * 2);
+	backgroundOffset += 600 * deltaTime;
+	if (backgroundOffset > 512)
+		backgroundOffset -= 512;
 	backgroundSprite.setPosition(0, backgroundOffset);
 
 	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){

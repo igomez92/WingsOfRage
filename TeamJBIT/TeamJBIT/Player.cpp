@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(15), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
+	:health(1500000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
 	planeImage = TextureManager::getInstance().getTexture("ship.png");
@@ -253,7 +253,7 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 		
 	
 	}
-	else if(currentPlayerMode == PLANE_MODE || currentPlayerMode == GUNNER_MODE)
+	else  if(currentPlayerMode == PLANE_MODE || currentPlayerMode == GUNNER_MODE)
 		shoot(playerBullets, dir);
 	//else
 		//do the melee attack 
