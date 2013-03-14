@@ -4,8 +4,8 @@
 SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 	:Enemy(file,pos,health)
 {
-	bool goingup = true;
-	float dir = -1;
+	goingdown = true;
+	dir = -1;
 }
 void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f player_pos)
 {

@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(1500000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
+	:health(30), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
 	planeImage = TextureManager::getInstance().getTexture("ship.png");

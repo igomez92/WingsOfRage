@@ -12,7 +12,7 @@
 
 int main(char argc, char* argv[]) 
 {
-	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Team JBIT SFML Test");
+	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage");
 	window.setFramerateLimit(60);
 
 	//set up scenes
