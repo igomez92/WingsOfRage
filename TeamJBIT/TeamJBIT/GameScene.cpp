@@ -161,6 +161,8 @@ void GameScene::update(sf::RenderWindow& window) {
 	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
 	{
 		player.powerUP();
+		testDummy.setPosition(sf::Vector2f(-100.,-100.));
+		
 		
 	}
 

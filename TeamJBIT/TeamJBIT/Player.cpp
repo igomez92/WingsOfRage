@@ -23,7 +23,7 @@ Player::Player(std::string file, sf::Vector2f pos)
 	powerUpFound = false;
 	playerSwitch = false;
 	currentWeaponLevel = 1;
-	currentPlayerMode = 0;
+	currentPlayerMode = PLANE_MODE;
 }
 
 
@@ -48,14 +48,14 @@ void Player::update(float deltaTime)
 	{
 		currentPlayerMode++;
 		
-		if(currentPlayerMode == 3)
-			currentPlayerMode = 0;
-		if(currentPlayerMode == 0)
+		if(currentPlayerMode == NO_MODE)
+			currentPlayerMode = PLANE_MODE;
+		if(currentPlayerMode == PLANE_MODE)
 		{
 			delete meleeType;
 			shotType = new TriCannonShot;
 		}
-		else if(currentPlayerMode == 1)
+		else if(currentPlayerMode == GUNNER_MODE)
 		{
 			delete shotType;
 			shotType = new SingleShot(1.25f);

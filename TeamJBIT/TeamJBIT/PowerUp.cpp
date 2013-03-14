@@ -15,9 +15,16 @@ PowerUp::~PowerUp()
 	
 }
 
+
+
 void PowerUp::setTime(float startTime)
 {
 	PowerUp::startTime = startTime;
+}
+
+void PowerUp::setPosition(sf::Vector2f pos)
+{
+	sprite.setPosition(pos);
 }
 
 void PowerUp::update(sf::Clock clock)
