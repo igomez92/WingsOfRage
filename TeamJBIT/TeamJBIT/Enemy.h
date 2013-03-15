@@ -14,6 +14,8 @@ public:
     void draw(sf::RenderWindow& window);
 	void takeDam(int dam);
 	bool isDead();
+	int getHealth();
+	int collisiondamage();
 	sf::Vector2f pos;
 
 	sf::Clock bulletClock;
@@ -22,6 +24,7 @@ public:
 
 protected:
 	int health;
+	int collisiondmg;
 	sf::Sprite sprite;
 };
 

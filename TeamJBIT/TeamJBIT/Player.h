@@ -39,6 +39,9 @@ public:
 	int enemiesKilled;
 	void damaged(int damagedealt);
 	bool isDead();
+	bool isTargetable();
+	void setTargetable(bool targetable);
+
 
 	// For laser
 	bool laserShooting;
@@ -47,14 +50,15 @@ public:
 	float laserShotDelay;
 	bool allowLaser;
 	float accumDelayTime;
-
+	signed int getHealth();
 private:
-	unsigned int health;
+	signed int health;
 	unsigned int level;
 	bool playerSwitch;
+	bool powerUpFound;
+	bool Targetable;
 	ShotType* shotType;
 	MeleeType* meleeType;
-	bool powerUpFound;
 	AnimSprite sprite;
 	sf::Texture* planeImage;
 	sf::Texture* gunnerImage;

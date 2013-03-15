@@ -6,34 +6,43 @@ SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 {
 	goingdown = true;
 	dir = -1;
+	initial_pos = pos.x;
 }
 void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f player_pos)
 {
 	
 	
-	pos.x =  400 + (400*dir*sin(pos.y/100)) ;
+	pos.x = initial_pos + (400*dir*sin(pos.y/100)) ;
 	
 
-	if(pos.y > 650 + sprite.getLocalBounds().height)
+	if(pos.y > 610 + sprite.getLocalBounds().height)
 	{
 		goingdown = false;
 		
-	}else if(pos.y < -50 + sprite.getLocalBounds().height)
+	}else if(pos.y < -20)
 	{
 		goingdown =true;
 	}
 
-	if(pos.x > 800 + sprite.getLocalBounds().width)
+	if(initial_pos >  400)
 	{
 		
 		dir = 1;
 	}
-	if(pos.x < 0 + sprite.getLocalBounds().width)
+	if(initial_pos <= 400 )
 	{
 		
 		dir = -1;
 	}
 
+	if(pos.x > 810)
+	{
+		pos.x = 810;
+	}
+	if(pos.x < -10)
+	{
+		pos.x = -10;
+	}
 	if(!goingdown)
 	{
 		pos.y += -3;
@@ -43,7 +52,7 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2
 		pos.y += +3;
 	}
 	sprite.setPosition(pos);
-	if (bulletClock.getElapsedTime().asSeconds() > .2)
+	if (bulletClock.getElapsedTime().asSeconds() > .5)
 	{
 		/*
 		if(!goingdown)
@@ -57,8 +66,8 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2
 		sf::Vector2f temp = (pos - player_pos);
 			temp = normalize(temp);
 
-			aiming.x = temp.x * -100;
-			aiming.y = temp.y * -100;
+			aiming.x = temp.x * -400;
+			aiming.y = temp.y * -400;
 
 		eList.push_back(new Bullet("bullet.png", pos, aiming, 5, sf::Color(255, 50, 50)));
 		

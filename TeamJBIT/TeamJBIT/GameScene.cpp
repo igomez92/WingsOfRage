@@ -9,9 +9,20 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	initializeScoreAndTime();
 	
 	enemyDisplacement = 0;
-	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(500, 100)));
 	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
+	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(500, 100)));
+	
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(0,100)));
 	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(300,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(400,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(500,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(600,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(100,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(200,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(700,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(800,100)));
+	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(399,100)));
+
 
 	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/stars.png");
 	bgImage->setRepeated(true);
@@ -56,6 +67,7 @@ void GameScene::update(sf::RenderWindow& window) {
 //enemys update
 	updateEnemies(deltaTime);
 
+
 //add enemies to screen if there is none
 	if(enemyList.empty())
 		{
@@ -71,6 +83,10 @@ void GameScene::update(sf::RenderWindow& window) {
 		}
 
 
+//enemy to player collision
+	
+		enemyToPlayerCollision(deltaTime);
+	
 //bullet to player collision
 	bulletToPlayerCollision(deltaTime);
 
@@ -126,6 +142,13 @@ void GameScene::initializeScoreAndTime()
 	score.setPosition(5, 35);
 	scoreStr.str("");
 	scoreStr.clear();
+
+	playerhealthStr << healthNum;
+	health = sf::Text(playerhealthStr.str(), tempestaSevenFont, 20);
+	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
+	health.setPosition(5, 55);
+	playerhealthStr.str("");
+	playerhealthStr.clear();
 }
 
 void GameScene::updateScoreAndTime()
@@ -153,12 +176,18 @@ void GameScene::updateScoreAndTime()
 	score.setString(scoreStr.str());
 	scoreStr.str("");
 	scoreStr.clear();
+
+	playerhealthStr << "Player HP: " << player.getHealth();
+	health.setString(playerhealthStr.str());
+	playerhealthStr.str("");
+	playerhealthStr.clear();
 }
 
 void GameScene::printScoreAndTime(sf::RenderWindow& window)
 {
 	window.draw(timer);
 	window.draw(score);
+	window.draw(health);
 }
 
 void GameScene::updateplayershot(sf::RenderWindow& window)
@@ -281,4 +310,41 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 
 		it++;
 	}
+}
+
+void GameScene::enemyToPlayerCollision(float deltaTime)
+{
+	if(player.isTargetable())
+	{
+		for (auto it = enemyList.begin(); it != enemyList.end();) {
+		
+			//threshholds for enemy bullet to player collision
+			float thresholdX = abs(player.pos.x - (**it).pos.x);
+			float thresholdY = abs(player.pos.y - (**it).pos.y);
+
+			 if ( thresholdX < 22 && thresholdY < 22) {
+				auto itToErase = it;
+				player.damaged((**it).collisiondamage());
+				player.setTargetable(false);
+				hitDelay = clock.getElapsedTime();
+				it++;
+			
+
+				continue;
+			}
+		
+
+			it++;
+		}
+	}else
+	{
+		if((clock.getElapsedTime() - hitDelay ).asSeconds() > 1.0f)
+		{
+			player.setTargetable(true);
+		}
+	}
+
+	
+	if(player.isDead())
+		SceneManager::getInstance().changeScene("end");
 }

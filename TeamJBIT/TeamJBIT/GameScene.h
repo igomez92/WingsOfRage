@@ -39,6 +39,7 @@ private:
 
 	sf::Clock clock;
 	sf::Time lastFrameTime;
+	sf::Time hitDelay;
 
 	sf::Sprite backgroundSprite;
 	float backgroundOffset;
@@ -48,6 +49,12 @@ private:
 	sf::Text score;
 	sf::Font tempestaSevenFont;
 	unsigned int scoreNum;
+
+	//player health
+	std::stringstream playerhealthStr;
+	sf::Text health;
+
+	unsigned int healthNum;
 
 	// Time stuff
 	std::stringstream timeStr;
@@ -61,4 +68,5 @@ private:
 	void updateLaser();
 	void updateEnemies(float deltaTime);
 	void bulletToPlayerCollision(float deltaTime);
+	void enemyToPlayerCollision(float deltaTime);
 };

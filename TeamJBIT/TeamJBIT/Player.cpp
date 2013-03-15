@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(30), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
+	:health(300), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
 	planeImage = TextureManager::getInstance().getTexture("ship.png");
@@ -29,6 +29,7 @@ Player::Player(sf::Vector2f pos)
 	playerSwitch = false;
 	currentWeaponLevel = 1;
 	currentPlayerMode = PLANE_MODE;
+	Targetable = true;
 }
 
 
@@ -269,10 +270,7 @@ void Player::damaged(int damagedealt)
 
 bool Player::isDead()
 {
-	if(health <= 0)
-		return true;
-
-	return false;
+	return(health <= 0);
 }
 
 void Player::laserShot(sf::RenderWindow& window)
@@ -295,4 +293,19 @@ void Player::laserShot(sf::RenderWindow& window)
 	laser = new LaserShot(pos, dir);
 	laserShooting = true;	
 	allowLaser = false;
+}
+
+signed int Player::getHealth()
+{
+	return health;
+}
+
+void Player::setTargetable(bool targ)
+{
+	Targetable = targ;
+}
+
+bool Player::isTargetable()
+{
+	return Targetable;
 }

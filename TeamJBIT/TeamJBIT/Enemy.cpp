@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 
 Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
-	:pos(pos), health(health)
+	:pos(pos), health(health), collisiondmg(10)
 {
 	sf::Texture* image = TextureManager::getInstance().getTexture(file);
 	sprite.setTexture(*image);
@@ -53,4 +53,13 @@ bool Enemy::isDead()
 sf::FloatRect Enemy::getSize()
 {
 	return sprite.getLocalBounds();
+}
+int Enemy::getHealth()
+{
+	return health;
+}
+
+int Enemy::collisiondamage()
+{
+	return collisiondmg;
 }
