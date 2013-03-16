@@ -2,12 +2,12 @@
 
 #include "Enemy.h"
 
-class TankEnemy : public Enemy
+class MTankEnemy : public Enemy
 {
 	public:
-		TankEnemy(std::string file, sf::Vector2f pos, int health = 1000);
-		~TankEnemy(void);
+		MTankEnemy(std::string file, sf::Vector2f pos, int health = 1);
+		~MTankEnemy(void);
 
 		void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos);
-		
+		void takeDam(int damage);
 };

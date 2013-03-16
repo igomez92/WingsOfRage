@@ -1,5 +1,6 @@
 #include "SliderEnemy.h"
 #include "Utility.h"
+#include <math.h>
 
 SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 	:Enemy(file,pos,health)
@@ -7,8 +8,9 @@ SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 	goingdown = true;
 	dir = -1;
 	initial_pos = pos.x;
+	type = Normal;
 }
-void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f player_pos)
+void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos)
 {
 	pos.x = initial_pos + (400*dir*sin(pos.y/100)) ;
 

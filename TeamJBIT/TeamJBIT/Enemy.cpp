@@ -8,6 +8,7 @@ Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
+	type = Normal;
 }
 
 
@@ -16,7 +17,7 @@ Enemy::~Enemy(void)
 
 }
 
-void Enemy::update(float deltaTime, std::list<Bullet*>& eList,sf::Vector2f player_pos)
+void Enemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos)
 {
 	pos.y += 100 * deltaTime;
 	sprite.setPosition(pos);

@@ -201,7 +201,7 @@ void Player::switchShot()
 		if(!powerUpFound)
 		{
 			delete shotType;
-			shotType = new SingleShot(1.25f);
+			shotType = new SingleShot(.7f);
 		}
 	}
 	

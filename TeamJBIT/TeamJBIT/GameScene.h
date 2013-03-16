@@ -7,6 +7,7 @@
 
 #include "Enemy.h"
 #include "TankEnemy.h"
+#include "MTankEnemy.h"
 #include "SliderEnemy.h"
 #include "Bullet.h"
 #include "PowerUp.h"

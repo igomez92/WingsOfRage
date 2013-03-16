@@ -9,6 +9,7 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	initializeScoreAndTime();
 	
 	enemyDisplacement = 0;
+	enemyList.push_back(new MTankEnemy("media/ball.png", sf::Vector2f(0,100)));
 	enemyList.push_back(new TankEnemy("media/ball.png", sf::Vector2f(500,100)));
 	enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(500, 100)));
 	
@@ -53,17 +54,16 @@ void GameScene::update(sf::RenderWindow& window) {
 		backgroundOffset -= 512;
 	backgroundSprite.setPosition(0, backgroundOffset);
 
+	
 	//shooting update
 	updateplayershot(window);
-
+	
 	//update bullets
 	updateBullets(deltaTime);
-	//laser shot
-	updateLaser();
-
 	//enemys update
 	updateEnemies(deltaTime);
-
+	//laser shot
+	updateLaser();
 
 //add enemies to screen if there is none
 	if(enemyList.empty())
@@ -213,7 +213,22 @@ void GameScene::updateBullets(float deltaTime)
 			float thresholdY = abs((**enemyIt).pos.y - (**it).pos.y);
 			if(thresholdX < 22.f && thresholdY < 22.f)
 			{
-				(**enemyIt).takeDam((**it).dam);
+				//if enemy is a reflecting type then reflect the bullet instead of taking damage
+				if((**enemyIt).type == Reflector)
+				{
+					if((**it).dam >= 500)
+					{
+						(**enemyIt).takeDam((**it).dam);
+					}
+					sf::Vector2f aiming;
+					aiming = (-(**it).vel);
+					aiming = aiming * .25f;
+					enemyBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5, sf::Color(255, 50, 50)));
+					
+				}else
+				{
+					(**enemyIt).takeDam((**it).dam);
+				}
 				removeBullet = true;
 				break;
 			}
@@ -262,7 +277,7 @@ void GameScene::updateEnemies(float deltaTime)
 			continue;
 		}
 		
-		(**it).update(deltaTime, enemyBullets, player.pos);
+		(**it).update(deltaTime, enemyBullets, playerBullets, player.pos);
 		
 		it++;
 	}

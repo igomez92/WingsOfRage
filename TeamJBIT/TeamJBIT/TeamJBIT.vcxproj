@@ -94,6 +94,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="LaserShot.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MTankEnemy.cpp" />
     <ClCompile Include="MultiPhotonShot.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerUp.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="EndGameScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MTankEnemy.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="LaserShot.h" />
     <ClInclude Include="SliderEnemy.h" />
