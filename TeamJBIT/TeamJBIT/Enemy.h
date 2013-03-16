@@ -6,25 +6,24 @@
 
 class Enemy
 {
-public:
-	Enemy(std::string file, sf::Vector2f pos, int health = 100);
-	~Enemy(void);
+	public:
+		Enemy(std::string file, sf::Vector2f pos, int health = 100);
+		~Enemy(void);
 
-	virtual void update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f player_pos);
-    void draw(sf::RenderWindow& window);
-	void takeDam(int dam);
-	bool isDead();
-	int getHealth();
-	int collisiondamage();
-	sf::Vector2f pos;
+		virtual void update(float deltaTime, std::list<Bullet*>& eList, sf::Vector2f player_pos);
+		void draw(sf::RenderWindow& window);
+		void takeDam(int dam);
+		bool isDead();
+		int getHealth();
+		int collisiondamage();
 
-	sf::Clock bulletClock;
+		sf::Vector2f pos;
+		sf::Clock bulletClock;
+		sf::FloatRect getSize();
 
-	sf::FloatRect getSize();
-
-protected:
-	int health;
-	int collisiondmg;
-	sf::Sprite sprite;
+	protected:
+		int health;
+		int collisiondmg;
+		sf::Sprite sprite;
 };
 

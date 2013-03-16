@@ -11,5 +11,4 @@ public:
 	void doMeleeAttack(sf::Vector2f pos);
 	float meleeTime();
 	float delay;
-
 };

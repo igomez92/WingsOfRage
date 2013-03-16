@@ -19,6 +19,7 @@ Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam, sf
 
 Bullet::~Bullet(void)
 {
+
 }
 
 void Bullet::update(float deltaTime)

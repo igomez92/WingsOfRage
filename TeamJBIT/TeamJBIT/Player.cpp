@@ -3,16 +3,13 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(300), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
+	:health(100000000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0)
 {
-	planeImage = TextureManager::getInstance().getTexture("ship.png");
-	gunnerImage = TextureManager::getInstance().getTexture("gundam.png");
+	planeImage = TextureManager::getInstance().getTexture("media/ship.png");
+	gunnerImage = TextureManager::getInstance().getTexture("media/gundam.png");
 	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(41,43);
-	/*sprite.addAnim("ship", 0, 0, 9, 3, -1);
-	sprite.playAnim("ship");
-	sprite.showFrame(4);*/
 
 	//framerate > game framerate makes it animation a little more irregular, which is desired here
 	sprite.addAnim("L", 0, 43, 2, 1, 90);
@@ -114,7 +111,7 @@ void Player::update(float deltaTime)
 		}
 	}
 
-	if(currentPlayerMode == GUNNER_MODE)
+	if(currentPlayerMode == GUNNER_MODE || currentPlayerMode == FIGHTER_MODE)
 	{
 		if (abs(movementVec.x) < 0.5) {
 			if (sprite.getCurrentAnim() != "F2") sprite.playAnim("F2");

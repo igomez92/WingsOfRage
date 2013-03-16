@@ -6,9 +6,7 @@
 #include "SplashScene.h"
 #include "GameScene.h"
 #include "EndGameScene.h"
-
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#include "Utility.h"
 
 int main(char argc, char* argv[]) 
 {

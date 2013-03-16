@@ -15,8 +15,6 @@ PowerUp::~PowerUp()
 	
 }
 
-
-
 void PowerUp::setTime(float startTime)
 {
 	PowerUp::startTime = startTime;

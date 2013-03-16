@@ -13,6 +13,7 @@ Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 
 Enemy::~Enemy(void)
 {
+
 }
 
 void Enemy::update(float deltaTime, std::list<Bullet*>& eList,sf::Vector2f player_pos)
@@ -27,7 +28,7 @@ void Enemy::update(float deltaTime, std::list<Bullet*>& eList,sf::Vector2f playe
 
 	if (bulletClock.getElapsedTime().asSeconds() > 0.2)
 	{
-		eList.push_back(new Bullet("bullet.png", pos, sf::Vector2f(0, 400), 5, sf::Color(255, 50, 50)));
+		eList.push_back(new Bullet("media/bullet.png", pos, sf::Vector2f(0, 400), 5, sf::Color(255, 50, 50)));
 		bulletClock.restart();
 	}
 }

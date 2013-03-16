@@ -5,17 +5,17 @@
 
 class PowerUp
 {
-public:
-	PowerUp(std::string file, sf::Vector2f pos);
-	~PowerUp();
+	public:
+		PowerUp(std::string file, sf::Vector2f pos);
+		~PowerUp();
 
-	void update(sf::Clock clock);
-	void draw(sf::RenderWindow& window);
-	void setTime(float startTime);
-	void setPosition(sf::Vector2f pos);
-	sf::Vector2f pos;
-	float startTime;
+		void update(sf::Clock clock);
+		void draw(sf::RenderWindow& window);
+		void setTime(float startTime);
+		void setPosition(sf::Vector2f pos);
+		sf::Vector2f pos;
+		float startTime;
 
-private:
-	AnimSprite sprite;
+	private:
+		AnimSprite sprite;
 };

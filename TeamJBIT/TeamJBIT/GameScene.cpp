@@ -3,37 +3,36 @@
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("ball.png", sf::Vector2f(500,500)), backgroundOffset(0)
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/ball.png", sf::Vector2f(500,500)), backgroundOffset(0)
 {
 	// Initialize score info
 	initializeScoreAndTime();
 	
 	enemyDisplacement = 0;
-	enemyList.push_back(new TankEnemy("ball.png", sf::Vector2f(500,100)));
-	enemyList.push_back(new Enemy("ball.png", sf::Vector2f(500, 100)));
+	enemyList.push_back(new TankEnemy("media/ball.png", sf::Vector2f(500,100)));
+	enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(500, 100)));
 	
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(0,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(300,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(400,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(500,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(600,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(100,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(200,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(700,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(800,100)));
-	enemyList.push_back(new SliderEnemy("ball.png", sf::Vector2f(399,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(0,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(300,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(400,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(500,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(600,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(100,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(200,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(700,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(800,100)));
+	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(399,100)));
 
 
 	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/stars.png");
 	bgImage->setRepeated(true);
 	backgroundSprite.setTexture(*bgImage);
-	backgroundSprite.setTextureRect(sf::IntRect(0, 0, 800, 600 * 2));
-	backgroundSprite.setOrigin(0, 600);
+	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
+	backgroundSprite.setOrigin(0, SCREEN_HEIGHT);
 }
 
 GameScene::~GameScene() 
 {
-	
 	for(auto it = enemyList.begin(); it != enemyList.end(); it++)
 		delete (*it);
 	for(auto it = playerBullets.begin(); it != playerBullets.end(); it++)
@@ -49,53 +48,45 @@ void GameScene::update(sf::RenderWindow& window) {
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	//scroll bacgkround "up"
-	backgroundOffset += 600 * deltaTime;
+	backgroundOffset += SCREEN_HEIGHT * deltaTime;
 	if (backgroundOffset > 512)
 		backgroundOffset -= 512;
 	backgroundSprite.setPosition(0, backgroundOffset);
 
-	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-//shooting update
+	//shooting update
 	updateplayershot(window);
 
-//update bullets
+	//update bullets
 	updateBullets(deltaTime);
-//laser shot
+	//laser shot
 	updateLaser();
 
-//enemys update
+	//enemys update
 	updateEnemies(deltaTime);
 
 
 //add enemies to screen if there is none
 	if(enemyList.empty())
+	{
+		if(enemyDisplacement >= SCREEN_HEIGHT)
 		{
-			if(enemyDisplacement >= 600)
-			{
-				enemyDisplacement = 0;
-			}else
-			{
-   				enemyDisplacement += 100;
-			}
-			enemyList.push_back(new Enemy("ball.png", sf::Vector2f(enemyDisplacement , 0)));
-			enemyList.push_back(new Enemy("ball.png", sf::Vector2f(enemyDisplacement+100, 0)));
+			enemyDisplacement = 0;
+		}else
+		{
+   			enemyDisplacement += 100;
 		}
+		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement , 0)));
+		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement+100, 0)));
+	}
 
-
-//enemy to player collision
+	//enemy to player collision
+	enemyToPlayerCollision(deltaTime);
 	
-		enemyToPlayerCollision(deltaTime);
-	
-//bullet to player collision
+	//bullet to player collision
 	bulletToPlayerCollision(deltaTime);
 
-//powerup collison
-	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
-	{
-		player.powerUP();
-		testDummy.setPosition(sf::Vector2f(-100.,-100.));
-	}
+	//powerup collison
+	updateUpgrade();
 
 	updateScoreAndTime();
 	player.update(deltaTime);
@@ -130,21 +121,21 @@ bool GameScene::handleEvent(sf::Event& event) {
 
 void GameScene::initializeScoreAndTime()
 {
-	tempestaSevenFont.loadFromFile("pf_tempesta_seven.ttf");
-
-	timer = sf::Text("0:00", tempestaSevenFont, 20);
+	tempestaSevenFont.loadFromFile("media/pf_tempesta_seven.ttf");
+	int offset = 20;
+	timer = sf::Text("0:00", tempestaSevenFont, offset);
 	//timer.setOrigin(timer.getLocalBounds().width / 2.f, timer.getLocalBounds().height / 2.f);
 	timer.setPosition(5, 10);
 
 	scoreStr << scoreNum;
-	score = sf::Text(scoreStr.str(), tempestaSevenFont, 20);
+	score = sf::Text(scoreStr.str(), tempestaSevenFont, offset);
 	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
 	score.setPosition(5, 35);
 	scoreStr.str("");
 	scoreStr.clear();
 
 	playerhealthStr << healthNum;
-	health = sf::Text(playerhealthStr.str(), tempestaSevenFont, 20);
+	health = sf::Text(playerhealthStr.str(), tempestaSevenFont, offset);
 	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
 	health.setPosition(5, 55);
 	playerhealthStr.str("");
@@ -286,7 +277,8 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 		float thresholdY = abs(player.pos.y - (**it).pos.y);
 
 		//offscreen check
-		if ((**it).getPosition().y > 700) {
+		sf::Vector2f bulletPos = (**it).getPosition();
+		if (bulletPos.x < -100 || bulletPos.x > 900 || bulletPos.y < -100 || bulletPos.y > 700 ) {
 			auto itToErase = it;
 			it++;
 			delete (*itToErase);
@@ -306,8 +298,6 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 
 			continue;
 		}
-		
-
 		it++;
 	}
 }
@@ -328,12 +318,8 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 				player.setTargetable(false);
 				hitDelay = clock.getElapsedTime();
 				it++;
-			
-
 				continue;
 			}
-		
-
 			it++;
 		}
 	}else
@@ -343,8 +329,16 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 			player.setTargetable(true);
 		}
 	}
-
 	
 	if(player.isDead())
 		SceneManager::getInstance().changeScene("end");
+}
+
+void GameScene::updateUpgrade()
+{
+	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
+	{
+		player.powerUP();
+		testDummy.setPosition(sf::Vector2f(-100.,-100.));
+	}
 }

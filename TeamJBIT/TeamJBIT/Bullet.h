@@ -20,4 +20,3 @@ public:
 private:
 	sf::Sprite sprite;
 };
-

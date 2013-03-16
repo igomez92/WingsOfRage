@@ -17,7 +17,7 @@ EndGameScene::EndGameScene()  {
 	testSprite.setPosition(400, 300);
 	testSprite.setScale(800.f/200, 600.f/217);
 
-	tempestaSevenFont.loadFromFile("pf_tempesta_seven.ttf");
+	tempestaSevenFont.loadFromFile("media/pf_tempesta_seven.ttf");
 
 	gameOverMessage = sf::Text("GAME OVER", tempestaSevenFont, 100);
 	gameOverMessage.setOrigin(gameOverMessage.getLocalBounds().width / 2.f, gameOverMessage.getLocalBounds().height / 2.f);
