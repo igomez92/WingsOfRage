@@ -9,6 +9,7 @@
 #include "MultiPhotonShot.h"
 #include "MeleeType.h"
 #include "SwordSlash.h"
+#include "BeamSword.h"
 #include <list>
 #include "LaserShot.h"
 
@@ -45,6 +46,12 @@ class Player
 		bool allowLaser;
 		float accumDelayTime;
 		signed int getHealth();
+
+		// For mele
+		bool swordSwinging;
+		BeamSword* sword;
+		void swordSwing(sf::RenderWindow& window);
+		bool allowSword;
 
 	private:
 		signed int health;

@@ -77,6 +77,9 @@ void GameScene::update(sf::RenderWindow& window) {
 	//laser shot
 	updateLaser();
 
+	// sword swing
+	updateSword();
+
 	//enemies update
 	updateEnemies(deltaTime);
 
@@ -205,7 +208,7 @@ void GameScene::printScoreAndTime(sf::RenderWindow& window)
 
 void GameScene::updateplayershot(sf::RenderWindow& window)
 {
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false && player.swordSwinging == false){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
 		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
 		player.mouseShot(playerBullets, window);
@@ -279,6 +282,20 @@ void GameScene::updateLaser()
 			if(player.laser->collidesWith(**it))
 			{
 				(**it).takeDam(player.laser->dam);
+			}
+		}
+	}
+}
+
+void GameScene::updateSword()
+{
+	if(player.swordSwinging == true)
+	{
+		for(auto it = enemyList.begin(); it != enemyList.end(); it++)
+		{
+			if(player.sword->collidesWith(**it))
+			{
+				(**it).takeDam(player.sword->dam);
 			}
 		}
 	}

@@ -73,6 +73,7 @@ class GameScene : public IScene
 		void updateplayershot(sf::RenderWindow& window);
 		void updatePlayerBullets(float deltaTime);
 		void updateLaser();
+		void updateSword();
 		void updateEnemies(float deltaTime);
 		void bulletToPlayerCollision(float deltaTime);
 		void enemyToPlayerCollision(float deltaTime);
