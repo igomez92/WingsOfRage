@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/ball.png", sf::Vector2f(500,500)), backgroundOffset(0)
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/ball.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
 {
 	// Initialize score info
 	initializeScoreAndTime();
 	
+	/*
 	enemyDisplacement = 0;
 	enemyList.push_back(new MTankEnemy("media/ball.png", sf::Vector2f(0,100)));
 	enemyList.push_back(new TankEnemy("media/ball.png", sf::Vector2f(500,100)));
@@ -23,13 +24,21 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(700,100)));
 	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(800,100)));
 	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(399,100)));
+	*/
 
+	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 
-	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/stars.png");
+	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/starsLow.png");
 	bgImage->setRepeated(true);
-	backgroundSprite.setTexture(*bgImage);
-	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
-	backgroundSprite.setOrigin(0, SCREEN_HEIGHT);
+	backgroundSpriteLow.setTexture(*bgImage);
+	backgroundSpriteLow.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
+	backgroundSpriteLow.setOrigin(0, SCREEN_HEIGHT);
+
+	bgImage = TextureManager::getInstance().getTexture("media/backgrounds/starsMed.png");
+	bgImage->setRepeated(true);
+	backgroundSpriteMed.setTexture(*bgImage);
+	backgroundSpriteMed.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
+	backgroundSpriteMed.setOrigin(0, SCREEN_HEIGHT);
 }
 
 GameScene::~GameScene() 
@@ -49,23 +58,30 @@ void GameScene::update(sf::RenderWindow& window) {
 	if(deltaTime >=.1f){ deltaTime = .1f;};
 
 	//scroll bacgkround "up"
-	backgroundOffset += SCREEN_HEIGHT * deltaTime;
-	if (backgroundOffset > 512)
-		backgroundOffset -= 512;
-	backgroundSprite.setPosition(0, backgroundOffset);
+	backgroundOffsetLow += 320 * deltaTime;
+	if (backgroundOffsetLow > 512)
+		backgroundOffsetLow -= 512;
+	backgroundSpriteLow.setPosition(0, backgroundOffsetLow);
+	backgroundOffsetMed += 400 * deltaTime;
+	if (backgroundOffsetMed > 512)
+		backgroundOffsetMed -= 512;
+	backgroundSpriteMed.setPosition(0, backgroundOffsetMed);
 
 	
 	//shooting update
 	updateplayershot(window);
 	
 	//update bullets
-	updateBullets(deltaTime);
-	//enemys update
-	updateEnemies(deltaTime);
+	updatePlayerBullets(deltaTime);
+
 	//laser shot
 	updateLaser();
 
-//add enemies to screen if there is none
+	//enemies update
+	updateEnemies(deltaTime);
+
+	//add enemies to screen if there is none
+	/*
 	if(enemyList.empty())
 	{
 		if(enemyDisplacement >= SCREEN_HEIGHT)
@@ -78,6 +94,10 @@ void GameScene::update(sf::RenderWindow& window) {
 		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement , 0)));
 		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement+100, 0)));
 	}
+	*/
+
+	//spawn enemies if it's time
+	updateSpawnQueue();
 
 	//enemy to player collision
 	enemyToPlayerCollision(deltaTime);
@@ -93,7 +113,8 @@ void GameScene::update(sf::RenderWindow& window) {
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
-	window.draw(backgroundSprite);
+	window.draw(backgroundSpriteLow);
+	window.draw(backgroundSpriteMed, sf::RenderStates(sf::BlendAdd));
 
 	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
@@ -110,6 +131,7 @@ void GameScene::draw(sf::RenderWindow& window) {
 	{
 		(**it).draw(window);
 	}
+
 	player.draw(window);
 	testDummy.draw(window);
 	printScoreAndTime(window);
@@ -137,7 +159,7 @@ void GameScene::initializeScoreAndTime()
 	playerhealthStr << healthNum;
 	health = sf::Text(playerhealthStr.str(), tempestaSevenFont, offset);
 	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
-	health.setPosition(5, 55);
+	health.setPosition(5, 60);
 	playerhealthStr.str("");
 	playerhealthStr.clear();
 }
@@ -146,15 +168,15 @@ void GameScene::updateScoreAndTime()
 {
 	int time = clock.getElapsedTime().asSeconds();
 	timeStr << "Time: ";
-	if(time/60 == 0)
+	if (time / 60 == 0)
 		timeStr << "0:";
 	else
 	{
-		timeStr << time/60 << ":";
+		timeStr << time / 60 << ":";
 		// Get Seconds
-		time = time%60;
+		time = time % 60;
 	}
-	if(time < 10)
+	if (time < 10)
 		timeStr << "0" <<time;
 	else
 		timeStr << time;
@@ -192,7 +214,7 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 	}
 }
 
-void GameScene::updateBullets(float deltaTime)
+void GameScene::updatePlayerBullets(float deltaTime)
 {
 	for (auto it = playerBullets.begin(); it != playerBullets.end();) {
 		(**it).update(deltaTime);
@@ -355,5 +377,17 @@ void GameScene::updateUpgrade()
 	{
 		player.powerUP();
 		testDummy.setPosition(sf::Vector2f(-100.,-100.));
+	}
+}
+
+void GameScene::updateSpawnQueue() 
+{
+	if (enemySpawnQueue.empty()) return;
+
+	float time = clock.getElapsedTime().asSeconds();
+
+	while (!enemySpawnQueue.empty() && enemySpawnQueue.front().spawnTime < time) {
+		LevelLoader::spawnEnemy(enemyList, enemySpawnQueue.front());
+		enemySpawnQueue.pop();
 	}
 }

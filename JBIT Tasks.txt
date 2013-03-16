@@ -11,8 +11,6 @@ More enemies
 
 Take out "Magic Numbers", making the code clearer. IE distanceFromEnemy rather than 22.
 
-Collision Checks in different functions
-
 Keyboard function
 
 Level Designer Tool

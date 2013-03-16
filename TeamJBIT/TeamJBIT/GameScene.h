@@ -13,6 +13,7 @@
 #include "PowerUp.h"
 #include "MeleeType.h"
 #include "Utility.h"
+#include "LevelLoader.h"
 
 #include <list>
 #include <sstream>
@@ -34,6 +35,8 @@ class GameScene : public IScene
 		sf::Time shotTimer;
 		int enemyDisplacement;
 
+		std::queue<SpawnEntry> enemySpawnQueue;
+
 		std::list<Enemy*> enemyList;
 		std::list<Bullet*> playerBullets;
 		std::list<Bullet*> enemyBullets;
@@ -43,8 +46,10 @@ class GameScene : public IScene
 		sf::Time lastFrameTime;
 		sf::Time hitDelay;
 
-		sf::Sprite backgroundSprite;
-		float backgroundOffset;
+		sf::Sprite backgroundSpriteLow;
+		sf::Sprite backgroundSpriteMed;
+		float backgroundOffsetLow;
+		float backgroundOffsetMed;
 
 		// Score stuff
 		std::stringstream scoreStr;
@@ -66,10 +71,11 @@ class GameScene : public IScene
 		void updateScoreAndTime();
 		void printScoreAndTime(sf::RenderWindow& window);
 		void updateplayershot(sf::RenderWindow& window);
-		void updateBullets(float deltaTime);
+		void updatePlayerBullets(float deltaTime);
 		void updateLaser();
 		void updateEnemies(float deltaTime);
 		void bulletToPlayerCollision(float deltaTime);
 		void enemyToPlayerCollision(float deltaTime);
 		void updateUpgrade();
+		void updateSpawnQueue();
 };

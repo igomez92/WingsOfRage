@@ -10,7 +10,8 @@ sf::Texture* TextureManager::getTexture(std::string texturePath) {
 
 	//if not, load the texture, insert it into the map, and return a reference
 	sf::Texture* tex = new sf::Texture();
-	tex->loadFromFile(texturePath);
+	if (!tex->loadFromFile(texturePath))
+		tex->loadFromFile("media/filenotfound.png");
 	textureMap.insert(std::make_pair(texturePath, tex));
 
 	return tex;
