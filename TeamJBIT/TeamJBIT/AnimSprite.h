@@ -17,6 +17,7 @@ class AnimSprite : public sf::Sprite {
 		void addAnim(std::string name, int startX = 0, int startY = 0, int numFrames = 1, int numPerRow = 1, float framerate = 1, bool isCyclic = true, std::function<void ()> finishedFunc = [] {});
 		bool playAnim(std::string name);
 		std::string getCurrentAnim();
+		sf::Vector2i getFrameSize();
 
 	protected:
 		struct AnimSprAnimation {

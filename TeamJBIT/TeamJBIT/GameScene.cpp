@@ -208,13 +208,51 @@ void GameScene::printScoreAndTime(sf::RenderWindow& window)
 
 void GameScene::updateplayershot(sf::RenderWindow& window)
 {
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false && player.swordSwinging == false){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
 		//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
 		player.mouseShot(playerBullets, window);
 		shotTimer = clock.getElapsedTime();
 		}
 	}
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.laserShooting == false){
+		if(player.currentPlayerMode == GUNNER_MODE && player.canBlink)
+		{
+			float distanceToBlink = 400;
+			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+			sf::Vector2f dir;
+			dir.x = (float)mousePos.x - player.pos.x;
+			dir.y = (float)mousePos.y - player.pos.y;
+			dir = normalize(dir);
+			dir = distanceToBlink*dir;
+			sf::Vector2f blinkLocation;
+			blinkLocation = player.pos + dir;
+
+			if(blinkLocation.x >= SCREEN_WIDTH)
+			{
+				blinkLocation.x = SCREEN_WIDTH - player.sprite.getFrameSize().x;
+			}
+			if(blinkLocation.x < 0)
+			{
+				blinkLocation.x = 0 + player.sprite.getFrameSize().x;
+			}
+			if(blinkLocation.y >= SCREEN_HEIGHT)
+			{
+				blinkLocation.y = SCREEN_HEIGHT - player.sprite.getFrameSize().y;
+			}
+			if(blinkLocation.y < 0)
+			{
+				blinkLocation.y = 0 + player.sprite.getFrameSize().y;
+			}	
+			player.pos = blinkLocation;
+			blinkDelay = clock.getElapsedTime();
+			player.canBlink = false;
+		}else if((clock.getElapsedTime() - blinkDelay).asSeconds() >5)
+		{
+			player.canBlink = true;
+		}
+	}
+
 }
 
 void GameScene::updatePlayerBullets(float deltaTime)
@@ -291,7 +329,7 @@ void GameScene::updateSword()
 {
 	if(player.swordSwinging == true)
 	{
-		for(auto it = enemyList.begin(); it != enemyList.end(); it++)
+		for (auto it = enemyList.begin(); it != enemyList.end(); it++)
 		{
 			if(player.sword->collidesWith(**it))
 			{

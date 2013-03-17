@@ -36,6 +36,7 @@ class Player
 		void damaged(int damagedealt);
 		bool isDead();
 		bool isTargetable();
+		bool canBlink;
 		void setTargetable(bool targetable);
 
 		// For laser
@@ -46,8 +47,8 @@ class Player
 		bool allowLaser;
 		float accumDelayTime;
 		signed int getHealth();
-
-		// For mele
+		AnimSprite sprite;
+		// For melee
 		bool swordSwinging;
 		BeamSword* sword;
 		void swordSwing(sf::RenderWindow& window);
@@ -59,9 +60,10 @@ class Player
 		bool playerSwitch;
 		bool powerUpFound;
 		bool Targetable;
+
 		ShotType* shotType;
 		MeleeType* meleeType;
-		AnimSprite sprite;
+		
 		sf::Texture* planeImage;
 		sf::Texture* gunnerImage;
 		sf::Texture* fighterImage;

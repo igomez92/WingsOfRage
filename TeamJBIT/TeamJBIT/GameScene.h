@@ -45,6 +45,7 @@ class GameScene : public IScene
 		sf::Clock clock;
 		sf::Time lastFrameTime;
 		sf::Time hitDelay;
+		sf::Time blinkDelay;
 
 		sf::Sprite backgroundSpriteLow;
 		sf::Sprite backgroundSpriteMed;

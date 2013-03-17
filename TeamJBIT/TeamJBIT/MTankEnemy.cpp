@@ -11,7 +11,7 @@ void MTankEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bu
 {
 	sf::Vector2f enemyMove = normalize(pos - player_pos);
 
-	pos -= enemyMove * (150 * deltaTime);
+	pos -= enemyMove * (100 * deltaTime);
 	
 	sprite.setPosition(pos);
 }

@@ -27,6 +27,7 @@ Player::Player(sf::Vector2f pos)
 	currentWeaponLevel = 1;
 	currentPlayerMode = PLANE_MODE;
 	Targetable = true;
+	canBlink = true;
 }
 
 

@@ -101,3 +101,8 @@ void AnimSprite::showFrame(unsigned int frameNum) {
 
 	setTextureRect(sf::IntRect(framePos, frameSize));
 }
+
+sf::Vector2i AnimSprite::getFrameSize()
+{
+	return frameSize;
+}

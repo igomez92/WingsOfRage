@@ -47,3 +47,14 @@
 26, Enemy, 350, -100
 26, Enemy, 450, -100
 26.5, Enemy, 400, -100
+
+35, MTankEnemy, 0, 100
+35, Enemy, 200, -100
+35, Enemy, 600, -100
+37, Enemy, 400, -100
+43, SliderEnemy, 400, 10
+43.5, SliderEnemy, 300, 10
+43.5, SliderEnemy, 500, 10
+46, TankEnemy, 400, -100
+48, SliderEnemy, 100, 10
+48, SliderEnemy, 700, 10
