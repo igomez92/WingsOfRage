@@ -15,6 +15,9 @@
 #include "Utility.h"
 #include "LevelLoader.h"
 
+#include "ParticleManager.h"
+#include "Particle.h"
+
 #include <list>
 #include <sstream>
 
@@ -36,10 +39,12 @@ class GameScene : public IScene
 		int enemyDisplacement;
 
 		std::queue<SpawnEntry> enemySpawnQueue;
+		ParticleManager ptManager;
 
 		std::list<Enemy*> enemyList;
 		std::list<Bullet*> playerBullets;
 		std::list<Bullet*> enemyBullets;
+		std::list<Particle*> allParticles;
 		MeleeType* currentMeleeAttack;
 
 		sf::Clock clock;
@@ -80,4 +85,5 @@ class GameScene : public IScene
 		void enemyToPlayerCollision(float deltaTime);
 		void updateUpgrade();
 		void updateSpawnQueue();
+		void updateParticleEffects(float deltaTime);
 };

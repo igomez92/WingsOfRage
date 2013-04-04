@@ -49,6 +49,8 @@ GameScene::~GameScene()
 		delete (*it);
 	for (auto it = enemyBullets.begin(); it != enemyBullets.end(); it++) 
 		delete (*it);
+	for (auto it = allParticles.begin(); it != allParticles.end(); it++)
+		delete (*it);
 }
 
 
@@ -83,21 +85,8 @@ void GameScene::update(sf::RenderWindow& window) {
 	//enemies update
 	updateEnemies(deltaTime);
 
-	//add enemies to screen if there is none
-	/*
-	if(enemyList.empty())
-	{
-		if(enemyDisplacement >= SCREEN_HEIGHT)
-		{
-			enemyDisplacement = 0;
-		}else
-		{
-   			enemyDisplacement += 100;
-		}
-		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement , 0)));
-		enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(enemyDisplacement+100, 0)));
-	}
-	*/
+	// particle effects
+	updateParticleEffects(deltaTime);
 
 	//spawn enemies if it's time
 	updateSpawnQueue();
@@ -131,6 +120,12 @@ void GameScene::draw(sf::RenderWindow& window) {
 
 	//draw enemies
 	for (auto it = enemyList.begin(); it != enemyList.end(); it++) 
+	{
+		(**it).draw(window);
+	}
+
+	//draw particles
+	for (auto it = allParticles.begin(); it!= allParticles.end(); it++)
 	{
 		(**it).draw(window);
 	}
@@ -277,6 +272,7 @@ void GameScene::updatePlayerBullets(float deltaTime)
 			if(thresholdX < 22.f && thresholdY < 22.f)
 			{
 				//if enemy is a reflecting type then reflect the bullet instead of taking damage
+				
 				if((**enemyIt).type == Reflector)
 				{
 					if((**it).dam >= 500)
@@ -346,7 +342,7 @@ void GameScene::updateEnemies(float deltaTime)
 		if((**it).isDead())
 		{
 			scoreNum += 100;
-
+			ptManager.doExplosion(allParticles, (**it).pos, sf::Color::Green, 100.0);
 			auto itToErase = it;
 			it++;
 			delete (*itToErase);
@@ -381,6 +377,7 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 		} else if ( thresholdX < 22 && thresholdY < 22) {
 			auto itToErase = it;
 			player.damaged((**it).dam);
+			ptManager.doHitParticle(allParticles, player.pos, (**it).vel, sf::Color::Magenta, 75.0);
 			it++;
 			delete *itToErase;
 			enemyBullets.erase(itToErase);
@@ -445,4 +442,27 @@ void GameScene::updateSpawnQueue()
 		LevelLoader::spawnEnemy(enemyList, enemySpawnQueue.front());
 		enemySpawnQueue.pop();
 	}
+}
+
+void GameScene::updateParticleEffects(float deltaTime)
+{
+	
+	for (auto it = allParticles.begin(); it != allParticles.end();) 
+	{
+		(**it).update(deltaTime);
+		float thresholdX = abs((**it).startingPosition.x - (**it).pos.x);
+		float thresholdY = abs((**it).startingPosition.y - (**it).pos.y);
+		//offscreen check
+		if (thresholdY > (**it).lifeExpectancy || 
+			thresholdX > (**it).lifeExpectancy) 
+		{
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			allParticles.erase(itToErase);
+			continue;
+		}
+		it++;
+	}
+	ptManager.doEnginePartcle(allParticles, player.pos, sf::Color::Color(0, 255, 208, 255), 50.0);
 }
