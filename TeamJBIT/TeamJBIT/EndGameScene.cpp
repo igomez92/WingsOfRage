@@ -2,11 +2,10 @@
 #include <cmath>
 #include <SFML\System.hpp>
 #include "SceneManager.h"
-#include "GameScene.h"
 #include "TextureManager.h"
 
 EndGameScene::EndGameScene()  {
-	sf::Texture* animSpriteTexture = TextureManager::getInstance().getTexture("yeah.jpg");
+	sf::Texture* animSpriteTexture = TextureManager::getInstance().getTexture("media/yeah.jpg");
 	animSpriteTexture->setSmooth(true);
 
 	testSprite.setTexture(*animSpriteTexture);
@@ -46,8 +45,9 @@ void EndGameScene::draw(sf::RenderWindow& window) {
 bool EndGameScene::handleEvent(sf::Event& event) {
 	if (event.type == sf::Event::KeyPressed) {
 		SceneManager::getInstance().deleteScene("start");
-		SceneManager::getInstance().addScene("start", new GameScene());
-		SceneManager::getInstance().changeScene("start");
+		SceneManager::getInstance().changeScene("menu");
+
+		return true;
 	}
 
 	return false;

@@ -4,6 +4,7 @@
 #include "IScene.h"
 #include "SceneManager.h"
 #include "SplashScene.h"
+#include "MenuScene.h"
 #include "GameScene.h"
 #include "EndGameScene.h"
 #include "Utility.h"
@@ -15,9 +16,9 @@ int main(char argc, char* argv[])
 
 	//set up scenes
 	SceneManager::getInstance().addScene("splash", new SplashScene());
-	SceneManager::getInstance().addScene("start", new GameScene());
+	SceneManager::getInstance().addScene("menu", new MenuScene());
 	SceneManager::getInstance().addScene("end", new EndGameScene());
-	SceneManager::getInstance().changeScene("start");
+	SceneManager::getInstance().changeScene("menu");
 
     while (window.isOpen())
     {

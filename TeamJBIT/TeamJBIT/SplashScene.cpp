@@ -1,14 +1,20 @@
 #include "SplashScene.h"
 #include "SceneManager.h"
 #include "TextureManager.h"
+#include "Utility.h"
 
 SplashScene::SplashScene() {
 	sf::Texture* JBITLogoTexture = TextureManager::getInstance().getTexture("media/UI/JBITLogo.png");
 	JBITLogoSprite.setTexture(*JBITLogoTexture);
-	JBITLogoSprite.setOrigin((int)JBITLogoSprite.getLocalBounds().width / 2, (int)JBITLogoSprite.getLocalBounds().height / 2);
+	centerOrigin(JBITLogoSprite);
 	JBITLogoSprite.setPosition(400, 300);
 
-	//fade in
+	sf::Texture* gameLogoTexture = TextureManager::getInstance().getTexture("");
+	gameLogoSprite.setTexture(*gameLogoTexture);
+	centerOrigin(gameLogoSprite);
+	gameLogoSprite.setPosition(400, 300);
+
+	//sequence the logo fades
 	fadeInTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_OUT, 2, 0, [&] (float alpha) {JBITLogoSprite.setColor(sf::Color(255, 255, 255, (sf::Uint8)alpha));}, 255);
 }
 
@@ -35,5 +41,4 @@ bool SplashScene::handleEvent(sf::Event& event) {
 	}
 
 	return false;
-
 }
