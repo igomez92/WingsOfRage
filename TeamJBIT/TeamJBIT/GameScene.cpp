@@ -27,6 +27,7 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	*/
 
 	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
+	bossSpawned = false;
 
 	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/starsLow.png");
 	bgImage->setRepeated(true);
@@ -70,6 +71,7 @@ void GameScene::update(sf::RenderWindow& window) {
 	backgroundSpriteMed.setPosition(0, backgroundOffsetMed);
 
 	
+
 	//shooting update
 	updateplayershot(window);
 	
@@ -91,6 +93,16 @@ void GameScene::update(sf::RenderWindow& window) {
 	//spawn enemies if it's time
 	updateSpawnQueue();
 
+	//if no more enemies summon a boss
+	if(enemyList.empty() && !bossSpawned && enemySpawnQueue.empty())
+	{
+		enemyList.push_back(new Boss1("media/ball.png", sf::Vector2f(100, 0)));
+		bossSpawned = true;
+	}else if(enemyList.empty() && bossSpawned)
+	{
+		SceneManager::getInstance().changeScene("end");
+	}
+
 	//enemy to player collision
 	enemyToPlayerCollision(deltaTime);
 	
@@ -102,6 +114,7 @@ void GameScene::update(sf::RenderWindow& window) {
 
 	updateScoreAndTime();
 	player.update(deltaTime);
+
 }
 
 void GameScene::draw(sf::RenderWindow& window) {
@@ -242,7 +255,7 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			player.pos = blinkLocation;
 			blinkDelay = clock.getElapsedTime();
 			player.canBlink = false;
-		}else if((clock.getElapsedTime() - blinkDelay).asSeconds() >5)
+		}else if((clock.getElapsedTime() - blinkDelay).asSeconds() >.2)
 		{
 			player.canBlink = true;
 		}

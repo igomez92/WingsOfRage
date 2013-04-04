@@ -9,6 +9,7 @@
 #include "TankEnemy.h"
 #include "MTankEnemy.h"
 #include "SliderEnemy.h"
+#include "Boss1.h"
 #include "Bullet.h"
 #include "PowerUp.h"
 #include "MeleeType.h"
@@ -72,6 +73,9 @@ class GameScene : public IScene
 		// Time stuff
 		std::stringstream timeStr;
 		sf::Text timer;
+
+		//boss stuff
+		bool bossSpawned;
 
 		void initializeScoreAndTime();
 		void updateScoreAndTime();

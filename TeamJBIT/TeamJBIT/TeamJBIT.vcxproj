@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="AnimSprite.cpp" />
     <ClCompile Include="BeamSword.cpp" />
+    <ClCompile Include="boss1.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="dbtweener.cpp" />
     <ClCompile Include="EndGameScene.cpp" />
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="AnimSprite.h" />
     <ClInclude Include="BeamSword.h" />
+    <ClInclude Include="Boss1.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="dbtweener.h" />
     <ClInclude Include="EndGameScene.h" />
