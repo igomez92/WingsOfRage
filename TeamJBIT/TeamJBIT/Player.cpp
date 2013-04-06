@@ -348,3 +348,8 @@ void Player::swordSwing(sf::RenderWindow& window)
 	sword = new BeamSword("media/sword.png", 0, dir, pos, 30.f, 1000.f);
 	swordSwinging = true;
 }
+
+sf::FloatRect Player::getSize()
+{
+	return sprite.getLocalBounds();
+}

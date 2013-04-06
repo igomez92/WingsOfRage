@@ -38,6 +38,7 @@ class Player
 		bool isTargetable();
 		bool canBlink;
 		void setTargetable(bool targetable);
+		sf::FloatRect getSize();
 
 		// For laser
 		bool laserShooting;

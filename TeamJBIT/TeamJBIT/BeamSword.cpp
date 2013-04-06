@@ -1,5 +1,6 @@
 #include "BeamSword.h"
 #include "TextureManager.h"
+#include "Enemy.h"
 
 BeamSword::BeamSword(std::string file, float delay, sf::Vector2f dir, sf::Vector2f pos, float damage, float swingSpeed)
 	:dir(dir), currentAngle(-60), swingSpeed(swingSpeed), dam(damage), pos(pos)

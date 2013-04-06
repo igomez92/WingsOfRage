@@ -2,7 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include "Enemy.h"
+
+class Enemy;
 
 class LaserShot
 {

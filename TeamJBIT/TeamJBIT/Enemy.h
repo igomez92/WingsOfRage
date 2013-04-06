@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include "Bullet.h"
+#include "Player.h"
 enum EnemyType {Normal , Reflector, Tank, Melee};
 
 class Enemy
@@ -11,8 +12,8 @@ class Enemy
 		Enemy(std::string file, sf::Vector2f pos, int health = 100);
 		~Enemy(void);
 
-		virtual void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos);
-		void draw(sf::RenderWindow& window);
+		virtual void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player);
+		virtual void draw(sf::RenderWindow& window);
 		virtual void takeDam(int dam);
 		bool isDead();
 		int getHealth();

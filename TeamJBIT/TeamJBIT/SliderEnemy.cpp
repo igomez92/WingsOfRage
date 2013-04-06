@@ -10,7 +10,7 @@ SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 	initial_pos = pos.x;
 	type = Normal;
 }
-void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos)
+void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player)
 {
 	pos.x = initial_pos + (400*dir*sin(pos.y/100)) ;
 
@@ -60,7 +60,7 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<B
 			*/
 
 		sf::Vector2f aiming;
-		sf::Vector2f temp = (pos - player_pos);
+		sf::Vector2f temp = (pos - player.pos);
 			temp = normalize(temp);
 
 			aiming.x = temp.x * -400;

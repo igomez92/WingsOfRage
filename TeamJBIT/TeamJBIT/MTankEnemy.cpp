@@ -7,9 +7,9 @@ MTankEnemy::MTankEnemy(std::string file, sf::Vector2f pos, int health)
 	collisiondmg = 100;
 	type = Reflector;
 }
-void MTankEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos)
+void MTankEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player)
 {
-	sf::Vector2f enemyMove = normalize(pos - player_pos);
+	sf::Vector2f enemyMove = normalize(pos - player.pos);
 
 	pos -= enemyMove * (100 * deltaTime);
 	

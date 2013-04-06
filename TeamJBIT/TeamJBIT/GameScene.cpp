@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
+#include "MeleeEnemy.h"
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/ball.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
 {
@@ -25,6 +26,8 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(800,100)));
 	enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(399,100)));
 	*/
+
+	//enemyList.push_back(new MeleeEnemy("media/ball.png", sf::Vector2f(0, 100)));
 
 	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 	bossSpawned = false;
@@ -363,7 +366,7 @@ void GameScene::updateEnemies(float deltaTime)
 			continue;
 		}
 		
-		(**it).update(deltaTime, enemyBullets, playerBullets, player.pos);
+		(**it).update(deltaTime, enemyBullets, playerBullets, player);
 		
 		it++;
 	}

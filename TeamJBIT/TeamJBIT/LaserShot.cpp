@@ -1,5 +1,6 @@
 #include "LaserShot.h"
 #include "TextureManager.h"
+#include "Enemy.h"
 
 LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	:dam(dam), totalTime(timeLim), pos(pos), dir(dir)

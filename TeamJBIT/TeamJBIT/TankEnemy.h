@@ -8,6 +8,6 @@ class TankEnemy : public Enemy
 		TankEnemy(std::string file, sf::Vector2f pos, int health = 1000);
 		~TankEnemy(void);
 
-		void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos);
+		void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player);
 		
 };
