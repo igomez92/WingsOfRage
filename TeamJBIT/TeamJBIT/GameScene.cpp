@@ -4,7 +4,7 @@
 #include "TextureManager.h"
 #include "MeleeEnemy.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/ball.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/PowerUp.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
 {
 	// Initialize score info
 	initializeScoreAndTime();
