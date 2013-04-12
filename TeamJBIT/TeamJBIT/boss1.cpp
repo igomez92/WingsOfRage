@@ -9,21 +9,21 @@ Boss1::Boss1(std::string file, sf::Vector2f pos, int health):Enemy(file,pos,heal
 }
 
 
-void Boss1::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos)
+void Boss1::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player)
 {
 	attackswitchtimer += deltaTime;
 	if(attackswitchtimer < 10)
 	{
-		attackPattern1(deltaTime,eList,pList,player_pos);
+		attackPattern1(deltaTime,eList,pList,player.pos);
 	}else if(attackswitchtimer >= 10 && attackswitchtimer < 15)
 	{
-		attackPattern2(deltaTime,eList,pList,player_pos);
+		attackPattern2(deltaTime,eList,pList,player.pos);
 	}else if(attackswitchtimer >= 15 && attackswitchtimer < 20)
 	{
-		attackPattern3(deltaTime,eList,pList,player_pos);
+		attackPattern3(deltaTime,eList,pList,player.pos);
 	}else if(attackswitchtimer >=20)
 	{
-		attackPattern1(deltaTime,eList,pList,player_pos);
+		attackPattern1(deltaTime,eList,pList,player.pos);
 		attackswitchtimer = 0;
 	}
 }

@@ -345,7 +345,7 @@ void Player::swordSwing(sf::RenderWindow& window)
 		dir.y = dir.y/norm;
 	}
 
-	sword = new BeamSword("media/sword.png", 0, dir, pos, 30.f, 1000.f);
+	sword = new BeamSword("media/newSword.png", 0, dir, pos, 30.f, 1000.f);
 	swordSwinging = true;
 }
 

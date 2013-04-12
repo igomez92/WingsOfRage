@@ -8,7 +8,7 @@ class Boss1 : public Enemy
 		Boss1(std::string file, sf::Vector2f pos, int health = 500);
 		~Boss1(void);
 
-		void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos);
+		virtual void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player);
 		
 		
 		void attackPattern1(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, sf::Vector2f player_pos);

@@ -88,7 +88,7 @@
   <ItemGroup>
     <ClCompile Include="AnimSprite.cpp" />
     <ClCompile Include="BeamSword.cpp" />
-    <ClCompile Include="boss1.cpp" />
+    <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="dbtweener.cpp" />

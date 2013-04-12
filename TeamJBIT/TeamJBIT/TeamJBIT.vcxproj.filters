@@ -93,13 +93,13 @@
     <ClCompile Include="ParticleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="boss1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="enemMelee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

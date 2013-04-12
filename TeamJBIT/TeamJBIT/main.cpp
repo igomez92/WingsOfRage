@@ -12,6 +12,9 @@
 int main(char argc, char* argv[]) 
 {
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage");
+	
+	// Fullscreen Mode
+	//sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage", sf::Style::Fullscreen);
 	window.setFramerateLimit(60);
 
 	//set up scenes
