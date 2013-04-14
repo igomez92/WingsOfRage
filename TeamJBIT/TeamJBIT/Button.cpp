@@ -1,5 +1,6 @@
 #include "Button.h"
 #include "Utility.h"
+#include "FontManager.h"
 
 Button::Button() {
 	onPressFunction = [] {};
@@ -28,9 +29,7 @@ TextButton::TextButton(sf::FloatRect& boundsRect, std::string label, float fontS
 	this->onPressFunction = onPressFunction;
 	this->boundsRect = boundsRect;
 
-	tempestaSevenFont.loadFromFile("media/pf_tempesta_seven.ttf");
-
-	labelText = sf::Text(label, tempestaSevenFont, fontSize);
+	labelText = sf::Text(label, *_GETFONT("media/kimberley bl.ttf"), fontSize);
 	centerOrigin(labelText);
 	labelText.setPosition(boundsRect.left + (boundsRect.width / 2), boundsRect.top + (boundsRect.height / 2));
 }

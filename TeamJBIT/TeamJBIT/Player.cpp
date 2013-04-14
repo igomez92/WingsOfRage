@@ -6,8 +6,8 @@ Player::Player(sf::Vector2f pos)
 	:health(100), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0), swordSwinging(false), allowSword(true)
 {
-	planeImage = TextureManager::getInstance().getTexture("media/ship.png");
-	gunnerImage = TextureManager::getInstance().getTexture("media/gundam.png");
+	planeImage = _GETTEXTURE("media/ship.png");
+	gunnerImage = _GETTEXTURE("media/gundam.png");
 	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(41,43);
 

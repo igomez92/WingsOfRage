@@ -18,6 +18,9 @@ class MenuScene : public IScene {
 		sf::Sprite gameLogoSprite;
 		sf::Sprite backgroundSprite;
 		float backgroundScroll;
+		sf::RectangleShape blackScreen;
+
+		CDBTweener fadeInTween;
 
 		TextButton* buttons [3];
 		bool shouldQuit; //ugh

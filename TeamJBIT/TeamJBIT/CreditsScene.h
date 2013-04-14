@@ -3,22 +3,28 @@
 #include "IScene.h"
 #include "AnimSprite.h"
 #include "dbtweener.h"
-#include "Sequence.h"
+#include "Button.h"
 
-class SplashScene : public IScene {
+class CreditsScene : public IScene {
 	public:
-		SplashScene();
-		~SplashScene();
+		CreditsScene();
+		~CreditsScene();
 
 		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);
 
 	private:
-		sf::Sprite JBITLogoSprite;
+		sf::Sprite backgroundSprite;
+		float backgroundScroll;
 		sf::RectangleShape blackScreen;
 
-		Sequence splashScreenSequence;
+		sf::Text teamLabel;
+		sf::Text teamList;
+
+		TextButton backButton;
+
+		CDBTweener fadeTweener;
 		
 		sf::Clock clock;
 		sf::Time lastFrameTime;

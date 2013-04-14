@@ -91,10 +91,12 @@
     <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CreditsScene.cpp" />
     <ClCompile Include="dbtweener.cpp" />
     <ClCompile Include="EndGameScene.cpp" />
     <ClCompile Include="enemMelee.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="LaserShot.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -108,6 +110,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="SingleShot.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="SliderEnemy.cpp" />
@@ -122,10 +125,12 @@
     <ClInclude Include="Boss1.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CreditsScene.h" />
     <ClInclude Include="dbtweener.h" />
     <ClInclude Include="EndGameScene.h" />
     <ClInclude Include="enemMelee.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeleeEnemy.h" />

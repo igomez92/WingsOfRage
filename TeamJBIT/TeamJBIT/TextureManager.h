@@ -3,6 +3,8 @@
 #include <SFML\Graphics.hpp>
 #include <map>
 
+#define _GETTEXTURE(path) TextureManager::getInstance().getTexture(path)
+
 class TextureManager {
 	public:
 		static TextureManager& getInstance() {

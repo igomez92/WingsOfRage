@@ -22,5 +22,4 @@ class TextButton : public Button {
 		sf::Text labelText;
 
 	private:
-		sf::Font tempestaSevenFont;
 };

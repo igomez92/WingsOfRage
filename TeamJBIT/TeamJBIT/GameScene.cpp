@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
+#include "FontManager.h"
 #include "MeleeEnemy.h"
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/PowerUp.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
@@ -32,13 +33,13 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDumm
 	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 	bossSpawned = false;
 
-	sf::Texture* bgImage = TextureManager::getInstance().getTexture("media/backgrounds/starsLow.png");
+	sf::Texture* bgImage = _GETTEXTURE("media/backgrounds/starsLow.png");
 	bgImage->setRepeated(true);
 	backgroundSpriteLow.setTexture(*bgImage);
 	backgroundSpriteLow.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
 	backgroundSpriteLow.setOrigin(0, SCREEN_HEIGHT);
 
-	bgImage = TextureManager::getInstance().getTexture("media/backgrounds/starsMed.png");
+	bgImage = _GETTEXTURE("media/backgrounds/starsMed.png");
 	bgImage->setRepeated(true);
 	backgroundSpriteMed.setTexture(*bgImage);
 	backgroundSpriteMed.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
@@ -157,21 +158,20 @@ bool GameScene::handleEvent(sf::Event& event) {
 
 void GameScene::initializeScoreAndTime()
 {
-	tempestaSevenFont.loadFromFile("media/pf_tempesta_seven.ttf");
 	int offset = 20;
-	timer = sf::Text("0:00", tempestaSevenFont, offset);
+	timer = sf::Text("0:00", *_GETFONT("media/pf_tempesta_seven.ttf"), offset);
 	//timer.setOrigin(timer.getLocalBounds().width / 2.f, timer.getLocalBounds().height / 2.f);
 	timer.setPosition(5, 10);
 
 	scoreStr << scoreNum;
-	score = sf::Text(scoreStr.str(), tempestaSevenFont, offset);
+	score = sf::Text(scoreStr.str(), *_GETFONT("media/pf_tempesta_seven.ttf"), offset);
 	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
 	score.setPosition(5, 35);
 	scoreStr.str("");
 	scoreStr.clear();
 
 	playerhealthStr << healthNum;
-	health = sf::Text(playerhealthStr.str(), tempestaSevenFont, offset);
+	health = sf::Text(playerhealthStr.str(), *_GETFONT("media/pf_tempesta_seven.ttf"), offset);
 	//score.setOrigin(score.getLocalBounds().width / 2.f, score.getLocalBounds().height / 2.f);
 	health.setPosition(5, 60);
 	playerhealthStr.str("");

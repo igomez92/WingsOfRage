@@ -61,7 +61,6 @@ class GameScene : public IScene
 		// Score stuff
 		std::stringstream scoreStr;
 		sf::Text score;
-		sf::Font tempestaSevenFont;
 		unsigned int scoreNum;
 
 		//player health

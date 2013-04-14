@@ -4,7 +4,7 @@
 Particle::Particle(std::string file, sf::Vector2f pos, sf::Vector2f vel, sf::Color particleColor, float lifeExpectancy)
 	:startingPosition(pos), pos(pos), vel(vel), lifeExpectancy(lifeExpectancy), particleColor(particleColor)
 {
-	sf::Texture* image = TextureManager::getInstance().getTexture(file);
+	sf::Texture* image = _GETTEXTURE(file);
 	image->setSmooth(true);
 	sprite.setTexture(*image);
 	sprite.setColor(particleColor);

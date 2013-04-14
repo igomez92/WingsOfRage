@@ -2,24 +2,29 @@
 #include "SceneManager.h"
 #include "TextureManager.h"
 #include "Utility.h"
-#include "SceneManager.h"
 #include "GameScene.h"
 
 MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
-	sf::Texture* gameLogoTexture = TextureManager::getInstance().getTexture("media/UI/GameLogo.png");
+	sf::Texture* gameLogoTexture = _GETTEXTURE("media/UI/GameLogo.png");
 	gameLogoSprite.setTexture(*gameLogoTexture);
 	centerOrigin(gameLogoSprite);
 	gameLogoSprite.setPosition(400, 130);
 
-	sf::Texture* backgroundTexture = TextureManager::getInstance().getTexture("media/backgrounds/starsLow.png");
+	sf::Texture* backgroundTexture = _GETTEXTURE("media/backgrounds/starsLow.png");
 	backgroundTexture->setRepeated(true);
 	backgroundTexture->setSmooth(true);
 	backgroundSprite.setTexture(*backgroundTexture);
 	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2));
 
+	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+	blackScreen.setFillColor(sf::Color::Black);
+
+	//fade in
+	fadeInTween.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 2, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
+
 	//buttons
 	buttons[0] = new TextButton(sf::FloatRect(200, 300, 400, 50), "Play", 40, [] {SceneManager::getInstance().addScene("start", new GameScene());; SceneManager::getInstance().changeScene("start");});
-	buttons[1] = new TextButton(sf::FloatRect(200, 365, 400, 50), "Credits", 40, [] {});
+	buttons[1] = new TextButton(sf::FloatRect(200, 365, 400, 50), "Credits", 40, [] {SceneManager::getInstance().changeScene("credits");});
 	buttons[2] = new TextButton(sf::FloatRect(200, 430, 400, 50), "Quit", 40, [&] {shouldQuit = true;});
 }
 
@@ -39,6 +44,8 @@ void MenuScene::update(sf::RenderWindow& window) {
 		backgroundScroll -= 512;
 	backgroundSprite.setPosition(-backgroundScroll, -backgroundScroll);
 
+	fadeInTween.step(deltaTime);
+
 	if (shouldQuit)
 		window.close();
 }
@@ -47,9 +54,12 @@ void MenuScene::draw(sf::RenderWindow& window) {
 	window.clear(sf::Color::Black);
 	window.draw(backgroundSprite);
 	window.draw(gameLogoSprite);
+
 	for (TextButton* button : buttons) {
 		window.draw(button->labelText);
 	}
+
+	window.draw(blackScreen);
 }
 
 bool MenuScene::handleEvent(sf::Event& e) {

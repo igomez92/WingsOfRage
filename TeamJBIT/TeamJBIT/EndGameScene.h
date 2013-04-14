@@ -15,7 +15,6 @@ class EndGameScene : public IScene {
 	private:
 		AnimSprite testSprite;
 
-		sf::Font tempestaSevenFont;
 		sf::Text gameOverMessage;
 		
 		sf::Clock clock;

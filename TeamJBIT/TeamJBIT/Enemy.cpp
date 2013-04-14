@@ -4,7 +4,7 @@
 Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 	:pos(pos), health(health), collisiondmg(10)
 {
-	sf::Texture* image = TextureManager::getInstance().getTexture(file);
+	sf::Texture* image = _GETTEXTURE(file);
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
