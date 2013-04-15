@@ -4,7 +4,7 @@
 #include "Utility.h"
 
 SplashScene::SplashScene() {
-	sf::Texture* JBITLogoTexture = _GETTEXTURE("media/UI/JBITLogo.png");
+	sf::Texture* JBITLogoTexture = _getTexture("media/UI/JBITLogo.png");
 	JBITLogoSprite.setTexture(*JBITLogoTexture);
 	centerOrigin(JBITLogoSprite);
 	JBITLogoSprite.setPosition(400, 300);

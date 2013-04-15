@@ -3,8 +3,6 @@
 #include <SFML\Graphics.hpp>
 #include <map>
 
-#define _GETFONT(path) FontManager::getInstance().getFont(path)
-
 class FontManager {
 	public:
 		static FontManager& getInstance() {
@@ -21,3 +19,7 @@ class FontManager {
 
 		std::map<std::string, sf::Font*> fontMap;
 };
+
+inline sf::Font* _getFont(std::string path) {
+	return FontManager::getInstance().getFont(path);
+}

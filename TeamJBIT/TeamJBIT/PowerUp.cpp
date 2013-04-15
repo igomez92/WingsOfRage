@@ -4,7 +4,7 @@
 PowerUp::PowerUp(std::string file, sf::Vector2f pos)
 	:pos(pos)
 {
-	sf::Texture* image = _GETTEXTURE(file);
+	sf::Texture* image = _getTexture(file);
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);

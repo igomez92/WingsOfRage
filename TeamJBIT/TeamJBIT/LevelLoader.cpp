@@ -5,6 +5,7 @@
 #include "SliderEnemy.h"
 #include "TankEnemy.h"
 #include "MTankEnemy.h"
+#include "CircleEnemy.h"
 
 //two helper functions first
 EnemyClass parseEnemyType(char* typeString) {
@@ -16,6 +17,8 @@ EnemyClass parseEnemyType(char* typeString) {
 		return EnemyClass::TANKENEMY;
 	if (strcmp(typeString, "MTankEnemy") == 0)
 		return EnemyClass::MTANKENEMY;
+	if (strcmp(typeString, "CircleEnemy") == 0)
+		return EnemyClass::CIRCLEENEMY;
 	
 	//fallback to stock enemy :/
 	return EnemyClass::ENEMY;
@@ -80,6 +83,9 @@ void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
 			break;
 		case EnemyClass::MTANKENEMY:
 			enemyList.push_back(new MTankEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			break;
+		case EnemyClass::CIRCLEENEMY:
+			enemyList.push_back(new CircleEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
 			break;
 	}
 }

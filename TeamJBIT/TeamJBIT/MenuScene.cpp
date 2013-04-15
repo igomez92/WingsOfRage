@@ -5,12 +5,12 @@
 #include "GameScene.h"
 
 MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
-	sf::Texture* gameLogoTexture = _GETTEXTURE("media/UI/GameLogo.png");
+	sf::Texture* gameLogoTexture = _getTexture("media/UI/GameLogo.png");
 	gameLogoSprite.setTexture(*gameLogoTexture);
 	centerOrigin(gameLogoSprite);
 	gameLogoSprite.setPosition(400, 130);
 
-	sf::Texture* backgroundTexture = _GETTEXTURE("media/backgrounds/starsLow.png");
+	sf::Texture* backgroundTexture = _getTexture("media/backgrounds/starsLow.png");
 	backgroundTexture->setRepeated(true);
 	backgroundTexture->setSmooth(true);
 	backgroundSprite.setTexture(*backgroundTexture);

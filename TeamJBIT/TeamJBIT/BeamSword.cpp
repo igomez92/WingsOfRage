@@ -5,7 +5,7 @@
 BeamSword::BeamSword(std::string file, float delay, sf::Vector2f dir, sf::Vector2f pos, float damage, float swingSpeed)
 	:dir(dir), currentAngle(-60), swingSpeed(swingSpeed), dam(damage), pos(pos)
 {
-	sf::Texture* image = _GETTEXTURE(file);
+	sf::Texture* image = _getTexture(file);
 	image->setSmooth(true);
 	sprite.setTexture(*image);
 	sprite.setOrigin(0, sprite.getLocalBounds().height/2);

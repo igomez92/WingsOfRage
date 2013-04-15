@@ -3,8 +3,6 @@
 #include <SFML\Graphics.hpp>
 #include <map>
 
-#define _GETTEXTURE(path) TextureManager::getInstance().getTexture(path)
-
 class TextureManager {
 	public:
 		static TextureManager& getInstance() {
@@ -21,3 +19,7 @@ class TextureManager {
 
 		std::map<std::string, sf::Texture*> textureMap;
 };
+
+inline sf::Texture* _getTexture(std::string path) {
+	return TextureManager::getInstance().getTexture(path);
+}

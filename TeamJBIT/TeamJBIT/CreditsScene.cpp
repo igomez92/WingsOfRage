@@ -7,7 +7,7 @@
 
 CreditsScene::CreditsScene() : backgroundScroll(0) {
 
-	sf::Texture* backgroundTexture = _GETTEXTURE("media/backgrounds/starsLow.png");
+	sf::Texture* backgroundTexture = _getTexture("media/backgrounds/starsLow.png");
 	backgroundTexture->setRepeated(true);
 	backgroundTexture->setSmooth(true);
 	backgroundSprite.setTexture(*backgroundTexture);
@@ -19,12 +19,12 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	fadeTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 1, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
 
 	//setup credits text
-	teamLabel = sf::Text("Team JBIT", *_GETFONT("media/kimberley bl.ttf"), 50);
+	teamLabel = sf::Text("Team JBIT", *_getFont("media/kimberley bl.ttf"), 50);
 	centerOrigin(teamLabel);
 	teamLabel.setPosition(400, 150);
 	teamLabel.setColor(sf::Color(150, 150, 150));
 
-	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  ", *_GETFONT("media/kimberley bl.ttf"), 40);
+	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  ", *_getFont("media/kimberley bl.ttf"), 40);
 	teamList.setOrigin((int)teamList.getLocalBounds().width / 2, 0);
 	teamList.setPosition(400, 200);
 

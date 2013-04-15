@@ -8,7 +8,8 @@ enum EnemyClass{
 	ENEMY,
 	TANKENEMY,
 	MTANKENEMY,
-	SLIDERENEMY
+	SLIDERENEMY,
+	CIRCLEENEMY
 };
 
 struct SpawnEntry {

@@ -5,7 +5,7 @@
 LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	:dam(dam), totalTime(timeLim), pos(pos), dir(dir)
 {
-	sf::Texture* image = _GETTEXTURE("media/greenLaserRay.png");
+	sf::Texture* image = _getTexture("media/greenLaserRay.png");
 	image->setSmooth(true);
 	sprite.setTexture(*image);
 	sprite.scale(sf::Vector2f(3.5, 1));

@@ -29,7 +29,7 @@ TextButton::TextButton(sf::FloatRect& boundsRect, std::string label, float fontS
 	this->onPressFunction = onPressFunction;
 	this->boundsRect = boundsRect;
 
-	labelText = sf::Text(label, *_GETFONT("media/kimberley bl.ttf"), fontSize);
+	labelText = sf::Text(label, *_getFont("media/kimberley bl.ttf"), fontSize);
 	centerOrigin(labelText);
 	labelText.setPosition(boundsRect.left + (boundsRect.width / 2), boundsRect.top + (boundsRect.height / 2));
 }

@@ -4,7 +4,7 @@
 enemMelee::enemMelee(std::string file, float delay, sf::Vector2f dir, sf::Vector2f pos, float damage, float swingSpeed)
 	:dir(dir), currentAngle(-60), swingSpeed(swingSpeed), dam(damage), pos(pos), endSwing(false)
 {
-	sf::Texture* image = _GETTEXTURE(file);
+	sf::Texture* image = _getTexture(file);
 	sprite.setTexture(*image);
 	sprite.setOrigin(0, sprite.getLocalBounds().height/2);
 	sprite.setPosition(pos);

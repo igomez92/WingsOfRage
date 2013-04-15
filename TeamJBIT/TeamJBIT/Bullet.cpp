@@ -5,7 +5,7 @@
 Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam, sf::Color bulletColor)
 	:pos(pos), vel(vel), dam(dam)
 {
-	sf::Texture* image = _GETTEXTURE(file);
+	sf::Texture* image = _getTexture(file);
 	image->setSmooth(true);
 	sprite.setTexture(*image);
 	sprite.setColor(bulletColor);

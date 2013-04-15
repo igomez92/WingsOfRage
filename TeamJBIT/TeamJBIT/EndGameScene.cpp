@@ -6,7 +6,7 @@
 #include "FontManager.h"
 
 EndGameScene::EndGameScene()  {
-	sf::Texture* animSpriteTexture = _GETTEXTURE("media/yeah.jpg");
+	sf::Texture* animSpriteTexture = _getTexture("media/yeah.jpg");
 	animSpriteTexture->setSmooth(true);
 
 	testSprite.setTexture(*animSpriteTexture);
@@ -17,7 +17,7 @@ EndGameScene::EndGameScene()  {
 	testSprite.setPosition(400, 300);
 	testSprite.setScale(800.f/200, 600.f/217);
 
-	gameOverMessage = sf::Text("GAME OVER", *_GETFONT("media/pf_tempesta_seven.ttf"), 100);
+	gameOverMessage = sf::Text("GAME OVER", *_getFont("media/pf_tempesta_seven.ttf"), 100);
 	gameOverMessage.setOrigin(gameOverMessage.getLocalBounds().width / 2.f, gameOverMessage.getLocalBounds().height / 2.f);
 	gameOverMessage.setPosition(400, 300);
 }
