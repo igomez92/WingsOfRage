@@ -14,9 +14,6 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2));
 
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-	blackScreen.setFillColor(sf::Color::Black);
-	//fade in
-	fadeTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 1, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
 
 	//setup credits text
 	teamLabel = sf::Text("Team JBIT", *_getFont("media/kimberley bl.ttf"), 50);
@@ -31,7 +28,15 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	backButton = TextButton(sf::FloatRect(200, 500, 400, 50), "Back to Menu", 30, [] {SceneManager::getInstance().changeScene("menu");});
 }
 
-CreditsScene::~CreditsScene() {
+void CreditsScene::enter() {
+	blackScreen.setFillColor(sf::Color::Black);
+	fadeTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 0.5, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
+}
+
+void CreditsScene::leave() {
+	for (CDBTweener::CTween* tween : fadeTweener.getTweens()) {
+		fadeTweener.removeTween(tween);
+	}
 }
 
 void CreditsScene::update(sf::RenderWindow& window) {

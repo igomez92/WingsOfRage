@@ -9,7 +9,8 @@ class MenuScene : public IScene {
 	public:
 		MenuScene();
 		~MenuScene();
-
+		virtual void enter();
+		virtual void leave();
 		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);
@@ -20,7 +21,7 @@ class MenuScene : public IScene {
 		float backgroundScroll;
 		sf::RectangleShape blackScreen;
 
-		CDBTweener fadeInTween;
+		CDBTweener fadeTweener;
 
 		TextButton* buttons [3];
 		bool shouldQuit; //ugh

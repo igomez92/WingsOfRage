@@ -6,16 +6,19 @@ void SceneManager::changeScene(std::string sceneName, bool deleteCurrentScene)
 	iter = sceneMap.find(sceneName);
 
 	if( iter != sceneMap.end() ) {
+		if (currentScene)
+			currentScene->leave();
+
 		if (deleteCurrentScene)
 			delete currentScene;
 
 		currentScene = iter->second;
+		currentScene->enter();
 	}
 }
 
 void SceneManager::addScene(std::string sceneName, IScene* sceneToAdd)
 {
-
 	sceneMap.insert(std::make_pair(sceneName, sceneToAdd));
 }
 

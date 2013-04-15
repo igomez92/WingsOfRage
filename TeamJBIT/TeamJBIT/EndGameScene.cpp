@@ -5,7 +5,7 @@
 #include "TextureManager.h"
 #include "FontManager.h"
 
-EndGameScene::EndGameScene()  {
+EndGameScene::EndGameScene() {
 	sf::Texture* animSpriteTexture = _getTexture("media/yeah.jpg");
 	animSpriteTexture->setSmooth(true);
 
@@ -26,6 +26,12 @@ EndGameScene::~EndGameScene() {
 
 }
 
+void EndGameScene::enter() {
+	clock.restart();
+	lastFrameTime = sf::Time::Zero;
+	testSprite.playAnim("yeah");
+}
+
 void EndGameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
@@ -42,7 +48,7 @@ void EndGameScene::draw(sf::RenderWindow& window) {
 }
 
 bool EndGameScene::handleEvent(sf::Event& event) {
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed && clock.getElapsedTime().asSeconds() > 1) {
 		SceneManager::getInstance().deleteScene("start");
 		SceneManager::getInstance().changeScene("menu");
 

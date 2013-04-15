@@ -8,8 +8,8 @@
 class CreditsScene : public IScene {
 	public:
 		CreditsScene();
-		~CreditsScene();
-
+		virtual void enter();
+		virtual void leave();
 		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);

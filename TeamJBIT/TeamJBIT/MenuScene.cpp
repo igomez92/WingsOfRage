@@ -17,10 +17,6 @@ MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
 	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2));
 
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-	blackScreen.setFillColor(sf::Color::Black);
-
-	//fade in
-	fadeInTween.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 2, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
 
 	//buttons
 	buttons[0] = new TextButton(sf::FloatRect(200, 300, 400, 50), "Play", 40, [] {SceneManager::getInstance().addScene("start", new GameScene());; SceneManager::getInstance().changeScene("start");});
@@ -34,6 +30,17 @@ MenuScene::~MenuScene() {
 	}
 }
 
+void MenuScene::enter() {
+	blackScreen.setFillColor(sf::Color::Black);
+	fadeTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 0.5, 255, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 0);
+}
+
+void MenuScene::leave() {
+	for (CDBTweener::CTween* tween : fadeTweener.getTweens()) {
+		fadeTweener.removeTween(tween);
+	}
+}
+
 void MenuScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
 	lastFrameTime = clock.getElapsedTime();
@@ -44,7 +51,7 @@ void MenuScene::update(sf::RenderWindow& window) {
 		backgroundScroll -= 512;
 	backgroundSprite.setPosition(-backgroundScroll, -backgroundScroll);
 
-	fadeInTween.step(deltaTime);
+	fadeTweener.step(deltaTime);
 
 	if (shouldQuit)
 		window.close();
