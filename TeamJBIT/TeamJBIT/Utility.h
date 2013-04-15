@@ -19,18 +19,18 @@ inline float rad2deg(float rad) {
 	return rad * (180.f / M_PI);
 }
 
-inline sf::Vector2f normalize(sf::Vector2f in) {
-	float len = vecLen(in);
-	if (len == 0) return sf::Vector2f(0, 0);
-	return in / len;
-}
-
 inline float vecLen2(sf::Vector2f in) {
 	return (in.x * in.x) + (in.y * in.y);
 }
 
 inline float vecLen(sf::Vector2f in) {
 	return std::sqrtf((in.x * in.x) + (in.y * in.y));
+}
+
+inline sf::Vector2f normalize(sf::Vector2f in) {
+	float len = vecLen(in);
+	if (len == 0) return sf::Vector2f(0, 0);
+	return in / len;
 }
 
 inline void centerOrigin(sf::Sprite& sprite) {
