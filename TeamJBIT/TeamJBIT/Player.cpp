@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(100), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
+	:health(1000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0), swordSwinging(false), allowSword(true)
 {
 	planeImage = _getTexture("media/ship.png");
@@ -132,9 +132,9 @@ void Player::update(float deltaTime)
 
 	//Collide with borders
 	}
-	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > 600)
+	if(sprite.getGlobalBounds().top + sprite.getGlobalBounds().height > SCREEN_HEIGHT)
 	{
-		pos.y = 600 - sprite.getGlobalBounds().height/2 - 0.01;
+		pos.y = SCREEN_HEIGHT - sprite.getGlobalBounds().height/2 - 0.01;
 		sprite.setPosition(pos);
 	}
 	if(sprite.getGlobalBounds().top < 0)
@@ -142,9 +142,9 @@ void Player::update(float deltaTime)
 		pos.y = sprite.getGlobalBounds().height / 2;
 		sprite.setPosition(pos);
 	}
-	if(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > 800)
+	if(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > SCREEN_WIDTH)
 	{
-		pos.x = 800 - sprite.getGlobalBounds().width/2 - 0.01;
+		pos.x = SCREEN_WIDTH - sprite.getGlobalBounds().width/2 - 0.01;
 		sprite.setPosition(pos);
 	}
 	if(sprite.getGlobalBounds().left < 0)

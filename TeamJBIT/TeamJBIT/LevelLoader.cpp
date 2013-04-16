@@ -73,19 +73,19 @@ std::queue<SpawnEntry> LevelLoader::loadLevel(std::string filename) {
 void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
 	switch (entry.enemyType) {
 		case EnemyClass::ENEMY:
-			enemyList.push_back(new Enemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			enemyList.push_back(new Enemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::SLIDERENEMY:
-			enemyList.push_back(new SliderEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			enemyList.push_back(new SliderEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::TANKENEMY:
-			enemyList.push_back(new TankEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			enemyList.push_back(new TankEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::MTANKENEMY:
-			enemyList.push_back(new MTankEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			enemyList.push_back(new MTankEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::CIRCLEENEMY:
-			enemyList.push_back(new CircleEnemy("media/ball.png", sf::Vector2f(entry.xPos, entry.yPos)));
+			enemyList.push_back(new CircleEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 	}
 }

@@ -7,7 +7,7 @@ SplashScene::SplashScene() {
 	sf::Texture* JBITLogoTexture = _getTexture("media/UI/JBITLogo.png");
 	JBITLogoSprite.setTexture(*JBITLogoTexture);
 	centerOrigin(JBITLogoSprite);
-	JBITLogoSprite.setPosition(400, 300);
+	JBITLogoSprite.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	JBITLogoSprite.setColor(sf::Color::Transparent);
 
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));

@@ -4,7 +4,7 @@
 #include <list>
 #include "Bullet.h"
 #include "Player.h"
-enum EnemyType {Normal , Reflector, Tank, Melee};
+enum EnemyType {Normal , Reflector, Tank, Melee, Spiral};
 
 class Enemy
 {

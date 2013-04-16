@@ -4,12 +4,28 @@
 #include <SFML\System.hpp>
 #include <SFML\Graphics.hpp>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 #ifndef M_PI
 	#define M_PI 3.1415926535897932384626433832795f
 #endif
+
+inline float scaledFontSize(float oldSize) {
+	return oldSize * (SCREEN_WIDTH / 800.f);
+}
+
+inline float scaledXPos(float oldXPos) {
+	return oldXPos * (SCREEN_WIDTH / 800.f);
+}
+
+inline float scaledYPos(float oldYPos) {
+	return oldYPos * (SCREEN_HEIGHT / 600.f);
+}
+
+inline sf::Vector2f scaledPos(sf::Vector2f& oldPos) {
+	return sf::Vector2f(scaledXPos(oldPos.x), scaledYPos(oldPos.y));
+}
 
 inline float deg2rad(float degrees) {
 	return degrees * (M_PI / 180.f);

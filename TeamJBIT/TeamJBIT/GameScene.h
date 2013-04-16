@@ -35,7 +35,7 @@ class GameScene : public IScene
 	private:
 
 		Player player;
-		PowerUp testDummy;
+		PowerUp powerUp;
 		sf::Time shotTimer;
 		int enemyDisplacement;
 

@@ -8,7 +8,7 @@ MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
 	sf::Texture* gameLogoTexture = _getTexture("media/UI/GameLogo.png");
 	gameLogoSprite.setTexture(*gameLogoTexture);
 	centerOrigin(gameLogoSprite);
-	gameLogoSprite.setPosition(400, 130);
+	gameLogoSprite.setPosition(SCREEN_WIDTH / 2, scaledYPos(130));
 
 	sf::Texture* backgroundTexture = _getTexture("media/backgrounds/starsLow.png");
 	backgroundTexture->setRepeated(true);
@@ -19,9 +19,9 @@ MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	//buttons
-	buttons[0] = new TextButton(sf::FloatRect(200, 300, 400, 50), "Play", 40, [] {SceneManager::getInstance().addScene("start", new GameScene());; SceneManager::getInstance().changeScene("start");});
-	buttons[1] = new TextButton(sf::FloatRect(200, 365, 400, 50), "Credits", 40, [] {SceneManager::getInstance().changeScene("credits");});
-	buttons[2] = new TextButton(sf::FloatRect(200, 430, 400, 50), "Quit", 40, [&] {shouldQuit = true;});
+	buttons[0] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(300), scaledXPos(400), scaledYPos(50)), "Play", scaledFontSize(40), [] {SceneManager::getInstance().addScene("start", new GameScene());; SceneManager::getInstance().changeScene("start");});
+	buttons[1] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(365), scaledXPos(400), scaledYPos(50)), "Credits", scaledFontSize(40), [] {SceneManager::getInstance().changeScene("credits");});
+	buttons[2] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(430), scaledXPos(400), scaledYPos(50)), "Quit", scaledFontSize(40), [&] {shouldQuit = true;});
 }
 
 MenuScene::~MenuScene() {

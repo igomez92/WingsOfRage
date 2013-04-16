@@ -20,8 +20,9 @@ void PowerUp::setTime(float startTime)
 	PowerUp::startTime = startTime;
 }
 
-void PowerUp::setPosition(sf::Vector2f pos)
+void PowerUp::setPosition(sf::Vector2f position)
 {
+	pos = position;
 	sprite.setPosition(pos);
 }
 

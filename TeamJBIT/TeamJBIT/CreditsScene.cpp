@@ -16,16 +16,16 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	//setup credits text
-	teamLabel = sf::Text("Team JBIT", *_getFont("media/kimberley bl.ttf"), 50);
+	teamLabel = sf::Text("Team JBIT", *_getFont("media/kimberley bl.ttf"), scaledFontSize(50));
 	centerOrigin(teamLabel);
-	teamLabel.setPosition(400, 150);
+	teamLabel.setPosition(SCREEN_WIDTH / 2, 150);
 	teamLabel.setColor(sf::Color(150, 150, 150));
 
-	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  ", *_getFont("media/kimberley bl.ttf"), 40);
+	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  ", *_getFont("media/kimberley bl.ttf"), scaledFontSize(40));
 	teamList.setOrigin((int)teamList.getLocalBounds().width / 2, 0);
-	teamList.setPosition(400, 200);
+	teamList.setPosition(SCREEN_WIDTH / 2, 200);
 
-	backButton = TextButton(sf::FloatRect(200, 500, 400, 50), "Back to Menu", 30, [] {SceneManager::getInstance().changeScene("menu");});
+	backButton = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(500), scaledXPos(400), scaledYPos(50)), "Back to Menu", 30, [] {SceneManager::getInstance().changeScene("menu");});
 }
 
 void CreditsScene::enter() {

@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
+#include "Utility.h"
 
 EndGameScene::EndGameScene() {
 	sf::Texture* animSpriteTexture = _getTexture("media/yeah.jpg");
@@ -13,13 +14,13 @@ EndGameScene::EndGameScene() {
 	testSprite.addAnim("yeah", 0, 0, 95, 10, 30, true);
 	testSprite.setFrameSize(200, 217);
 	testSprite.playAnim("yeah");
-	testSprite.setOrigin(100, 108);
-	testSprite.setPosition(400, 300);
-	testSprite.setScale(800.f/200, 600.f/217);
+	centerOrigin(testSprite);
+	testSprite.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	testSprite.setScale(SCREEN_WIDTH/200.f, SCREEN_HEIGHT/217.f);
 
-	gameOverMessage = sf::Text("GAME OVER", *_getFont("media/pf_tempesta_seven.ttf"), 100);
-	gameOverMessage.setOrigin(gameOverMessage.getLocalBounds().width / 2.f, gameOverMessage.getLocalBounds().height / 2.f);
-	gameOverMessage.setPosition(400, 300);
+	gameOverMessage = sf::Text("GAME OVER", *_getFont("media/pf_tempesta_seven.ttf"), scaledFontSize(100));
+	centerOrigin(gameOverMessage);
+	gameOverMessage.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 EndGameScene::~EndGameScene() {
@@ -48,7 +49,7 @@ void EndGameScene::draw(sf::RenderWindow& window) {
 }
 
 bool EndGameScene::handleEvent(sf::Event& event) {
-	if (event.type == sf::Event::KeyPressed && clock.getElapsedTime().asSeconds() > 1) {
+	if ((event.type == sf::Event::KeyPressed || event.type == sf::Event::MouseButtonPressed) && clock.getElapsedTime().asSeconds() > 1) {
 		SceneManager::getInstance().deleteScene("start");
 		SceneManager::getInstance().changeScene("menu");
 

@@ -5,14 +5,15 @@
 #include "FontManager.h"
 #include "MeleeEnemy.h"
 #include "CircleEnemy.h"
+#include "SpiralEnemy.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , testDummy("media/PowerUp.png", sf::Vector2f(500,500)), backgroundOffsetLow(0), backgroundOffsetMed(0)
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp("media/PowerUp.png", sf::Vector2f(-100,-100)), backgroundOffsetLow(0), backgroundOffsetMed(0)
 {
 	// Initialize score info
 	initializeScoreAndTime();
 
 	//enemyList.push_back(new MeleeEnemy("media/ball.png", sf::Vector2f(0, 100)));
-
+	enemyList.push_back(new SpiralEnemy("media/ball.png", sf::Vector2f(SCREEN_WIDTH - 10, 0), 500, 50.0));
 	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 	bossSpawned = false;
 
@@ -131,7 +132,7 @@ void GameScene::draw(sf::RenderWindow& window) {
 	}
 
 	player.draw(window);
-	testDummy.draw(window);
+	powerUp.draw(window);
 	printScoreAndTime(window);
 }
 
@@ -256,7 +257,8 @@ void GameScene::updatePlayerBullets(float deltaTime)
 		(**it).update(deltaTime);
 
 		//offscreen check
-		if ((**it).getPosition().y < -100) {
+		sf::Vector2f bulletPos = (**it).getPosition();
+		if (bulletPos.x < -100 || bulletPos.x > SCREEN_WIDTH + 100 || bulletPos.y < -100 || bulletPos.y > SCREEN_HEIGHT + 100) {
 			auto itToErase = it;
 			it++;
 			delete (*itToErase);
@@ -343,6 +345,8 @@ void GameScene::updateEnemies(float deltaTime)
 		if((**it).isDead())
 		{
 			scoreNum += 100;
+			if(scoreNum % 400 == 0)
+				powerUp.setPosition((**it).pos);
 			ptManager.doExplosion(allParticles, (**it).pos, sf::Color::Green, 100.0);
 			auto itToErase = it;
 			it++;
@@ -367,7 +371,7 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 
 		//offscreen check
 		sf::Vector2f bulletPos = (**it).getPosition();
-		if (bulletPos.x < -100 || bulletPos.x > 900 || bulletPos.y < -100 || bulletPos.y > 700 ) {
+		if (bulletPos.x < -100 || bulletPos.x > SCREEN_WIDTH + 100 || bulletPos.y < -100 || bulletPos.y > SCREEN_HEIGHT + 100 ) {
 			auto itToErase = it;
 			it++;
 			delete (*itToErase);
@@ -426,10 +430,10 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 
 void GameScene::updateUpgrade()
 {
-	if(abs(player.pos.x - testDummy.pos.x) < 22 && abs(player.pos.y - testDummy.pos.y) < 22)
+	if(abs(player.pos.x - powerUp.pos.x) < 22 && abs(player.pos.y - powerUp.pos.y) < 22)
 	{
 		player.powerUP();
-		testDummy.setPosition(sf::Vector2f(-100.,-100.));
+		powerUp.setPosition(sf::Vector2f(-100.,-100.));
 	}
 }
 
