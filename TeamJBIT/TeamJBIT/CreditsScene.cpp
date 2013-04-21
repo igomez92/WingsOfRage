@@ -36,6 +36,7 @@ void CreditsScene::enter() {
 void CreditsScene::leave() {
 	for (CDBTweener::CTween* tween : fadeTweener.getTweens()) {
 		fadeTweener.removeTween(tween);
+		if (fadeTweener.getTweens().empty()) break;
 	}
 }
 

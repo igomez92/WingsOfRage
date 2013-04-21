@@ -8,6 +8,8 @@
   Sirp Potijk
   http://www.deadbugprojects.com
 
+  std::function modifications by Brian Charles
+
   Inspired by Tweener and CPPTweener.
   http://code.google.com/p/tweener
   http://code.google.com/p/cpptweener

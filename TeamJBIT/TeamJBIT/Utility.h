@@ -35,6 +35,10 @@ inline float rad2deg(float rad) {
 	return rad * (180.f / M_PI);
 }
 
+inline float clamp(float f, float min, float max) {
+	return std::max(std::min(f, max), min);
+}
+
 inline float vecLen2(sf::Vector2f in) {
 	return (in.x * in.x) + (in.y * in.y);
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Enemy.h"
+#include "Sequence.h"
 
 class SliderEnemy : public Enemy
 {
@@ -9,10 +10,12 @@ class SliderEnemy : public Enemy
 		~SliderEnemy(void);
 
 		void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player);
-	
-		bool goingdown;
-		float dir;
 
 	private:
-		float initial_pos;
+		Sequence sliderSequenceX;
+		Sequence sliderSequenceY;
+		void moveUp();
+		void moveDown();
+		void moveLeft();
+		void moveRight();
 };

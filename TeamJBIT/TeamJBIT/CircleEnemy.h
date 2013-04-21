@@ -11,4 +11,5 @@ class CircleEnemy : public Enemy
 	private:
 		sf::Vector2f localTargetPos;
 		float currentTargetAngle;
+		float currentTargetDistance;
 };
