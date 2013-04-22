@@ -14,7 +14,7 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp(
 
 	//enemyList.push_back(new MeleeEnemy("media/ball.png", sf::Vector2f(0, 100)));
 	enemyList.push_back(new SpiralEnemy("media/ball.png", sf::Vector2f(SCREEN_WIDTH - 10, 0), 500, 50.0));
-	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
+	enemySpawnQueue = LevelLoader::loadLevel("media/levels/level 1.txt");
 	bossSpawned = false;
 
 	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
@@ -210,6 +210,8 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			shotTimer = clock.getElapsedTime();
 		}
 	}
+
+
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.laserShooting == false){
 		if(player.currentPlayerMode == GUNNER_MODE && player.canBlink)
 		{
@@ -218,7 +220,12 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			sf::Vector2f dir;
 			dir.x = (float)mousePos.x - player.pos.x;
 			dir.y = (float)mousePos.y - player.pos.y;
+			float length = vecLen(dir);
 			dir = normalize(dir);
+			if(length <= distanceToBlink)
+			{
+				distanceToBlink = length;
+			}
 			dir = distanceToBlink*dir;
 			sf::Vector2f blinkLocation;
 			blinkLocation = player.pos + dir;
