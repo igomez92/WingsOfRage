@@ -7,13 +7,12 @@
 #include "CircleEnemy.h"
 #include "SpiralEnemy.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp("media/PowerUp.png", sf::Vector2f(-100,-100)), backgroundOffsetLow(0), backgroundOffsetMed(0)
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp("media/PowerUp.png", sf::Vector2f(-100,-100)), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
+currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true) 
 {
 	// Initialize score info
 	initializeScoreAndTime();
 
-	//enemyList.push_back(new MeleeEnemy("media/ball.png", sf::Vector2f(0, 100)));
-	enemyList.push_back(new SpiralEnemy("media/ball.png", sf::Vector2f(SCREEN_WIDTH - 10, 0), 500, 50.0));
 	enemySpawnQueue = LevelLoader::loadLevel("media/levels/level 1.txt");
 	bossSpawned = false;
 
@@ -32,6 +31,11 @@ GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp(
 
 GameScene::~GameScene() 
 {
+	if(bombRunning)
+	{
+		delete bomb;
+	}
+
 	for(auto it = enemyList.begin(); it != enemyList.end(); it++)
 		delete (*it);
 	for(auto it = playerBullets.begin(); it != playerBullets.end(); it++)
@@ -58,7 +62,21 @@ void GameScene::update(sf::RenderWindow& window) {
 		backgroundOffsetMed -= 512;
 	backgroundSpriteMed.setPosition(0, backgroundOffsetMed);
 
-	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && numOfBombs != 0 && !bombRunning && bombReady)
+	{
+		startBomb();
+	}
+	else if(!bombReady)
+	{
+		bombWait += deltaTime;
+
+		if(bombWait >= bombDelay)
+		{
+			bombReady = true;
+			bombWait = 0.0f;
+		}
+	}
+
 
 	//shooting update
 	updateplayershot(window);
@@ -80,6 +98,9 @@ void GameScene::update(sf::RenderWindow& window) {
 
 	//spawn enemies if it's time
 	updateSpawnQueue();
+
+	// Update if we are using a bomb
+	updateBomb(deltaTime, enemyList);
 
 	//if no more enemies summon a boss
 	if(enemyList.empty() && !bossSpawned && enemySpawnQueue.empty())
@@ -477,4 +498,41 @@ void GameScene::updateParticleEffects(float deltaTime)
 		it++;
 	}
 	ptManager.doEnginePartcle(allParticles, player.pos, sf::Color::Color(0, 255, 208, 255), 50.0);
+}
+
+void GameScene::startBomb()
+{
+	bomb = new SuperBomb();
+	numOfBombs--;
+	bombRunning = true;
+}
+
+void GameScene::updateBomb(float deltaTime, std::list<Enemy*> enemList)
+{
+	if(bombRunning)
+	{
+		currBombTime += deltaTime;
+		if(currBombTime < bomb->runTime)
+		{
+			if(bomb->damDone == false)
+			{
+				for(auto it = enemList.begin(); it != enemList.end(); it++)
+				{
+					bomb->checkForDestruction(**it);
+				}
+			}
+		}
+		else
+		{
+			bomb->finishedDamagePhase();
+		}
+
+		if(bomb->hasFinished)
+		{
+			delete bomb;
+			bombRunning = false;
+			bombReady = false;
+			currBombTime = 0.0;
+		}
+	}
 }

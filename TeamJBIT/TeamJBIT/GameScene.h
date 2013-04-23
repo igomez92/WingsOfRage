@@ -19,6 +19,8 @@
 #include "ParticleManager.h"
 #include "Particle.h"
 
+#include "SuperBomb.h"
+
 #include <list>
 #include <sstream>
 
@@ -89,4 +91,18 @@ class GameScene : public IScene
 		void updateUpgrade();
 		void updateSpawnQueue();
 		void updateParticleEffects(float deltaTime);
+
+		// Number of bombs
+		int numOfBombs;
+		bool bombRunning;
+		// Check to see if we can start bombing
+		float bombDelay;
+		float bombWait;
+		// See if bomb is done
+		bool bombReady;
+		float currBombTime;
+		
+		void updateBomb(float deltaTime, std::list<Enemy*> enemList);
+		void startBomb();
+		SuperBomb* bomb;
 };

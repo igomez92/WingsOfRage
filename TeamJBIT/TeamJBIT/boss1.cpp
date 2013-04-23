@@ -4,7 +4,7 @@
 Boss1::Boss1(std::string file, sf::Vector2f pos, int health):Enemy(file,pos,health)
 {
 	collisiondmg = 100;
-	type = Normal;
+	type = Boss;
 	attackswitchtimer = 0;
 }
 

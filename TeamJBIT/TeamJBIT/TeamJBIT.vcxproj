@@ -116,6 +116,7 @@
     <ClCompile Include="SpiralEnemy.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="SliderEnemy.cpp" />
+    <ClCompile Include="SuperBomb.cpp" />
     <ClCompile Include="SwordSlash.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="LaserShot.h" />
     <ClInclude Include="SliderEnemy.h" />
     <ClInclude Include="SpiralEnemy.h" />
+    <ClInclude Include="SuperBomb.h" />
     <ClInclude Include="SwordSlash.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Utility.h" />
