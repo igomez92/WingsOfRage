@@ -16,11 +16,15 @@ SpiralEnemy::~SpiralEnemy()
 void SpiralEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player)
 {
 	currentTime++;
+	sf::Vector2f vel;
 	if(abs(pos.x - (SCREEN_WIDTH/2)) > 0)
-		pos.x += -(pos.x - SCREEN_WIDTH/2) * .5 * deltaTime;
+		vel.x = -(pos.x - SCREEN_WIDTH/2) * .5 * deltaTime;
 	if(abs(pos.y - (SCREEN_HEIGHT/2)) > 0)
-		pos.y += -(pos.y - SCREEN_HEIGHT/2) * .5 * deltaTime;
+		vel.y = -(pos.y - SCREEN_HEIGHT/2) * .5 * deltaTime;
+	pos += vel;
 	sprite.setPosition(pos);
+	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / 3.1415926f)) + 180.f);
+
 	if(currentTime % 100 == 0)
 		fireSpiral = true;
 	

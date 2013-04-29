@@ -35,9 +35,13 @@ SliderEnemy::SliderEnemy(std::string file, sf::Vector2f pos, int health)
 
 void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player)
 {
+	sf::Vector2f vel = pos;
 	sliderSequenceX.update(deltaTime);
 	sliderSequenceY.update(deltaTime);
 	sprite.setPosition(pos);
+
+	vel = pos - vel;
+	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / 3.1415926f)) + 180.f);
 
 	if (bulletClock.getElapsedTime().asSeconds() > .1)
 	{

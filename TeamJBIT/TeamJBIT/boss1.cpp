@@ -6,6 +6,7 @@ Boss1::Boss1(std::string file, sf::Vector2f pos, int health):Enemy(file,pos,heal
 	collisiondmg = 100;
 	type = Boss;
 	attackswitchtimer = 0;
+	sprite.rotate(180);
 }
 
 

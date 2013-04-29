@@ -18,10 +18,10 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	//setup credits text
 	teamLabel = sf::Text("Team JBIT", *_getFont("media/kimberley bl.ttf"), scaledFontSize(50));
 	centerOrigin(teamLabel);
-	teamLabel.setPosition(SCREEN_WIDTH / 2, 150);
+	teamLabel.setPosition(SCREEN_WIDTH / 2, 125);
 	teamLabel.setColor(sf::Color(150, 150, 150));
 
-	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  ", *_getFont("media/kimberley bl.ttf"), scaledFontSize(40));
+	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  \n     Max Chung   ", *_getFont("media/kimberley bl.ttf"), scaledFontSize(35));
 	teamList.setOrigin((int)teamList.getLocalBounds().width / 2, 0);
 	teamList.setPosition(SCREEN_WIDTH / 2, 200);
 

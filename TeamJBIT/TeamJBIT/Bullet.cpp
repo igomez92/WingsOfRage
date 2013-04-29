@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "TextureManager.h"
+#include "Utility.h"
 
 
 Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam, sf::Color bulletColor)
@@ -11,7 +12,7 @@ Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam, sf
 	sprite.setColor(bulletColor);
 
 	sprite.setPosition(pos);
-	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
+	centerOrigin(sprite);
 	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / 3.1415926f)) + 180.f);
 	sprite.setScale(2,2);
 }

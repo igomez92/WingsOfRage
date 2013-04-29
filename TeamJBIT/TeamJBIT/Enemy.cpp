@@ -5,9 +5,11 @@ Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 	:pos(pos), health(health), collisiondmg(10)
 {
 	sf::Texture* image = _getTexture(file);
+	image->setSmooth(true);
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
+	sprite.rotate(180);
 	type = Normal;
 }
 

@@ -19,4 +19,5 @@ void TankEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bul
 		sprite.setPosition(pos);
 	}
 
+	sprite.setRotation((-atan2f(-enemyMove.x, -enemyMove.y) * (180 / 3.1415926f)) + 180.f);
 }

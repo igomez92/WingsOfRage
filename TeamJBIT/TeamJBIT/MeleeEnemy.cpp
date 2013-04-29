@@ -24,6 +24,7 @@ void MeleeEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bu
 		enemyMove.y = -enemyMove.y;
 		pos -= enemyMove * (100 * deltaTime);
 		sprite.setPosition(pos);
+		sprite.setRotation((-atan2f(-enemyMove.x, -enemyMove.y) * (180 / 3.1415926f)) + 180.f);
 
 		// Update the timer
 		currTime += deltaTime;
@@ -34,6 +35,7 @@ void MeleeEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bu
 		sf::Vector2f enemyMove = normalize(pos - player.pos);
 		pos -= enemyMove * (100 * deltaTime);
 		sprite.setPosition(pos);
+		sprite.setRotation((-atan2f(-enemyMove.x, -enemyMove.y) * (180 / 3.1415926f)) + 180.f);
 	}
 
 	// If the player is within range

@@ -34,4 +34,5 @@ void CircleEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<B
 	float dist = std::min(speed, targetDist); //don't overshoot
 	pos += direction * dist;
 	sprite.setPosition(pos);
+	sprite.setRotation((-atan2f(direction.x, direction.y) * (180 / 3.1415926f)) + 180.f);
 }
