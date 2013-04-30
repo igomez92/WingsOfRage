@@ -304,6 +304,14 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			player.doABarrelRoll(true);
 		}
 	}
+
+	if(player.currentPlayerMode == FIGHTER_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		player.setShieldUp(true);
+	}else
+	{
+		player.setShieldUp(false);
+	}
 }
 
 void GameScene::updatePlayerBullets(float deltaTime)
@@ -440,12 +448,20 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			//check for collision
 		} else if ( thresholdX < 22 && thresholdY < 22) {
 			auto itToErase = it;
-			player.damaged((**it).dam);
+			if(!player.isShieldUp())
+			{
+				player.damaged((**it).dam);
+			}else
+			{
+				//player lose energy
+				//if energy is 0 then take damage instead
+			}
+			
 			ptManager.doHitParticle(allParticles, player.pos, (**it).vel, sf::Color::Magenta, 75.0);
 			it++;
 			delete *itToErase;
 			enemyBullets.erase(itToErase);
-
+			
 			if(player.isDead())
 				SceneManager::getInstance().changeScene("end");
 

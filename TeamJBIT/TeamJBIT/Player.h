@@ -58,6 +58,8 @@ class Player
 		bool allowSword;
 		bool powerUpFound;
 		void increaseHealth(int incrementation);
+		void setShieldUp(bool shieldUp);
+		bool isShieldUp();
 
 		Sequence barrelRollSequence;
 		bool isDoingABarrelRoll;
@@ -69,6 +71,7 @@ class Player
 		unsigned int level;
 		bool playerSwitch;
 		bool Targetable;
+		bool shieldUp;
 
 		ShotType* shotType;
 		MeleeType* meleeType;

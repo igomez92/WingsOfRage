@@ -29,6 +29,7 @@ Player::Player(sf::Vector2f pos)
 	Targetable = true;
 	canBlink = true;
 	isDoingABarrelRoll = false;
+	shieldUp = false;
 }
 
 
@@ -378,3 +379,15 @@ void Player::increaseHealth(int incrementation)
 {
 	health += incrementation;
 }
+
+void Player::setShieldUp(bool b)
+{
+	shieldUp = b;
+	
+}
+
+bool Player::isShieldUp()
+{
+	return shieldUp;
+}
+
