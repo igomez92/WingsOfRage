@@ -33,3 +33,7 @@ void Sequence::update(float deltaTime) {
 		tweenQueue.pop_front();
 	}
 }
+
+bool Sequence::isEmpty() {
+	return tweenQueue.empty();
+}

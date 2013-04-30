@@ -13,6 +13,7 @@ class Sequence {
 		void appendDelay(float delayTime);
 		void appendCue(std::function<void ()> cueFunction);
 		void update(float deltaTime); //TODO: Consider using sf::Time instead of float in order to prevent drift (consider doing the same to AnimSprite)
+		bool isEmpty();
 
 	private:
 		std::deque<CDBTweener::CTween*> tweenQueue;

@@ -12,6 +12,7 @@
 #include "BeamSword.h"
 #include <list>
 #include "LaserShot.h"
+#include "Sequence.h"
 
 enum currentMode {PLANE_MODE , GUNNER_MODE, FIGHTER_MODE, NO_MODE};
 
@@ -57,6 +58,10 @@ class Player
 		bool allowSword;
 		bool powerUpFound;
 		void increaseHealth(int incrementation);
+
+		Sequence barrelRollSequence;
+		bool isDoingABarrelRoll;
+		void doABarrelRoll(bool isLeft); //yes I did just do that
 
 	private:
 		signed int health;

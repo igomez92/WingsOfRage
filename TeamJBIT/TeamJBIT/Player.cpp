@@ -28,6 +28,7 @@ Player::Player(sf::Vector2f pos)
 	currentPlayerMode = PLANE_MODE;
 	Targetable = true;
 	canBlink = true;
+	isDoingABarrelRoll = false;
 }
 
 
@@ -45,6 +46,8 @@ Player::~Player()
 void Player::update(float deltaTime)
 {
 	sprite.update(deltaTime);
+
+	barrelRollSequence.update(deltaTime);
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
@@ -103,6 +106,8 @@ void Player::update(float deltaTime)
 	{
 		movementVec.x += 1;
 	}
+
+	if (isDoingABarrelRoll) movementVec = sf::Vector2f(); //zero it
 	
 	//play correct animation (if it isn't already playing)
 	if(currentPlayerMode == PLANE_MODE)
@@ -279,6 +284,16 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 	}
 	//playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
 
+}
+
+void Player::doABarrelRoll(bool isLeft)
+{
+	if (barrelRollSequence.isEmpty()) return;
+
+	barrelRollSequence.appendTween(new CDBTweener::CTween(&CDBTweener::TWEQ_CUBIC, CDBTweener::TWEA_INOUT, 1.25, &pos.x, pos.x + scaledXPos(250 * (isLeft ? -1 : 1))));
+	barrelRollSequence.appendDelay(3);
+	barrelRollSequence.appendCue([&] {isDoingABarrelRoll = false;});
+	isDoingABarrelRoll = true;
 }
 
 void Player::damaged(int damagedealt)

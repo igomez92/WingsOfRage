@@ -286,9 +286,22 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			blinkDelay = clock.getElapsedTime();
 			player.canBlink = false;
 		}
-		else if((clock.getElapsedTime() - blinkDelay).asSeconds() >.2)
+		else if((clock.getElapsedTime() - blinkDelay).asSeconds() > .2)
 		{
 			player.canBlink = true;
+		}
+
+		if (player.currentPlayerMode == PLANE_MODE)  //doABarrelRoll does its own timeout check
+		{
+			if (player.pos.x < sf::Mouse::getPosition(window).x)
+			{
+				//press Z or R twice
+				player.doABarrelRoll(true); //true if left, false if right
+			}
+			else
+			{
+				player.doABarrelRoll(false);
+			}
 		}
 	}
 
