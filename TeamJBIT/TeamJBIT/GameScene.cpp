@@ -27,6 +27,16 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true)
 	backgroundSpriteMed.setTexture(*bgImage);
 	backgroundSpriteMed.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
 	backgroundSpriteMed.setOrigin(0, SCREEN_HEIGHT);
+
+	sf::Texture* health = _getTexture("media/HealthBar.png");
+	healthBar.setTexture(*health);
+	healthBar.setOrigin(0, healthBar.getLocalBounds().height/2);
+	healthBar.setPosition(10, 100);
+
+	sf::Texture* energy = _getTexture("media/EnergyBar.png");
+	energyBar.setTexture(*energy);
+	energyBar.setOrigin(0, energyBar.getLocalBounds().height/2);
+	energyBar.setPosition(10, 125);
 }
 
 GameScene::~GameScene() 
@@ -102,6 +112,8 @@ void GameScene::update(sf::RenderWindow& window) {
 	// Update if we are using a bomb
 	updateBomb(deltaTime, enemyList);
 
+	updateHealthAndEnergy();
+
 	//if no more enemies summon a boss
 	if(enemyList.empty() && !bossSpawned && enemySpawnQueue.empty())
 	{
@@ -129,6 +141,9 @@ void GameScene::update(sf::RenderWindow& window) {
 void GameScene::draw(sf::RenderWindow& window) {
 	window.draw(backgroundSpriteLow);
 	window.draw(backgroundSpriteMed, sf::RenderStates(sf::BlendAdd));
+
+	window.draw(healthBar);
+	window.draw(energyBar);
 
 	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
@@ -542,4 +557,13 @@ void GameScene::updateBomb(float deltaTime, std::list<Enemy*> enemList)
 			currBombTime = 0.0;
 		}
 	}
+}
+
+void GameScene::updateHealthAndEnergy()
+{
+	float healthScale = (float) player.getHealth()/player.getTotalHealth();
+	healthBar.setScale(healthScale, 1);
+	//healthBar.setPosition(10, 100);
+
+	// Update energy here
 }

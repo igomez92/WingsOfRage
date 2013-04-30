@@ -48,6 +48,7 @@ class Player
 		bool allowLaser;
 		float accumDelayTime;
 		signed int getHealth();
+		signed int getTotalHealth();
 		AnimSprite sprite;
 		// For melee
 		bool swordSwinging;
@@ -59,6 +60,7 @@ class Player
 
 	private:
 		signed int health;
+		signed int totalHealth;
 		unsigned int level;
 		bool playerSwitch;
 		bool Targetable;

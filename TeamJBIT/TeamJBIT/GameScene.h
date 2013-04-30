@@ -105,4 +105,10 @@ class GameScene : public IScene
 		void updateBomb(float deltaTime, std::list<Enemy*> enemList);
 		void startBomb();
 		SuperBomb* bomb;
+
+		// Health and Energy Bars
+		sf::Sprite healthBar;
+		sf::Sprite energyBar;
+
+		void updateHealthAndEnergy();
 };
