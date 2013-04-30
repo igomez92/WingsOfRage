@@ -291,7 +291,7 @@ void Player::doABarrelRoll(bool isLeft)
 {
 	if (!barrelRollSequence.isEmpty()) return;
 
-	barrelRollSequence.appendTween(new CDBTweener::CTween(&CDBTweener::TWEQ_QUINTIC, CDBTweener::TWEA_INOUT, 1.0, &pos.x, pos.x + scaledXPos(250 * (isLeft ? -1 : 1))));
+	barrelRollSequence.appendTween(new CDBTweener::CTween(&CDBTweener::TWEQ_SINUSOIDAL, CDBTweener::TWEA_INOUT, 0.9, &pos.x, pos.x + scaledXPos(250 * (isLeft ? -1 : 1))));
 	barrelRollSequence.appendCue([&] {isDoingABarrelRoll = false;});
 	isDoingABarrelRoll = true;
 }

@@ -142,9 +142,6 @@ void GameScene::draw(sf::RenderWindow& window) {
 	window.draw(backgroundSpriteLow);
 	window.draw(backgroundSpriteMed, sf::RenderStates(sf::BlendAdd));
 
-	window.draw(healthBar);
-	window.draw(energyBar);
-
 	//draw our bullets
 	for (auto it = playerBullets.begin(); it != playerBullets.end(); it++) {
 		(**it).draw(window);
@@ -170,6 +167,8 @@ void GameScene::draw(sf::RenderWindow& window) {
 	player.draw(window);
 	powerUp.draw(window);
 	printScoreAndTime(window);
+	window.draw(healthBar);
+	window.draw(energyBar);
 }
 
 bool GameScene::handleEvent(sf::Event& event) {
@@ -448,16 +447,32 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			//check for collision
 		} else if ( thresholdX < 22 && thresholdY < 22) {
 			auto itToErase = it;
-			if(!player.isShieldUp())
+
+			//if barrel rolling reflect bullets
+			if (player.isDoingABarrelRoll)
 			{
-				player.damaged((**it).dam);
-			}else
+				sf::Vector2f aiming;
+				aiming = (-(**it).vel);
+				aiming = aiming * .25f;
+				playerBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5));	
+			}			
+			if (player.isShieldUp() && !player.isDoingABarrelRoll)
 			{
 				//player lose energy
 				//if energy is 0 then take damage instead
 			}
-			
-			ptManager.doHitParticle(allParticles, player.pos, (**it).vel, sf::Color::Magenta, 75.0);
+
+			//should we apply damage
+			if (!player.isShieldUp() && !player.isDoingABarrelRoll)
+			{
+				player.damaged((**it).dam);
+			}
+
+			if (!player.isDoingABarrelRoll)
+			{
+				ptManager.doHitParticle(allParticles, player.pos, (**it).vel, sf::Color::Magenta, 75.0);
+			}
+
 			it++;
 			delete *itToErase;
 			enemyBullets.erase(itToErase);
