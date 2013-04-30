@@ -76,7 +76,7 @@ void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
 			enemyList.push_back(new Enemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::SLIDERENEMY:
-			enemyList.push_back(new SliderEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			enemyList.push_back(new SliderEnemy("media/slider.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::TANKENEMY:
 			enemyList.push_back(new TankEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));

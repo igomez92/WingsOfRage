@@ -6,13 +6,13 @@ Player::Player(sf::Vector2f pos)
 	:health(1000), totalHealth(1000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
 	accumDelayTime(0), swordSwinging(false), allowSword(true)
 {
-	planeImage = _getTexture("media/ship.png");
-	gunnerImage = _getTexture("media/gundam.png");
+	planeImage = _getTexture("media/plane.png");
+	gunnerImage = _getTexture("media/gunSuit.png");
 	sprite.setTexture(*planeImage);
-	sprite.setFrameSize(41,43);
+	sprite.setFrameSize(32,32);
 
 	//framerate > game framerate makes it animation a little more irregular, which is desired here
-	sprite.addAnim("L", 0, 43, 2, 1, 90);
+	/*sprite.addAnim("L", 0, 43, 2, 1, 90);
 	sprite.addAnim("F", 41, 43, 2, 1, 90);
 	sprite.addAnim("R", 82, 43, 2, 1, 90);
 	sprite.playAnim("F");
@@ -20,7 +20,7 @@ Player::Player(sf::Vector2f pos)
 	sprite.addAnim("L2", 95, 36, 1, 1, 1);
 	sprite.addAnim("F2", 63, 36, 1, 1, 1);
 	sprite.addAnim("R2", (32*6 - 1), 36, 1, 1, 1);
-	
+	*/
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 	powerUpFound = false;
 	playerSwitch = false;
@@ -66,7 +66,7 @@ void Player::update(float deltaTime)
 				//delete meleeType;
 			shotType = new TriCannonShot;
 			sprite.setTexture(*planeImage);
-			sprite.setFrameSize(41,43);
+			sprite.setFrameSize(32,32);
 			sprite.setScale(1,1);
 		}
 		else if(currentPlayerMode == GUNNER_MODE)
@@ -74,8 +74,8 @@ void Player::update(float deltaTime)
 			delete shotType;
 			shotType = new SingleShot(1.25f);
 			sprite.setTexture(*gunnerImage);
-			sprite.setFrameSize(31,36);
-			sprite.setScale(1.5,1.5);
+			sprite.setFrameSize(32,32);
+			//sprite.setScale(1.5,1.5);
 		}
 		else
 		{
@@ -112,24 +112,24 @@ void Player::update(float deltaTime)
 	//play correct animation (if it isn't already playing)
 	if(currentPlayerMode == PLANE_MODE)
 	{
-		if (abs(movementVec.x) < 0.5) {
+		/*if (abs(movementVec.x) < 0.5) {
 			if (sprite.getCurrentAnim() != "F") sprite.playAnim("F");
 		} else if (movementVec.x > 0.5) {
 			if (sprite.getCurrentAnim() != "R") sprite.playAnim("R");
 		} else {
 			if (sprite.getCurrentAnim() != "L") sprite.playAnim("L");
-		}
+		}*/
 	}
 
 	if(currentPlayerMode == GUNNER_MODE || currentPlayerMode == FIGHTER_MODE)
 	{
-		if (abs(movementVec.x) < 0.5) {
+		/*if (abs(movementVec.x) < 0.5) {
 			if (sprite.getCurrentAnim() != "F2") sprite.playAnim("F2");
 		} else if (movementVec.x > 0.5) {
 			if (sprite.getCurrentAnim() != "R2") sprite.playAnim("R2");
 		} else {
 			if (sprite.getCurrentAnim() != "L2") sprite.playAnim("L2");
-		}
+		}*/
 	}
 	//apply the movement
 	pos += normalize(movementVec) * (300 * deltaTime);
@@ -288,10 +288,9 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 
 void Player::doABarrelRoll(bool isLeft)
 {
-	if (barrelRollSequence.isEmpty()) return;
+	if (!barrelRollSequence.isEmpty()) return;
 
-	barrelRollSequence.appendTween(new CDBTweener::CTween(&CDBTweener::TWEQ_CUBIC, CDBTweener::TWEA_INOUT, 1.25, &pos.x, pos.x + scaledXPos(250 * (isLeft ? -1 : 1))));
-	barrelRollSequence.appendDelay(3);
+	barrelRollSequence.appendTween(new CDBTweener::CTween(&CDBTweener::TWEQ_QUINTIC, CDBTweener::TWEA_INOUT, 1.0, &pos.x, pos.x + scaledXPos(250 * (isLeft ? -1 : 1))));
 	barrelRollSequence.appendCue([&] {isDoingABarrelRoll = false;});
 	isDoingABarrelRoll = true;
 }

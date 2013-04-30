@@ -290,21 +290,20 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 		{
 			player.canBlink = true;
 		}
-
-		if (player.currentPlayerMode == PLANE_MODE)  //doABarrelRoll does its own timeout check
-		{
-			if (player.pos.x < sf::Mouse::getPosition(window).x)
-			{
-				//press Z or R twice
-				player.doABarrelRoll(true); //true if left, false if right
-			}
-			else
-			{
-				player.doABarrelRoll(false);
-			}
-		}
 	}
 
+	if(player.currentPlayerMode == PLANE_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		if (player.pos.x < sf::Mouse::getPosition(window).x)
+		{
+			//press Z or R twice
+			player.doABarrelRoll(false); //true if left, false if right
+		}
+		else
+		{
+			player.doABarrelRoll(true);
+		}
+	}
 }
 
 void GameScene::updatePlayerBullets(float deltaTime)
