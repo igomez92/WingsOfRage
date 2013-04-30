@@ -54,12 +54,13 @@ class Player
 		BeamSword* sword;
 		void swordSwing(sf::RenderWindow& window);
 		bool allowSword;
+		bool powerUpFound;
+		void increaseHealth(int incrementation);
 
 	private:
 		signed int health;
 		unsigned int level;
 		bool playerSwitch;
-		bool powerUpFound;
 		bool Targetable;
 
 		ShotType* shotType;

@@ -353,3 +353,9 @@ sf::FloatRect Player::getSize()
 {
 	return sprite.getLocalBounds();
 }
+
+
+void Player::increaseHealth(int incrementation)
+{
+	health += incrementation;
+}

@@ -145,6 +145,7 @@
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="LaserShot.h" />
     <ClInclude Include="SliderEnemy.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpiralEnemy.h" />
     <ClInclude Include="SuperBomb.h" />
     <ClInclude Include="SwordSlash.h" />

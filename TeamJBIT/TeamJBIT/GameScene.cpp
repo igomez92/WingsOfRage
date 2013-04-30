@@ -374,7 +374,11 @@ void GameScene::updateEnemies(float deltaTime)
 		{
 			scoreNum += 100;
 			if(scoreNum % 400 == 0)
+			{
 				powerUp.setPosition((**it).pos);
+				if(player.powerUpFound)
+					powerUp.isHP = true;
+			}
 			ptManager.doExplosion(allParticles, (**it).pos, sf::Color::Green, 100.0);
 			auto itToErase = it;
 			it++;
@@ -460,7 +464,10 @@ void GameScene::updateUpgrade()
 {
 	if(abs(player.pos.x - powerUp.pos.x) < 22 && abs(player.pos.y - powerUp.pos.y) < 22)
 	{
-		player.powerUP();
+		if(!player.powerUpFound)
+			player.powerUP();
+		else
+			player.increaseHealth(100);
 		powerUp.setPosition(sf::Vector2f(-100.,-100.));
 	}
 }
