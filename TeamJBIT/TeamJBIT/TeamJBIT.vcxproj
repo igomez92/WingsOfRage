@@ -112,6 +112,7 @@
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="ShotSword.cpp" />
     <ClCompile Include="SingleShot.cpp" />
     <ClCompile Include="SpiralEnemy.cpp" />
     <ClCompile Include="SplashScene.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="LaserShot.h" />
+    <ClInclude Include="ShotSword.h" />
     <ClInclude Include="SliderEnemy.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpiralEnemy.h" />

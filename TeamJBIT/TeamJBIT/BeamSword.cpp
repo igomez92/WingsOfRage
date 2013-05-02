@@ -71,7 +71,7 @@ void BeamSword::doDamage(Enemy& enemy)
 	enemy.takeDam(dam);
 }
 
-void BeamSword::update(float deltaTime, sf::Vector2f pos)
+void BeamSword::update(float deltaTime, sf::Vector2f pos, std::list<Bullet*>& playerBullets)
 {
 	// Calculate our new angle of swing
 	currentAngle += swingSpeed*deltaTime;	

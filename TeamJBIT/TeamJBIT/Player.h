@@ -10,6 +10,7 @@
 #include "MeleeType.h"
 #include "SwordSlash.h"
 #include "BeamSword.h"
+#include "ShotSword.h"
 #include <list>
 #include "LaserShot.h"
 #include "Sequence.h"
@@ -22,7 +23,7 @@ class Player
 		Player(sf::Vector2f pos);
 		~Player();
 
-		void update(float deltaTime);
+		void update(float deltaTime, std::list<Bullet*>& playerBullets);
 		void draw(sf::RenderWindow& window);
 		sf::Vector2f pos;
 		void shoot(std::list<Bullet*>& playerBullets, sf::Vector2f dir);

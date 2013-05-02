@@ -44,7 +44,7 @@ Player::~Player()
 }
 
 
-void Player::update(float deltaTime)
+void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 {
 	sprite.update(deltaTime);
 
@@ -185,7 +185,7 @@ void Player::update(float deltaTime)
 
 	if(swordSwinging == true)
 	{
-		sword->update(deltaTime, pos);
+		sword->update(deltaTime, pos, playerBullets);
 
 		if(sword->endSwing == true)
 		{

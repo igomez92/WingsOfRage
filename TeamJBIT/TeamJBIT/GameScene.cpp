@@ -134,7 +134,7 @@ void GameScene::update(sf::RenderWindow& window) {
 	updateUpgrade();
 
 	updateScoreAndTime();
-	player.update(deltaTime);
+	player.update(deltaTime, playerBullets);
 
 }
 
