@@ -1,14 +1,13 @@
 #pragma once
 
+#include <SFML\Graphics.hpp>
 #include "IScene.h"
-#include "AnimSprite.h"
 #include "dbtweener.h"
 #include "Button.h"
 
-class MenuScene : public IScene {
+class PauseScene : public IScene {
 	public:
-		MenuScene();
-		~MenuScene();
+		PauseScene();
 		virtual void enter();
 		virtual void leave();
 		virtual void update(sf::RenderWindow& window);
@@ -16,15 +15,17 @@ class MenuScene : public IScene {
 		virtual bool handleEvent(sf::Event& event);
 
 	private:
-		sf::Sprite gameLogoSprite;
+		sf::Texture backgroundTexture;
+		bool bgTextureUpdated;
 		sf::Sprite backgroundSprite;
-		float backgroundScroll;
+
 		sf::RectangleShape blackScreen;
 
-		CDBTweener fadeTweener;
+		sf::Text pauseLabel;
 
 		TextButton buttons [3];
-		bool shouldQuit; //ugh
+
+		CDBTweener fadeTweener;
 		
 		sf::Clock clock;
 		sf::Time lastFrameTime;

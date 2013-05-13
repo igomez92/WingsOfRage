@@ -8,6 +8,7 @@
 #include "CreditsScene.h"
 #include "GameScene.h"
 #include "EndGameScene.h"
+#include "PauseScene.h"
 #include "Utility.h"
 
 int main(char argc, char* argv[]) 
@@ -22,6 +23,7 @@ int main(char argc, char* argv[])
 	SceneManager::getInstance().addScene("splash", new SplashScene());
 	SceneManager::getInstance().addScene("menu", new MenuScene());
 	SceneManager::getInstance().addScene("credits", new CreditsScene());
+	SceneManager::getInstance().addScene("pause", new PauseScene());
 	SceneManager::getInstance().addScene("end", new EndGameScene());
 	SceneManager::getInstance().changeScene("splash");
 

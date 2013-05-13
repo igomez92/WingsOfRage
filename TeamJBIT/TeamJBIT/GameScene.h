@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System.hpp>
+#include "Clock.h"
 #include "AnimSprite.h"
 #include "IScene.h"
 #include "Player.h"
@@ -29,7 +30,9 @@ class GameScene : public IScene
 	public:
 		GameScene();
 		~GameScene();
-	
+		
+		virtual void enter();
+		virtual void leave();
 		virtual void update(sf::RenderWindow& window);
 		virtual void draw(sf::RenderWindow& window);
 		virtual bool handleEvent(sf::Event& event);
@@ -50,7 +53,7 @@ class GameScene : public IScene
 		std::list<Particle*> allParticles;
 		MeleeType* currentMeleeAttack;
 
-		sf::Clock clock;
+		Clock clock;
 		sf::Time lastFrameTime;
 		sf::Time hitDelay;
 		sf::Time blinkDelay;

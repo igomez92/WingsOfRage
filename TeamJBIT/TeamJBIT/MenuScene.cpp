@@ -19,15 +19,13 @@ MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	//buttons
-	buttons[0] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(300), scaledXPos(400), scaledYPos(50)), "Play", scaledFontSize(40), [] {SceneManager::getInstance().addScene("start", new GameScene());; SceneManager::getInstance().changeScene("start");});
-	buttons[1] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(365), scaledXPos(400), scaledYPos(50)), "Credits", scaledFontSize(40), [] {SceneManager::getInstance().changeScene("credits");});
-	buttons[2] = new TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(430), scaledXPos(400), scaledYPos(50)), "Quit", scaledFontSize(40), [&] {shouldQuit = true;});
+	buttons[0] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(300), scaledXPos(400), scaledYPos(50)), "Play", scaledFontSize(40), [] {SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
+	buttons[1] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(365), scaledXPos(400), scaledYPos(50)), "Credits", scaledFontSize(40), [] {SceneManager::getInstance().changeScene("credits");});
+	buttons[2] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(430), scaledXPos(400), scaledYPos(50)), "Quit", scaledFontSize(40), [&] {shouldQuit = true;});
 }
 
 MenuScene::~MenuScene() {
-	for (TextButton* button : buttons) {
-		delete button;
-	}
+
 }
 
 void MenuScene::enter() {
@@ -74,8 +72,8 @@ void MenuScene::draw(sf::RenderWindow& window) {
 	window.draw(backgroundSprite);
 	window.draw(gameLogoSprite);
 
-	for (TextButton* button : buttons) {
-		window.draw(button->labelText);
+	for (TextButton& button : buttons) {
+		window.draw(button.labelText);
 	}
 
 	window.draw(blackScreen);
@@ -84,8 +82,8 @@ void MenuScene::draw(sf::RenderWindow& window) {
 bool MenuScene::handleEvent(sf::Event& e) {
 	//check buttons
 	if (e.type == sf::Event::MouseButtonPressed) {
-		for (TextButton* button : buttons) {
-			button->processClick(e);
+		for (TextButton& button : buttons) {
+			button.processClick(e);
 		}
 		return true;
 	}

@@ -56,6 +56,13 @@ GameScene::~GameScene()
 		delete (*it);
 }
 
+void GameScene::enter() {
+	clock.resume();
+}
+
+void GameScene::leave() {
+	clock.pause();
+}
 
 void GameScene::update(sf::RenderWindow& window) {
 	float deltaTime = (clock.getElapsedTime() - lastFrameTime).asSeconds();
@@ -172,6 +179,11 @@ void GameScene::draw(sf::RenderWindow& window) {
 }
 
 bool GameScene::handleEvent(sf::Event& event) {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		SceneManager::getInstance().changeScene("pause");
+		return true;
+	}
+
 	return false;
 }
 
