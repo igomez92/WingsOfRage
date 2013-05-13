@@ -56,6 +56,17 @@ void MenuScene::update(sf::RenderWindow& window) {
 
 	if (shouldQuit)
 		window.close();
+
+	for(TextButton* button : buttons)
+	{
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+		// If the mouse is on the button
+		if(button->boundsRect.contains(mousePos.x, mousePos.y))
+			button->setSelected();
+		else
+			button->setUnselected();
+	}
 }
 
 void MenuScene::draw(sf::RenderWindow& window) {

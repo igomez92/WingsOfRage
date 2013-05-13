@@ -3,8 +3,8 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(1000), totalHealth(1000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3), allowLaser(true),
-	accumDelayTime(0), swordSwinging(false), allowSword(true)
+	:health(1000), totalHealth(1000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
+	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000)
 {
 	planeImage = _getTexture("media/plane.png");
 	gunnerImage = _getTexture("media/gunSuit.png");
@@ -338,6 +338,16 @@ signed int Player::getTotalHealth()
 	return totalHealth;
 }
 
+signed int Player::getEnergy()
+{
+	return energy;
+}
+
+signed int Player::getTotalEnergy()
+{
+	return totalEnergy;
+}
+
 void Player::setTargetable(bool targ)
 {
 	Targetable = targ;
@@ -378,6 +388,25 @@ sf::FloatRect Player::getSize()
 void Player::increaseHealth(int incrementation)
 {
 	health += incrementation;
+
+	if(health > totalHealth)
+		health = totalHealth;
+}
+
+void Player::decreaseEnergy(int decrementation)
+{
+	energy -= decrementation;
+
+	if(energy <= 0)
+		energy = 0;
+}
+
+void Player::increaseEnergy(int incrementation)
+{
+	energy += incrementation;
+
+	if(energy > totalEnergy)
+		energy = totalEnergy;
 }
 
 void Player::setShieldUp(bool b)

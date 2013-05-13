@@ -73,7 +73,7 @@ std::queue<SpawnEntry> LevelLoader::loadLevel(std::string filename) {
 void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
 	switch (entry.enemyType) {
 		case EnemyClass::ENEMY:
-			enemyList.push_back(new Enemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			enemyList.push_back(new Enemy("media/drone.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::SLIDERENEMY:
 			enemyList.push_back(new SliderEnemy("media/slider.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));

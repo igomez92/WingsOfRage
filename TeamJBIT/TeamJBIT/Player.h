@@ -51,6 +51,8 @@ class Player
 		float accumDelayTime;
 		signed int getHealth();
 		signed int getTotalHealth();
+		signed int getEnergy();
+		signed int getTotalEnergy();
 		AnimSprite sprite;
 		// For melee
 		bool swordSwinging;
@@ -59,6 +61,8 @@ class Player
 		bool allowSword;
 		bool powerUpFound;
 		void increaseHealth(int incrementation);
+		void decreaseEnergy(int decrementation);
+		void increaseEnergy(int incrementation);
 		void setShieldUp(bool shieldUp);
 		bool isShieldUp();
 
@@ -69,6 +73,8 @@ class Player
 	private:
 		signed int health;
 		signed int totalHealth;
+		signed int energy;
+		signed int totalEnergy;
 		unsigned int level;
 		bool playerSwitch;
 		bool Targetable;

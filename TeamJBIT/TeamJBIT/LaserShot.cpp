@@ -8,7 +8,8 @@ LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	sf::Texture* image = _getTexture("media/greenLaserRay.png");
 	image->setSmooth(true);
 	sprite.setTexture(*image);
-	sprite.scale(sf::Vector2f(3.5, 1));
+	//sprite.scale(sf::Vector2f(3.5, 1));
+	sprite.setScale(sf::Vector2f(5, 1));
 	sprite.setOrigin(0, sprite.getLocalBounds().height/2);
 	sprite.setPosition(pos);
 	// Rotate the laser based on our direction

@@ -19,6 +19,8 @@ class TextButton : public Button {
 		TextButton();
 		TextButton(sf::FloatRect& boundsRect, std::string label, float fontSize, std::function<void()> onPressFunction = [] {});
 		~TextButton();
+		void setSelected();
+		void setUnselected();
 		sf::Text labelText;
 
 	private:

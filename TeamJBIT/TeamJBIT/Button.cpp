@@ -37,3 +37,13 @@ TextButton::TextButton(sf::FloatRect& boundsRect, std::string label, float fontS
 TextButton::~TextButton() {
 
 }
+
+void TextButton::setSelected()
+{
+	labelText.setColor(sf::Color::Yellow);
+}
+
+void TextButton::setUnselected()
+{
+	labelText.setColor(sf::Color::White);
+}

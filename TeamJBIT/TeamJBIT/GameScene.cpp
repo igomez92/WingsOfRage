@@ -8,7 +8,7 @@
 #include "SpiralEnemy.h"
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp("media/PowerUp.png", sf::Vector2f(-100,-100)), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
-currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true) 
+currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false)
 {
 	// Initialize score info
 	initializeScoreAndTime();
@@ -246,9 +246,14 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 		}
 	}
 
+	if(player.isDoingABarrelRoll == false)
+	{
+		energyDecreaseDone = false;
+	}
+
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.laserShooting == false){
-		if(player.currentPlayerMode == GUNNER_MODE && player.canBlink)
+		if(player.currentPlayerMode == GUNNER_MODE && player.canBlink && player.getEnergy() != 0)
 		{
 			float distanceToBlink = 400;
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -284,6 +289,7 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 			player.pos = blinkLocation;
 			blinkDelay = clock.getElapsedTime();
 			player.canBlink = false;
+			player.decreaseEnergy(100);
 		}
 		else if((clock.getElapsedTime() - blinkDelay).asSeconds() > .2)
 		{
@@ -291,7 +297,7 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 		}
 	}
 
-	if(player.currentPlayerMode == PLANE_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	if(player.currentPlayerMode == PLANE_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.getEnergy() != 0)
 	{
 		if (player.pos.x < sf::Mouse::getPosition(window).x)
 		{
@@ -302,11 +308,18 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 		{
 			player.doABarrelRoll(true);
 		}
+
+		if(energyDecreaseDone == false)
+		{
+			player.decreaseEnergy(100);
+			energyDecreaseDone = true;
+		}
 	}
 
-	if(player.currentPlayerMode == FIGHTER_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	if(player.currentPlayerMode == FIGHTER_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.getEnergy() != 0)
 	{
 		player.setShieldUp(true);
+		player.decreaseEnergy(1);
 	}else
 	{
 		player.setShieldUp(false);
@@ -525,7 +538,10 @@ void GameScene::updateUpgrade()
 		if(!player.powerUpFound)
 			player.powerUP();
 		else
+		{
 			player.increaseHealth(100);
+			player.increaseEnergy(100);
+		}
 		powerUp.setPosition(sf::Vector2f(-100.,-100.));
 	}
 }
@@ -606,7 +622,7 @@ void GameScene::updateHealthAndEnergy()
 {
 	float healthScale = (float) player.getHealth()/player.getTotalHealth();
 	healthBar.setScale(healthScale, 1);
-	//healthBar.setPosition(10, 100);
 
-	// Update energy here
+	float energyScale = (float) player.getEnergy()/player.getTotalHealth();
+	energyBar.setScale(energyScale, 1);
 }

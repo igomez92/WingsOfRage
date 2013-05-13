@@ -111,4 +111,6 @@ class GameScene : public IScene
 		sf::Sprite energyBar;
 
 		void updateHealthAndEnergy();
+
+		bool energyDecreaseDone;
 };
