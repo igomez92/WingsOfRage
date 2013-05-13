@@ -19,9 +19,9 @@ MenuScene::MenuScene() : shouldQuit(false), backgroundScroll(0) {
 	blackScreen.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	//buttons
-	buttons[0] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(300), scaledXPos(400), scaledYPos(50)), "Play", scaledFontSize(40), [] {SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
-	buttons[1] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(365), scaledXPos(400), scaledYPos(50)), "Credits", scaledFontSize(40), [] {SceneManager::getInstance().changeScene("credits");});
-	buttons[2] = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(430), scaledXPos(400), scaledYPos(50)), "Quit", scaledFontSize(40), [&] {shouldQuit = true;});
+	buttons[0] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(300), scaledXPos(150), scaledYPos(60)), "Play", scaledFontSize(40), [] {SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
+	buttons[1] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(365), scaledXPos(150), scaledYPos(60)), "Credits", scaledFontSize(40), [] {SceneManager::getInstance().changeScene("credits");});
+	buttons[2] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(430), scaledXPos(150), scaledYPos(60)), "Quit", scaledFontSize(40), [&] {shouldQuit = true;});
 }
 
 MenuScene::~MenuScene() {

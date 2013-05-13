@@ -25,7 +25,7 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	teamList.setOrigin((int)teamList.getLocalBounds().width / 2, 0);
 	teamList.setPosition(SCREEN_WIDTH / 2, 200);
 
-	backButton = TextButton(sf::FloatRect(scaledXPos(200), scaledYPos(500), scaledXPos(400), scaledYPos(50)), "Back to Menu", 30, [] {SceneManager::getInstance().changeScene("menu");});
+	backButton = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(500), scaledXPos(150), scaledYPos(50)), "Back to Menu", 30, [] {SceneManager::getInstance().changeScene("menu");});
 }
 
 void CreditsScene::enter() {
@@ -49,6 +49,12 @@ void CreditsScene::update(sf::RenderWindow& window) {
 	if (backgroundScroll >= 512)
 		backgroundScroll -= 512;
 	backgroundSprite.setPosition(-backgroundScroll, -backgroundScroll);
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	if(backButton.boundsRect.contains(mousePos.x, mousePos.y))
+		backButton.setSelected();
+	else
+		backButton.setUnselected();
 
 	fadeTweener.step(deltaTime);
 }

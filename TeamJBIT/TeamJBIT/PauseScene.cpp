@@ -19,9 +19,9 @@ PauseScene::PauseScene() : bgTextureUpdated(false) {
 	pauseLabel.setColor(sf::Color(150, 150, 150));
 
 	//buttons
-	buttons[0] = TextButton(sf::FloatRect(scaledXPos(250), scaledYPos(250), scaledXPos(300), scaledYPos(50)), "Resume", scaledFontSize(20), [] {SceneManager::getInstance().changeScene("start");});
-	buttons[1] = TextButton(sf::FloatRect(scaledXPos(250), scaledYPos(300), scaledXPos(300), scaledYPos(50)), "Restart", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
-	buttons[2] = TextButton(sf::FloatRect(scaledXPos(250), scaledYPos(350), scaledXPos(300), scaledYPos(50)), "Quit to Menu", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().changeScene("menu");});
+	buttons[0] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(250), scaledXPos(150), scaledYPos(50)), "Resume", scaledFontSize(20), [] {SceneManager::getInstance().changeScene("start");});
+	buttons[1] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(300), scaledXPos(150), scaledYPos(50)), "Restart", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
+	buttons[2] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(350), scaledXPos(150), scaledYPos(50)), "Quit to Menu", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().changeScene("menu");});
 }
 
 void PauseScene::enter() {
@@ -81,6 +81,11 @@ bool PauseScene::handleEvent(sf::Event& e) {
 			button.processClick(e);
 		}
 		return true;
+	}
+
+	//return to game if ESC pressed again
+	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape) {
+		SceneManager::getInstance().changeScene("start");
 	}
 
 	return false;
