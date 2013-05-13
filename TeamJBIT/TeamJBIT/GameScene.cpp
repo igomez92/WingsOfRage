@@ -478,7 +478,7 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			{
 				sf::Vector2f aiming;
 				aiming = (-(**it).vel);
-				aiming = aiming * .25f;
+				//aiming = aiming * .25f;
 				playerBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5));	
 			}			
 			if (player.isShieldUp() && !player.isDoingABarrelRoll)
