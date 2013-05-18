@@ -3,10 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include "AnimSprite.h"
 
+enum powerUpType {WEAPON_UPGRADE, HEALTH_UPGRADE, ENERGY_UPGRADE};
+
 class PowerUp
 {
 	public:
 		PowerUp(std::string file, sf::Vector2f pos);
+		PowerUp(sf::Vector2f pos);
 		~PowerUp();
 
 		void update(sf::Clock clock);
@@ -17,6 +20,8 @@ class PowerUp
 		float startTime;
 		bool isHP;
 		bool isEnergy;
+		int upgradeType;
+		int getUpgradeType();
 
 	private:
 		AnimSprite sprite;

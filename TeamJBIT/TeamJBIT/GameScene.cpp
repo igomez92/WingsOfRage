@@ -7,7 +7,7 @@
 #include "CircleEnemy.h"
 #include "SpiralEnemy.h"
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0) , powerUp("media/PowerUp.png", sf::Vector2f(-100,-100)), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
 currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false)
 {
 	// Initialize score info
@@ -53,6 +53,8 @@ GameScene::~GameScene()
 	for (auto it = enemyBullets.begin(); it != enemyBullets.end(); it++) 
 		delete (*it);
 	for (auto it = allParticles.begin(); it != allParticles.end(); it++)
+		delete (*it);
+	for (auto it = powerUps.begin(); it != powerUps.end(); it++)
 		delete (*it);
 }
 
@@ -171,8 +173,13 @@ void GameScene::draw(sf::RenderWindow& window) {
 		(**it).draw(window);
 	}
 
+	//draw upgrades
+	for (auto it = powerUps.begin(); it != powerUps.end(); it++)
+	{
+		(**it).draw(window);
+	}
+
 	player.draw(window);
-	powerUp.draw(window);
 	printScoreAndTime(window);
 	window.draw(healthBar);
 	window.draw(energyBar);
@@ -434,9 +441,10 @@ void GameScene::updateEnemies(float deltaTime)
 			scoreNum += 100;
 			if(scoreNum % 400 == 0)
 			{
-				powerUp.setPosition((**it).pos);
-				if(player.powerUpFound)
-					powerUp.isHP = true;
+				powerUps.push_back(new PowerUp((**it).pos));
+				//powerUp.setPosition((**it).pos);
+				//if(player.powerUpFound)
+					//powerUp.isHP = true;
 			}
 			ptManager.doExplosion(allParticles, (**it).pos, sf::Color::Green, 100.0);
 			auto itToErase = it;
@@ -545,16 +553,25 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 
 void GameScene::updateUpgrade()
 {
-	if(abs(player.pos.x - powerUp.pos.x) < 22 && abs(player.pos.y - powerUp.pos.y) < 22)
+	for(auto it = powerUps.begin(); it != powerUps.end();)
 	{
-		if(!player.powerUpFound)
-			player.powerUP();
-		else
+		if(abs(player.pos.x - (**it).pos.x) < 22 && abs(player.pos.y - (**it).pos.y) < 22)
 		{
-			player.increaseHealth(100);
-			player.increaseEnergy(100);
+			int upgradeType = (**it).getUpgradeType();
+			if(upgradeType == WEAPON_UPGRADE)
+				player.powerUP();
+			else if(upgradeType == HEALTH_UPGRADE)
+				player.increaseHealth(100);
+			else
+				player.increaseEnergy(100);
+
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			powerUps.erase(itToErase);
+			continue;
 		}
-		powerUp.setPosition(sf::Vector2f(-100.,-100.));
+		it++;
 	}
 }
 

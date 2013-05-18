@@ -1,14 +1,32 @@
 #include "PowerUp.h"
 #include "TextureManager.h"
 
-PowerUp::PowerUp(std::string file, sf::Vector2f pos)
+PowerUp::PowerUp(sf::Vector2f pos)
 	:pos(pos)
 {
-	sf::Texture* image = _getTexture(file);
+	float x = rand() % 10;
+	sf::Texture* image;
+	if(x < 2)
+	{
+		image = _getTexture("media/PowerUp.png");
+		upgradeType = WEAPON_UPGRADE;
+	}
+	else if(x < 6)
+	{
+		image = _getTexture("media/PowerUp.png");
+		upgradeType = HEALTH_UPGRADE;
+	}
+	else
+	{
+		image = _getTexture("media/PowerUp.png");
+		upgradeType = ENERGY_UPGRADE;
+	}
+
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
-	isHP = false;
+
+
 }
 
 PowerUp::~PowerUp()
@@ -36,4 +54,9 @@ void PowerUp::update(sf::Clock clock)
 void PowerUp::draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+int PowerUp::getUpgradeType()
+{
+	return upgradeType;
 }

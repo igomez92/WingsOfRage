@@ -16,6 +16,7 @@
 #include "Sequence.h"
 
 enum currentMode {PLANE_MODE , GUNNER_MODE, FIGHTER_MODE, NO_MODE};
+enum upgradeState {STAGE_ONE, STAGE_TWO, STAGE_THREE};
 
 class Player
 {

@@ -40,7 +40,6 @@ class GameScene : public IScene
 	private:
 
 		Player player;
-		PowerUp powerUp;
 		sf::Time shotTimer;
 		int enemyDisplacement;
 
@@ -50,7 +49,8 @@ class GameScene : public IScene
 		std::list<Enemy*> enemyList;
 		std::list<Bullet*> playerBullets;
 		std::list<Bullet*> enemyBullets;
-		std::list<Particle*> allParticles;
+		std::list<Particle*> allParticles; 
+		std::list<PowerUp*> powerUps;
 		MeleeType* currentMeleeAttack;
 
 		Clock clock;
