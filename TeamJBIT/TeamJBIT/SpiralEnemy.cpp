@@ -1,7 +1,7 @@
 #include "Utility.h"
 #include "SpiralEnemy.h"
 
-SpiralEnemy::SpiralEnemy(std::string file, sf::Vector2f pos, int health = 500, float coolTime = 1.25)
+SpiralEnemy::SpiralEnemy(std::string file, sf::Vector2f pos, int health , float coolTime )
 	: Enemy(file, pos, health), coolTime(coolTime), currentTime(0), fireSpiral(false), bulletSpeed(350)
 {
 	

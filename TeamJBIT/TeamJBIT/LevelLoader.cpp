@@ -6,6 +6,8 @@
 #include "TankEnemy.h"
 #include "MTankEnemy.h"
 #include "CircleEnemy.h"
+#include "MeleeEnemy.h"
+#include "SpiralEnemy.h"
 
 //two helper functions first
 EnemyClass parseEnemyType(char* typeString) {
@@ -19,7 +21,10 @@ EnemyClass parseEnemyType(char* typeString) {
 		return EnemyClass::MTANKENEMY;
 	if (strcmp(typeString, "CircleEnemy") == 0)
 		return EnemyClass::CIRCLEENEMY;
-	
+	if (strcmp(typeString, "MeleeEnemy") == 0)
+		return EnemyClass::MELEEENEMY;
+	if (strcmp(typeString, "SpiralEnemy") == 0)
+		return EnemyClass::SPIRALENEMY;
 	//fallback to stock enemy :/
 	return EnemyClass::ENEMY;
 }
@@ -79,13 +84,19 @@ void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
 			enemyList.push_back(new SliderEnemy("media/slider.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::TANKENEMY:
-			enemyList.push_back(new TankEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			enemyList.push_back(new TankEnemy("media/baller.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::MTANKENEMY:
-			enemyList.push_back(new MTankEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			enemyList.push_back(new MTankEnemy("media/mBaller.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 		case EnemyClass::CIRCLEENEMY:
-			enemyList.push_back(new CircleEnemy("media/ball.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			enemyList.push_back(new CircleEnemy("media/turret.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+		case EnemyClass::MELEEENEMY:
+			enemyList.push_back(new MeleeEnemy("media/knight.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+		case EnemyClass::SPIRALENEMY:
+			enemyList.push_back(new SpiralEnemy( "media/turret.png" , scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
 			break;
 	}
 }

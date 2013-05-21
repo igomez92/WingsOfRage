@@ -8,6 +8,7 @@ Player::Player(sf::Vector2f pos)
 {
 	planeImage = _getTexture("media/plane.png");
 	gunnerImage = _getTexture("media/gunSuit.png");
+	fighterImage = _getTexture("media/swordSuit.png");
 	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(32,32);
 	sprite.setScale(1.5,1.5);
@@ -83,6 +84,9 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 		{
 			//delete shotType;
 			//meleeType = new SwordSlash(.75f);
+			sprite.setTexture(*fighterImage);
+			sprite.setFrameSize(32,32);
+			sprite.setScale(1,1);
 			allowSword = true;
 		}
 

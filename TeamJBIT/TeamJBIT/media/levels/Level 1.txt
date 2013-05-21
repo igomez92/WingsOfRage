@@ -1,4 +1,5 @@
 //sliders come in from the side one at a time
+0, MeleeEnemy, 0,0
 0, SliderEnemy, 750,0
 0.5, SliderEnemy, 750,0
 1, SliderEnemy, 750,0
@@ -95,3 +96,17 @@
 46.25, SliderEnemy, 800,0
 46.5 , SliderEnemy, 800,0
 46.75, SliderEnemy, 800,0
+
+50, MeleeEnemy, 0,0
+50, MeleeEnemy, 100,0
+50, MeleeEnemy, 200,0
+50, MeleeEnemy, 300,0
+50, MeleeEnemy, 400,0
+50, MeleeEnemy, 500,0
+50, MeleeEnemy, 600,0
+50, MeleeEnemy, 700,0
+
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
