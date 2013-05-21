@@ -10,6 +10,7 @@ Player::Player(sf::Vector2f pos)
 	gunnerImage = _getTexture("media/gunSuit.png");
 	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(32,32);
+	sprite.setScale(1.5,1.5);
 
 	//framerate > game framerate makes it animation a little more irregular, which is desired here
 	/*sprite.addAnim("L", 0, 43, 2, 1, 90);

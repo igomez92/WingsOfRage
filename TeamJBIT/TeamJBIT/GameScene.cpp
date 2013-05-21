@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "SceneManager.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "TextureManager.h"
 #include "FontManager.h"
 #include "MeleeEnemy.h"
@@ -10,6 +11,8 @@
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
 currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false)
 {
+	sManager.setMusic("media/crazy.ogg");
+	sManager.playMusic();
 	// Initialize score info
 	initializeScoreAndTime();
 
@@ -37,10 +40,12 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	energyBar.setTexture(*energy);
 	energyBar.setOrigin(0, energyBar.getLocalBounds().height/2);
 	energyBar.setPosition(10, 125);
+
 }
 
 GameScene::~GameScene() 
 {
+	
 	if(bombRunning)
 	{
 		delete bomb;
@@ -64,6 +69,7 @@ void GameScene::enter() {
 
 void GameScene::leave() {
 	clock.pause();
+	sManager.stopMusic();
 }
 
 void GameScene::update(sf::RenderWindow& window) {
@@ -144,7 +150,7 @@ void GameScene::update(sf::RenderWindow& window) {
 
 	updateScoreAndTime();
 	player.update(deltaTime, playerBullets);
-
+	
 }
 
 void GameScene::draw(sf::RenderWindow& window) {

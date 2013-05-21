@@ -10,6 +10,7 @@ Enemy::Enemy(std::string file, sf::Vector2f pos, int health)
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 	sprite.rotate(180);
+	sprite.setScale(1.5,1.5);
 	type = Normal;
 }
 

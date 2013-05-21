@@ -116,6 +116,7 @@
     <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="ShotSword.cpp" />
     <ClCompile Include="SingleShot.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpiralEnemy.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="SliderEnemy.cpp" />

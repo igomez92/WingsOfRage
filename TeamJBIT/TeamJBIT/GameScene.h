@@ -22,6 +22,8 @@
 
 #include "SuperBomb.h"
 
+#include "SoundManager.h"
+
 #include <list>
 #include <sstream>
 
@@ -114,6 +116,7 @@ class GameScene : public IScene
 		sf::Sprite energyBar;
 
 		void updateHealthAndEnergy();
-
 		bool energyDecreaseDone;
+
+		SoundManager sManager;
 };
