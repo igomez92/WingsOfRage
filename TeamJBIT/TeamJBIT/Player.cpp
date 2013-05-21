@@ -92,6 +92,45 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 
 		playerSwitch = false;
 	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		playerSwitchQ = true;
+
+		if(playerSwitchQ == true)
+		{
+			currentPlayerMode--;
+		
+		if(currentPlayerMode < PLANE_MODE)
+			currentPlayerMode = FIGHTER_MODE;
+		if(currentPlayerMode == PLANE_MODE)
+		{
+			if(meleeType != NULL)
+				allowSword = false;
+				//delete meleeType;
+			shotType = new TriCannonShot;
+			sprite.setTexture(*planeImage);
+			sprite.setFrameSize(32,32);
+			sprite.setScale(1,1);
+		}
+		else if(currentPlayerMode == GUNNER_MODE)
+		{
+			delete shotType;
+			shotType = new SingleShot(1.25f);
+			sprite.setTexture(*gunnerImage);
+			sprite.setFrameSize(32,32);
+			//sprite.setScale(1.5,1.5);
+		}
+		else
+		{
+			//delete shotType;
+			//meleeType = new SwordSlash(.75f);
+			allowSword = true;
+		}
+
+		playerSwitchQ = false;
+		}
+
+	}
 	
 	sf::Vector2f movementVec(0, 0);
 	if(laserShooting == false)
@@ -303,7 +342,7 @@ void Player::doABarrelRoll(bool isLeft)
 
 void Player::damaged(int damagedealt)
 {
-	health -= damagedealt;
+	//health -= damagedealt;
 }
 
 bool Player::isDead()

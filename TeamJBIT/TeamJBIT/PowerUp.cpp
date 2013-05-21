@@ -8,17 +8,17 @@ PowerUp::PowerUp(sf::Vector2f pos)
 	sf::Texture* image;
 	if(x < 2)
 	{
-		image = _getTexture("media/PowerUp.png");
+		image = _getTexture("media/power.png");
 		upgradeType = WEAPON_UPGRADE;
 	}
 	else if(x < 6)
 	{
-		image = _getTexture("media/PowerUp.png");
+		image = _getTexture("media/power.png");
 		upgradeType = HEALTH_UPGRADE;
 	}
 	else
 	{
-		image = _getTexture("media/PowerUp.png");
+		image = _getTexture("media/power.png");
 		upgradeType = ENERGY_UPGRADE;
 	}
 

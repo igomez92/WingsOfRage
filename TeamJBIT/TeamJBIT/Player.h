@@ -78,6 +78,7 @@ class Player
 		signed int totalEnergy;
 		unsigned int level;
 		bool playerSwitch;
+		bool playerSwitchQ;
 		bool Targetable;
 		bool shieldUp;
 
