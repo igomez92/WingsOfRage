@@ -16,7 +16,7 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	// Initialize score info
 	initializeScoreAndTime();
 
-	enemySpawnQueue = LevelLoader::loadLevel("media/levels/level 1.txt");
+	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 	bossSpawned = false;
 
 	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
@@ -418,7 +418,10 @@ void GameScene::updateLaser()
 		{
 			if(player.laser->collidesWith(**it))
 			{
-				(**it).takeDam(player.laser->dam);
+				if((**it).type != EnemyType::Boss)
+					(**it).takeDam(player.laser->dam);
+				else
+					(**it).takeDam(player.laser->dam/1000);
 			}
 		}
 	}

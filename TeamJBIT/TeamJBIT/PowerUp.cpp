@@ -13,12 +13,12 @@ PowerUp::PowerUp(sf::Vector2f pos)
 	}
 	else if(x < 6)
 	{
-		image = _getTexture("media/power.png");
+		image = _getTexture("media/health.png");
 		upgradeType = HEALTH_UPGRADE;
 	}
 	else
 	{
-		image = _getTexture("media/power.png");
+		image = _getTexture("media/energy.png");
 		upgradeType = ENERGY_UPGRADE;
 	}
 

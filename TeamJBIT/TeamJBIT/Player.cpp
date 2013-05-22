@@ -92,12 +92,12 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 
 		playerSwitch = false;
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		playerSwitchQ = true;
-
-		if(playerSwitchQ == true)
-		{
+	}
+	else if(playerSwitchQ == true)
+	{
 			currentPlayerMode--;
 		
 		if(currentPlayerMode < PLANE_MODE)
@@ -118,18 +118,18 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			shotType = new SingleShot(1.25f);
 			sprite.setTexture(*gunnerImage);
 			sprite.setFrameSize(32,32);
+			sprite.setScale(1, 1);
 			//sprite.setScale(1.5,1.5);
 		}
 		else
 		{
+			sprite.setTexture(*fighterImage);
+			sprite.setFrameSize(32, 32);
 			//delete shotType;
 			//meleeType = new SwordSlash(.75f);
 			allowSword = true;
 		}
-
 		playerSwitchQ = false;
-		}
-
 	}
 	
 	sf::Vector2f movementVec(0, 0);
@@ -342,7 +342,7 @@ void Player::doABarrelRoll(bool isLeft)
 
 void Player::damaged(int damagedealt)
 {
-	//health -= damagedealt;
+	health -= damagedealt;
 }
 
 bool Player::isDead()

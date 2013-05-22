@@ -68,7 +68,14 @@ bool BeamSword::collidesWith(Enemy& enemy)
 
 void BeamSword::doDamage(Enemy& enemy)
 {
-	enemy.takeDam(dam);
+	if(enemy.type == EnemyType::Tank)
+	{
+		enemy.takeDam(dam/10.f);
+	}
+	else
+	{
+		enemy.takeDam(dam);
+	}
 }
 
 void BeamSword::update(float deltaTime, sf::Vector2f pos, std::list<Bullet*>& playerBullets)
