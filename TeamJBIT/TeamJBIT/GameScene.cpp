@@ -41,6 +41,10 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	energyBar.setOrigin(0, energyBar.getLocalBounds().height/2);
 	energyBar.setPosition(10, 125);
 
+	sf::Texture* power = _getTexture("media/PowerBar.png");
+	powerBar.setTexture(*power);
+	powerBar.setOrigin(0, powerBar.getLocalBounds().height/2);
+	powerBar.setPosition(10, 150);
 }
 
 GameScene::~GameScene() 

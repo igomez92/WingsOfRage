@@ -106,6 +106,7 @@ class GameScene : public IScene
 		// See if bomb is done
 		bool bombReady;
 		float currBombTime;
+		sf::Sprite bombImage;
 		
 		void updateBomb(float deltaTime, std::list<Enemy*> enemList);
 		void startBomb();
@@ -114,6 +115,7 @@ class GameScene : public IScene
 		// Health and Energy Bars
 		sf::Sprite healthBar;
 		sf::Sprite energyBar;
+		sf::Sprite powerBar;
 
 		void updateHealthAndEnergy();
 		bool energyDecreaseDone;
