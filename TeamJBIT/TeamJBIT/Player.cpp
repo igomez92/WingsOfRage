@@ -342,7 +342,7 @@ void Player::doABarrelRoll(bool isLeft)
 
 void Player::damaged(int damagedealt)
 {
-	health -= damagedealt;
+	//health -= damagedealt;
 }
 
 bool Player::isDead()

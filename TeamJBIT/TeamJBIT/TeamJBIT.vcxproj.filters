@@ -132,6 +132,9 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -255,6 +258,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -125,6 +125,7 @@
     <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TriCannonShot.cpp" />
+    <ClCompile Include="WinScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimSprite.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="SingleShot.h" />
     <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="TriCannonShot.h" />
+    <ClInclude Include="WinScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
