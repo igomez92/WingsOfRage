@@ -140,7 +140,8 @@ void GameScene::update(sf::RenderWindow& window) {
 		bossSpawned = true;
 	}else if(enemyList.empty() && bossSpawned)
 	{
-		SceneManager::getInstance().changeScene("end");
+		//SceneManager::getInstance().changeScene("end");
+		SceneManager::getInstance().changeScene("winScene");
 	}
 
 	//enemy to player collision
