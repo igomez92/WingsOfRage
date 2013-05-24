@@ -29,7 +29,11 @@ WinScene::WinScene() : bgTextureUpdated(false) {
 	pauseLabel.setColor(sf::Color(150, 150, 150));
 
 	//buttons
-	buttons[0] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(250), scaledXPos(150), scaledYPos(50)), "Next Level", scaledFontSize(20), [] {SceneManager::getInstance().changeScene("start");});
+
+	//Configure scene changes HERE, at the button assignments!!!!  TEMPORARY: Next Level and Restart Level goes to the very first gameScene of the game.  Only 1 level right now, so essentially it's looping.
+	//PLEASE CHANGE the parameters to the next scene when Level 2 is created.  
+
+	buttons[0] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(250), scaledXPos(150), scaledYPos(50)), "Next Level", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
 	buttons[1] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(300), scaledXPos(150), scaledYPos(50)), "Restart Level", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().addScene("start", new GameScene()); SceneManager::getInstance().changeScene("start");});
 	buttons[2] = TextButton(sf::FloatRect(scaledXPos(325), scaledYPos(350), scaledXPos(150), scaledYPos(50)), "Quit to Menu", scaledFontSize(20), [] {SceneManager::getInstance().deleteScene("start"); SceneManager::getInstance().changeScene("menu");});
 }
