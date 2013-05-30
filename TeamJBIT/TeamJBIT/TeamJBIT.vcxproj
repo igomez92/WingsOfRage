@@ -100,6 +100,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="LaserCharge.cpp" />
     <ClCompile Include="LaserShot.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="LaserCharge.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="MenuScene.h" />
