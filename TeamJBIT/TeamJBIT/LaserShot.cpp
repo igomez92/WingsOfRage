@@ -23,7 +23,6 @@ LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 
 
 	sf::Texture* image2 = _getTexture("media/charge.png");
-	image2->setSmooth(true);
 	chargingSprite.setTexture(*image2);
 	//sprite.scale(sf::Vector2f(3.5, 1));
 	chargingSprite.setScale(sf::Vector2f(3, 3));  

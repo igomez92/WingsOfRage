@@ -645,7 +645,10 @@ void GameScene::updateUpgrade()
 		{
 			int upgradeType = (**it).getUpgradeType();
 			if(upgradeType == WEAPON_UPGRADE)
+			{
 				player.powerUP();
+				currentPowerTime = 0.0f;
+			}
 			else if(upgradeType == HEALTH_UPGRADE)
 				player.increaseHealth(100);
 			else if(upgradeType == ENERGY_UPGRADE)
