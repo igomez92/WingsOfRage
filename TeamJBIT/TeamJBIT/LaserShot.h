@@ -16,6 +16,7 @@ class LaserShot
 
 		float totalTime;
 		float accumTime;
+		float chargeTime;
 		int dam;
 		bool continueDraw;
 
@@ -25,7 +26,10 @@ class LaserShot
 
 		bool collidesWith(Enemy& enemy);
 
+		bool continueCharging;
+
 	private:
-		sf::Sprite sprite;
+		sf::Sprite laserSprite;
+		sf::Sprite chargingSprite;
 };
 
