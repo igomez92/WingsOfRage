@@ -1,6 +1,7 @@
 #include "LevelLoader.h"
 #include <fstream>
 #include <cstring>
+#include <tuple>
 
 #include "SliderEnemy.h"
 #include "TankEnemy.h"
@@ -10,32 +11,49 @@
 #include "SpiralEnemy.h"
 
 //two helper functions first
-EnemyClass parseEnemyType(char* typeString) {
+LevelLoader::EntitySpawnType parseEntityType(char* typeString) {
+
+	//enemies
 	if (strcmp(typeString, "Enemy") == 0)
-		return EnemyClass::ENEMY;
+		return LevelLoader::EntitySpawnType::ENEMY;
 	if (strcmp(typeString, "SliderEnemy") == 0)
-		return EnemyClass::SLIDERENEMY;
+		return LevelLoader::EntitySpawnType::SLIDERENEMY;
 	if (strcmp(typeString, "TankEnemy") == 0)
-		return EnemyClass::TANKENEMY;
+		return LevelLoader::EntitySpawnType::TANKENEMY;
 	if (strcmp(typeString, "MTankEnemy") == 0)
-		return EnemyClass::MTANKENEMY;
+		return LevelLoader::EntitySpawnType::MTANKENEMY;
 	if (strcmp(typeString, "CircleEnemy") == 0)
-		return EnemyClass::CIRCLEENEMY;
+		return LevelLoader::EntitySpawnType::CIRCLEENEMY;
 	if (strcmp(typeString, "MeleeEnemy") == 0)
-		return EnemyClass::MELEEENEMY;
+		return LevelLoader::EntitySpawnType::MELEEENEMY;
 	if (strcmp(typeString, "SpiralEnemy") == 0)
-		return EnemyClass::SPIRALENEMY;
-	//fallback to stock enemy :/
-	return EnemyClass::ENEMY;
+		return LevelLoader::EntitySpawnType::SPIRALENEMY;
+
+	//general entities
+	if (strcmp(typeString, "TextBox") == 0)
+		return LevelLoader::EntitySpawnType::TEXTBOX;
+
+	//fallback entity :/
+	return LevelLoader::EntitySpawnType::INVALID;
 }
 
 void stripWhitespace(char* string, int length) {
 	char* newString = new char[length];
 
 	int newStringIndex = 0;
+	bool inQuotes = false;
+
 	for (int i = 0; i < length; i++) {
 		if (string[i] == 0) break;
-		if (string[i] == ' ' || string[i] == '\t') continue;
+
+		//handle quotes
+		if (!inQuotes && string[i] == '"') 
+			inQuotes = true;
+		else if (inQuotes && string[i] == '"')
+			inQuotes = false;
+		
+		if (!inQuotes)
+			if (string[i] == ' ' || string[i] == '\t') continue;
 
 		newString[newStringIndex++] = string[i]; //yes that's a deliberate postfix
 	}
@@ -46,8 +64,8 @@ void stripWhitespace(char* string, int length) {
 	delete[] newString;
 }
 
-std::queue<SpawnEntry> LevelLoader::loadLevel(std::string filename) {
-	std::queue<SpawnEntry> spawnQueue;
+std::queue<LevelLoader::EntitySpawnEntry> LevelLoader::loadLevel(std::string filename) {
+	std::queue<LevelLoader::EntitySpawnEntry> spawnQueue;
 	std::ifstream levelFile (filename.c_str());
 
 	char line[512]; //with current file format this is way, way more than enough space
@@ -61,11 +79,22 @@ std::queue<SpawnEntry> LevelLoader::loadLevel(std::string filename) {
 		//is this line empty?
 		if (line[0] == 0) continue;
 
-		SpawnEntry entry;
+		LevelLoader::EntitySpawnEntry entry;
 		entry.spawnTime = atof(strtok(line, ","	));
-		entry.enemyType = parseEnemyType(strtok(NULL, ","));
+		entry.entityType = parseEntityType(strtok(NULL, ","));
 		entry.xPos = atof(strtok(NULL, ","));
 		entry.yPos = atof(strtok(NULL, ","));
+		entry.data = nullptr;
+
+		//some entities use extra data (e.g. textboxes store string and time to show on screen)
+		switch(entry.entityType) {
+			case EntitySpawnType::TEXTBOX:
+				std::string captionText = strtok(NULL, "\",");
+				float timeToShow = atof(strtok(NULL, ","));
+				std::tuple<std::string, float>* packed = new std::tuple<std::string, float>(captionText, timeToShow);		
+				entry.data = packed;
+				break;
+		}
 
 		spawnQueue.push(entry);
 	}
@@ -73,30 +102,4 @@ std::queue<SpawnEntry> LevelLoader::loadLevel(std::string filename) {
 	levelFile.close();
 
 	return spawnQueue;
-}
-
-void LevelLoader::spawnEnemy(std::list<Enemy*>& enemyList, SpawnEntry& entry) {
-	switch (entry.enemyType) {
-		case EnemyClass::ENEMY:
-			enemyList.push_back(new Enemy("media/drone.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::SLIDERENEMY:
-			enemyList.push_back(new SliderEnemy("media/slider.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::TANKENEMY:
-			enemyList.push_back(new TankEnemy("media/baller.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::MTANKENEMY:
-			enemyList.push_back(new MTankEnemy("media/mBaller.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::CIRCLEENEMY:
-			enemyList.push_back(new CircleEnemy("media/turret.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::MELEEENEMY:
-			enemyList.push_back(new MeleeEnemy("media/knight.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-		case EnemyClass::SPIRALENEMY:
-			enemyList.push_back(new SpiralEnemy( "media/turret.png" , scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
-			break;
-	}
 }

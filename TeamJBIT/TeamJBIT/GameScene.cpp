@@ -7,6 +7,7 @@
 #include "MeleeEnemy.h"
 #include "CircleEnemy.h"
 #include "SpiralEnemy.h"
+#include <tuple>
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
 currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false)
@@ -16,7 +17,7 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	// Initialize score info
 	initializeScoreAndTime();
 
-	enemySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
+	entitySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
 	bossSpawned = false;
 
 	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
@@ -143,10 +144,24 @@ void GameScene::update(sf::RenderWindow& window) {
 	// Update if we are using a bomb
 	updateBomb(deltaTime, enemyList);
 
+	//update all entities
+	for (auto it = entityList.begin(); it != entityList.end();) {
+		(**it).update(deltaTime);
+
+		if ((**it).isDead()) {
+			auto itToErase = it;
+			it++;
+			delete (*itToErase);
+			entityList.erase(itToErase);
+			continue;
+		}
+		it++;
+	}
+
 	updateHealthAndEnergy();
 
 	//if no more enemies summon a boss
-	if(enemyList.empty() && !bossSpawned && enemySpawnQueue.empty())
+	if(enemyList.empty() && !bossSpawned && entitySpawnQueue.empty())
 	{
 		enemyList.push_back(new Boss1("media/ball.png", sf::Vector2f(100, 0)));
 		bossSpawned = true;
@@ -200,6 +215,10 @@ void GameScene::draw(sf::RenderWindow& window) {
 	for (auto it = powerUps.begin(); it != powerUps.end(); it++)
 	{
 		(**it).draw(window);
+	}
+
+	for (IEntity* ent : entityList) {
+		ent->draw(window);
 	}
 
 	player.draw(window);
@@ -621,13 +640,62 @@ void GameScene::updateUpgrade()
 
 void GameScene::updateSpawnQueue() 
 {
-	if (enemySpawnQueue.empty()) return;
+	if (entitySpawnQueue.empty()) return;
 
 	float time = clock.getElapsedTime().asSeconds();
 
-	while (!enemySpawnQueue.empty() && enemySpawnQueue.front().spawnTime < time) {
-		LevelLoader::spawnEnemy(enemyList, enemySpawnQueue.front());
-		enemySpawnQueue.pop();
+	while (!entitySpawnQueue.empty() && entitySpawnQueue.front().spawnTime < time) {
+		spawnEntity(entitySpawnQueue.front());
+
+		if (entitySpawnQueue.front().data != nullptr)
+			delete entitySpawnQueue.front().data;
+		entitySpawnQueue.pop();
+	}
+}
+
+void GameScene::spawnEntity(LevelLoader::EntitySpawnEntry& entry) 
+{
+	switch (entry.entityType)
+	{
+		case LevelLoader::EntitySpawnType::INVALID:
+			break;
+
+		/////
+
+		case LevelLoader::EntitySpawnType::TEXTBOX: {
+			std::tuple<std::string, float> textBoxData = *((std::tuple<std::string, float>*)(entry.data));
+			entityList.push_back(new TextBox(std::get<0>(textBoxData), std::get<1>(textBoxData)));
+			} break;
+
+		/////
+
+		case LevelLoader::EntitySpawnType::ENEMY:
+			enemyList.push_back(new Enemy("media/drone.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::TANKENEMY:
+			enemyList.push_back(new TankEnemy("media/baller.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::MTANKENEMY:
+			enemyList.push_back(new MTankEnemy("media/mballer.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::SLIDERENEMY:
+			enemyList.push_back(new SliderEnemy("media/slider.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::CIRCLEENEMY:
+			enemyList.push_back(new CircleEnemy("media/turret.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::MELEEENEMY:
+			enemyList.push_back(new MeleeEnemy("media/knight.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
+
+		case LevelLoader::EntitySpawnType::SPIRALENEMY:
+			enemyList.push_back(new SpiralEnemy("media/turret.png", scaledPos(sf::Vector2f(entry.xPos, entry.yPos))));
+			break;
 	}
 }
 

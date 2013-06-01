@@ -5,6 +5,7 @@
 #include "AnimSprite.h"
 #include "IScene.h"
 #include "Player.h"
+#include "IEntity.h"
 
 #include "Enemy.h"
 #include "TankEnemy.h"
@@ -13,6 +14,8 @@
 #include "Boss1.h"
 #include "Bullet.h"
 #include "PowerUp.h"
+#include "TextBox.h"
+
 #include "MeleeType.h"
 #include "Utility.h"
 #include "LevelLoader.h"
@@ -45,7 +48,7 @@ class GameScene : public IScene
 		sf::Time shotTimer;
 		int enemyDisplacement;
 
-		std::queue<SpawnEntry> enemySpawnQueue;
+		std::queue<LevelLoader::EntitySpawnEntry> entitySpawnQueue;
 		ParticleManager ptManager;
 
 		std::list<Enemy*> enemyList;
@@ -53,6 +56,7 @@ class GameScene : public IScene
 		std::list<Bullet*> enemyBullets;
 		std::list<Particle*> allParticles; 
 		std::list<PowerUp*> powerUps;
+		std::list<IEntity*> entityList;
 		MeleeType* currentMeleeAttack;
 
 		Clock clock;
@@ -95,6 +99,7 @@ class GameScene : public IScene
 		void enemyToPlayerCollision(float deltaTime);
 		void updateUpgrade();
 		void updateSpawnQueue();
+		void spawnEntity(LevelLoader::EntitySpawnEntry& entry);
 		void updateParticleEffects(float deltaTime);
 
 		// Number of bombs

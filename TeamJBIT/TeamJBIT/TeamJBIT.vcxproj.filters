@@ -141,6 +141,9 @@
     <ClCompile Include="LaserCharge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -269,10 +272,16 @@
     <ClInclude Include="WinScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="SpearEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LaserCharge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

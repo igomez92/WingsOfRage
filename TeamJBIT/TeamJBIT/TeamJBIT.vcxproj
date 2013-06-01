@@ -125,6 +125,7 @@
     <ClCompile Include="SuperBomb.cpp" />
     <ClCompile Include="SwordSlash.cpp" />
     <ClCompile Include="TankEnemy.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TriCannonShot.cpp" />
     <ClCompile Include="WinScene.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="IEntity.h" />
     <ClInclude Include="LaserCharge.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeleeEnemy.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="SpiralEnemy.h" />
     <ClInclude Include="SuperBomb.h" />
     <ClInclude Include="SwordSlash.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="MultiPhotonShot.h" />
