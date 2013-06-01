@@ -17,6 +17,8 @@
 #include "LaserShot.h"
 #include "Sequence.h"
 
+#include "LaserCharge.h"
+
 enum currentMode {PLANE_MODE , GUNNER_MODE, FIGHTER_MODE, NO_MODE};
 enum upgradeState {STAGE_ONE, STAGE_TWO, STAGE_THREE};
 
@@ -93,6 +95,8 @@ class Player
 		sf::Texture* planeImage;
 		sf::Texture* gunnerImage;
 		sf::Texture* fighterImage;
+
+		sf::Texture* chargeImage;
 
 		sf::SoundBuffer buffer;
 		sf::Sound sound;

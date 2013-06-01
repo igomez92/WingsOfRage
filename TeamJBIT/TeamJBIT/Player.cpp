@@ -13,6 +13,8 @@ Player::Player(sf::Vector2f pos)
 	sprite.setFrameSize(32,32);
 	sprite.setScale(1.5,1.5);
 
+	chargeImage = _getTexture("media/charge.png");
+
 	//framerate > game framerate makes it animation a little more irregular, which is desired here
 	/*sprite.addAnim("L", 0, 43, 2, 1, 90);
 	sprite.addAnim("F", 41, 43, 2, 1, 90);

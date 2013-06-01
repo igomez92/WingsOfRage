@@ -17,6 +17,7 @@ LaserCharge::LaserCharge(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int 
 
 	continueDraw = true;
 	accumTime = 0;
+
 }
 
 LaserCharge::~LaserCharge(void)
