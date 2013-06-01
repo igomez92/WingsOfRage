@@ -410,13 +410,13 @@ void GameScene::updatePlayerBullets(float deltaTime)
 				
 				if((**enemyIt).type == Reflector)
 				{
-					if((**it).dam >= 500)
+					if((**it).dam >= 100)
 					{
 						(**enemyIt).takeDam((**it).dam);
 					}
 					sf::Vector2f aiming;
 					aiming = (-(**it).vel);
-					aiming = aiming * .25f;
+					aiming = aiming * .8f;
 					enemyBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5, sf::Color(255, 50, 50)));
 					
 				}
@@ -454,7 +454,7 @@ void GameScene::updateLaser()
 				if((**it).type != EnemyType::Boss)
 					(**it).takeDam(player.laser->dam);
 				else
-					(**it).takeDam(player.laser->dam/1000);
+					(**it).takeDam(player.laser->dam/10);
 			}
 		}
 	}

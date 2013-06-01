@@ -13,7 +13,7 @@ SingleShot::~SingleShot(void)
 
 void SingleShot::doShot(std::list<Bullet*>& playerBullets, sf::Vector2f pos, sf::Vector2f dir)
 {
-	playerBullets.push_back(new Bullet("media/bullet.png", pos, sf::Vector2f(1600*dir.x, 1600*dir.y) , 500));
+	playerBullets.push_back(new Bullet("media/bullet.png", pos, sf::Vector2f(1600*dir.x, 1600*dir.y) , 100));
 }
 
 float SingleShot::shotTime()

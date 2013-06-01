@@ -8,7 +8,7 @@ class Enemy;
 class LaserShot
 {
 	public:
-		LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim = 0.15, int dam = 10000);
+		LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim = 0.15, int dam = 300);
 		~LaserShot(void);
 
 		void update(float deltaTime);

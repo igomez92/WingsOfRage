@@ -45,7 +45,7 @@ void Boss1::attackPattern1(float deltaTime, std::list<Bullet*>& eList, std::list
 		shootingpoints[i] = vectorToAdd;
 	}
 	
-		if (bulletClock.getElapsedTime().asSeconds() > .1)
+		if (bulletClock.getElapsedTime().asSeconds() > .05)
 		{
 			for(int i = 0 ; i < 5; i++)
 			{
