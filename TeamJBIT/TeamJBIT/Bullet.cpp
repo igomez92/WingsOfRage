@@ -13,8 +13,9 @@ Bullet::Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam, sf
 
 	sprite.setPosition(pos);
 	centerOrigin(sprite);
-	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / 3.1415926f)) + 180.f);
+	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / M_PI)) + 180.f);
 
+	sprite.setScale(1.5,1.5);
 }
 
 

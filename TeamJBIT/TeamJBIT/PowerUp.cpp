@@ -1,27 +1,32 @@
 #include "PowerUp.h"
 #include "TextureManager.h"
 
-PowerUp::PowerUp(sf::Vector2f pos)
-	:pos(pos)
+PowerUp::PowerUp(sf::Vector2f pos, int startTime)
+	:pos(pos), startTime(startTime)
 {
 	float x = rand() % 10;
 	sf::Texture* image;
-	if(x < 2)
+	if(x < .5)
 	{
 		image = _getTexture("media/power.png");
 		upgradeType = WEAPON_UPGRADE;
 	}
-	else if(x < 6)
+	else if(x < 5)
 	{
 		image = _getTexture("media/health.png");
 		upgradeType = HEALTH_UPGRADE;
 	}
-	else
+	else if(x < 9)
 	{
 		image = _getTexture("media/energy.png");
 		upgradeType = ENERGY_UPGRADE;
 	}
-
+	else
+	{
+		image = _getTexture("media/bombTemp.png");
+		upgradeType = BOMB_UPGRADE;
+	}
+	currentTime = startTime;
 	sprite.setTexture(*image);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
@@ -45,10 +50,11 @@ void PowerUp::setPosition(sf::Vector2f position)
 	sprite.setPosition(pos);
 }
 
-void PowerUp::update(sf::Clock clock)
+void PowerUp::update()
 {
-	if(clock.getElapsedTime().asSeconds() > startTime + 50)
-		PowerUp::~PowerUp();
+	currentTime++;
+	pos.y += 5;
+	sprite.setPosition(pos);
 }
 
 void PowerUp::draw(sf::RenderWindow& window)

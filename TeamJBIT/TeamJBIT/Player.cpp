@@ -78,7 +78,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			shotType = new TriCannonShot;
 			sprite.setTexture(*planeImage);
 			sprite.setFrameSize(32,32);
-			sprite.setScale(1,1);
+			sprite.setScale(1.5,1.5);
 		}
 		else if(currentPlayerMode == GUNNER_MODE)
 		{
@@ -86,7 +86,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			shotType = new SingleShot(1.25f);
 			sprite.setTexture(*gunnerImage);
 			sprite.setFrameSize(32,32);
-			//sprite.setScale(1.5,1.5);
+			sprite.setScale(1.5,1.5);
 		}
 		else
 		{
@@ -94,7 +94,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			//meleeType = new SwordSlash(.75f);
 			sprite.setTexture(*fighterImage);
 			sprite.setFrameSize(32,32);
-			sprite.setScale(1,1);
+			sprite.setScale(1.5,1.5);
 			allowSword = true;
 		}
 
@@ -118,7 +118,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			shotType = new TriCannonShot;
 			sprite.setTexture(*planeImage);
 			sprite.setFrameSize(32,32);
-			sprite.setScale(1,1);
+			sprite.setScale(1.5,1.5);
 		}
 		else if(currentPlayerMode == GUNNER_MODE)
 		{
@@ -126,7 +126,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			shotType = new SingleShot(1.25f);
 			sprite.setTexture(*gunnerImage);
 			sprite.setFrameSize(32,32);
-			sprite.setScale(1, 1);
+			sprite.setScale(1.5, 1.5);
 			//sprite.setScale(1.5,1.5);
 		}
 		else

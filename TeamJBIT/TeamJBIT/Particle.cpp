@@ -10,6 +10,7 @@ Particle::Particle(std::string file, sf::Vector2f pos, sf::Vector2f vel, sf::Col
 	sprite.setColor(particleColor);
 	sprite.setPosition(pos);
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
+	sprite.setScale(.5,.5);
 }
 
 Particle::~Particle()

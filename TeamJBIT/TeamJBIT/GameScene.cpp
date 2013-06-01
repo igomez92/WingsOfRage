@@ -165,7 +165,8 @@ void GameScene::update(sf::RenderWindow& window) {
 	{
 		enemyList.push_back(new Boss1("media/ball.png", sf::Vector2f(100, 0)));
 		bossSpawned = true;
-	}else if(enemyList.empty() && bossSpawned)
+	}
+	else if(enemyList.empty() && bossSpawned)
 	{
 		//SceneManager::getInstance().changeScene("end");
 		SceneManager::getInstance().changeScene("win");
@@ -450,13 +451,13 @@ void GameScene::updatePlayerBullets(float deltaTime)
 				
 				if((**enemyIt).type == Reflector)
 				{
-					if((**it).dam >= 100)
+					if((**it).dam >= 500)
 					{
 						(**enemyIt).takeDam((**it).dam);
 					}
 					sf::Vector2f aiming;
 					aiming = (-(**it).vel);
-					aiming = aiming * .8f;
+					aiming = aiming * .25f;
 					enemyBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5, sf::Color(255, 50, 50)));
 					
 				}
@@ -494,7 +495,7 @@ void GameScene::updateLaser()
 				if((**it).type != EnemyType::Boss)
 					(**it).takeDam(player.laser->dam);
 				else
-					(**it).takeDam(player.laser->dam/10);
+					(**it).takeDam(player.laser->dam/1000);
 			}
 		}
 	}
@@ -523,7 +524,7 @@ void GameScene::updateEnemies(float deltaTime)
 			scoreNum += 100;
 			if(scoreNum % 400 == 0)
 			{
-				powerUps.push_back(new PowerUp((**it).pos));
+				powerUps.push_back(new PowerUp((**it).pos,0));
 				//powerUp.setPosition((**it).pos);
 				//if(player.powerUpFound)
 					//powerUp.isHP = true;
@@ -637,6 +638,7 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 
 void GameScene::updateUpgrade()
 {
+	
 	for(auto it = powerUps.begin(); it != powerUps.end();)
 	{
 		if(abs(player.pos.x - (**it).pos.x) < 22 && abs(player.pos.y - (**it).pos.y) < 22)
@@ -646,8 +648,10 @@ void GameScene::updateUpgrade()
 				player.powerUP();
 			else if(upgradeType == HEALTH_UPGRADE)
 				player.increaseHealth(100);
-			else
+			else if(upgradeType == ENERGY_UPGRADE)
 				player.increaseEnergy(100);
+			else
+				numOfBombs++;
 
 			auto itToErase = it;
 			it++;
@@ -655,6 +659,7 @@ void GameScene::updateUpgrade()
 			powerUps.erase(itToErase);
 			continue;
 		}
+
 		it++;
 	}
 }
