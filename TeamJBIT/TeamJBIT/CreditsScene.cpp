@@ -21,7 +21,7 @@ CreditsScene::CreditsScene() : backgroundScroll(0) {
 	teamLabel.setPosition(SCREEN_WIDTH / 2, 125);
 	teamLabel.setColor(sf::Color(150, 150, 150));
 
-	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  \n     Max Chung   ", *_getFont("media/kimberley bl.ttf"), scaledFontSize(35));
+	teamList = sf::Text("Jonathan Wendorf \n    Brian Charles \n    Isidro Gomez  \n     Tommy Tran  \n     Max Chung \n	Jordan Hua \nKevin Hernandez \n	Tyler Walker \n  ", *_getFont("media/kimberley bl.ttf"), scaledFontSize(25));
 	teamList.setOrigin((int)teamList.getLocalBounds().width / 2, 0);
 	teamList.setPosition(SCREEN_WIDTH / 2, 200);
 

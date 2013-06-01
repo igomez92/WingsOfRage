@@ -56,6 +56,7 @@ class Player
 		signed int getTotalHealth();
 		signed int getEnergy();
 		signed int getTotalEnergy();
+		unsigned int getLevel();
 		AnimSprite sprite;
 		// For melee
 		bool swordSwinging;
@@ -66,6 +67,8 @@ class Player
 		void increaseHealth(int incrementation);
 		void decreaseEnergy(int decrementation);
 		void increaseEnergy(int incrementation);
+		void increaseLevel();
+		void setLevelToZero();
 		void setShieldUp(bool shieldUp);
 		bool isShieldUp();
 

@@ -35,16 +35,27 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	healthBar.setTexture(*health);
 	healthBar.setOrigin(0, healthBar.getLocalBounds().height/2);
 	healthBar.setPosition(10, 100);
+	healthBar.setColor(sf::Color(255, 255, 255, 160));
 
 	sf::Texture* energy = _getTexture("media/EnergyBar.png");
 	energyBar.setTexture(*energy);
 	energyBar.setOrigin(0, energyBar.getLocalBounds().height/2);
 	energyBar.setPosition(10, 125);
+	energyBar.setColor(sf::Color(255, 255, 255, 160));
 
 	sf::Texture* power = _getTexture("media/PowerBar.png");
 	powerBar.setTexture(*power);
 	powerBar.setOrigin(0, powerBar.getLocalBounds().height/2);
 	powerBar.setPosition(10, 150);
+	powerBar.setColor(sf::Color(255, 255, 255, 160));
+
+	sf::Texture* bomb = _getTexture("media/bombTemp.png");
+	bombImage.setTexture(*bomb);
+	bombImage.setOrigin(bombImage.getLocalBounds().width/2, bombImage.getLocalBounds().height/2);
+	bombImage.setPosition(1175, 55);
+	bombImage.setColor(sf::Color(255, 255, 255, 160));
+	bombText.setPosition(1200, 50);
+	bombText.setColor(sf::Color(255, 255, 255, 160));
 }
 
 GameScene::~GameScene() 
@@ -69,6 +80,7 @@ GameScene::~GameScene()
 
 void GameScene::enter() {
 	clock.resume();
+	sManager.playMusic();
 }
 
 void GameScene::leave() {
@@ -194,6 +206,9 @@ void GameScene::draw(sf::RenderWindow& window) {
 	printScoreAndTime(window);
 	window.draw(healthBar);
 	window.draw(energyBar);
+	window.draw(powerBar);
+	window.draw(bombText);
+	window.draw(bombImage);
 }
 
 bool GameScene::handleEvent(sf::Event& event) {
@@ -211,6 +226,7 @@ void GameScene::initializeScoreAndTime()
 	timer = sf::Text("0:00", *_getFont("media/pf_tempesta_seven.ttf"), offset);
 	//timer.setOrigin(timer.getLocalBounds().width / 2.f, timer.getLocalBounds().height / 2.f);
 	timer.setPosition(5, 10);
+	timer.setColor(sf::Color(255, 255, 255, 160));
 
 	scoreStr << scoreNum;
 	score = sf::Text(scoreStr.str(), *_getFont("media/pf_tempesta_seven.ttf"), offset);
@@ -218,6 +234,7 @@ void GameScene::initializeScoreAndTime()
 	score.setPosition(5, 35);
 	scoreStr.str("");
 	scoreStr.clear();
+	score.setColor(sf::Color(255, 255, 255, 160));
 
 	playerhealthStr << healthNum;
 	health = sf::Text(playerhealthStr.str(), *_getFont("media/pf_tempesta_seven.ttf"), offset);
@@ -225,6 +242,12 @@ void GameScene::initializeScoreAndTime()
 	health.setPosition(5, 60);
 	playerhealthStr.str("");
 	playerhealthStr.clear();
+	health.setColor(sf::Color(255, 255, 255, 160));
+
+	bombStream << " X " << numOfBombs;
+	bombText = sf::Text(bombStream.str(), *_getFont("media/pf_tempesta_seven.ttf"), offset);
+	bombStream.str("");
+	bombStream.clear();
 }
 
 void GameScene::updateScoreAndTime()
@@ -257,6 +280,11 @@ void GameScene::updateScoreAndTime()
 	health.setString(playerhealthStr.str());
 	playerhealthStr.str("");
 	playerhealthStr.clear();
+
+	bombStream << " X " << numOfBombs;
+	bombText.setString(bombStream.str());
+	bombStream.str("");
+	bombStream.clear();
 }
 
 void GameScene::printScoreAndTime(sf::RenderWindow& window)
@@ -505,8 +533,10 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			}			
 			if (player.isShieldUp() && !player.isDoingABarrelRoll)
 			{
-				//player lose energy
-				//if energy is 0 then take damage instead
+				if(player.getEnergy() == 0)
+				{
+					player.damaged((**it).dam);
+				}
 			}
 
 			//should we apply damage
@@ -543,7 +573,7 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 			float thresholdX = abs(player.pos.x - (**it).pos.x);
 			float thresholdY = abs(player.pos.y - (**it).pos.y);
 
-			 if ( thresholdX < 22 && thresholdY < 22) {
+			if ( thresholdX < 22 && thresholdY < 22 && player.isShieldUp() == false) {
 				auto itToErase = it;
 				player.damaged((**it).collisiondamage());
 				player.setTargetable(false);
@@ -668,4 +698,7 @@ void GameScene::updateHealthAndEnergy()
 
 	float energyScale = (float) player.getEnergy()/player.getTotalHealth();
 	energyBar.setScale(energyScale, 1);
+
+	float powerScale = (float) player.getLevel()/3.0f;
+	powerBar.setScale(powerScale, 1);
 }

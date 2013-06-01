@@ -14,7 +14,7 @@
 
 int main(char argc, char* argv[]) 
 {
-	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage");
+	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage", sf::Style::Default ^ sf::Style::Resize);
 	
 	// Fullscreen Mode
 	//sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "The Wings of Rage", sf::Style::Fullscreen);

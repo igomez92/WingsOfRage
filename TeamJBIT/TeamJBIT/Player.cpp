@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(1000), totalHealth(1000), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
+	:health(1000), totalHealth(1000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
 	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000)
 {
 	planeImage = _getTexture("media/plane.png");
@@ -293,6 +293,7 @@ void Player::switchShot()
 void Player::powerUP()
 {
 	powerUpFound = true;
+	increaseLevel();
 }
 
 ShotType* Player::getShotType()
@@ -349,7 +350,7 @@ void Player::doABarrelRoll(bool isLeft)
 
 void Player::damaged(int damagedealt)
 {
-	//health -= damagedealt;
+	health -= damagedealt;
 }
 
 bool Player::isDead()
@@ -397,6 +398,11 @@ signed int Player::getEnergy()
 signed int Player::getTotalEnergy()
 {
 	return totalEnergy;
+}
+
+unsigned int Player::getLevel()
+{
+	return level;
 }
 
 void Player::setTargetable(bool targ)
@@ -458,6 +464,21 @@ void Player::increaseEnergy(int incrementation)
 
 	if(energy > totalEnergy)
 		energy = totalEnergy;
+}
+
+void Player::increaseLevel()
+{
+	level++;
+
+	if(level >= 3)
+	{
+		level = 3;
+	}
+}
+
+void Player::setLevelToZero()
+{
+	level = 0;
 }
 
 void Player::setShieldUp(bool b)

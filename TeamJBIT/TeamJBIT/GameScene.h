@@ -106,7 +106,9 @@ class GameScene : public IScene
 		// See if bomb is done
 		bool bombReady;
 		float currBombTime;
+		std::stringstream bombStream;
 		sf::Sprite bombImage;
+		sf::Text bombText;
 		
 		void updateBomb(float deltaTime, std::list<Enemy*> enemList);
 		void startBomb();
