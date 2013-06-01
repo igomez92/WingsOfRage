@@ -89,8 +89,8 @@ std::queue<LevelLoader::EntitySpawnEntry> LevelLoader::loadLevel(std::string fil
 		//some entities use extra data (e.g. textboxes store string and time to show on screen)
 		switch(entry.entityType) {
 			case EntitySpawnType::TEXTBOX:
-				std::string captionText = strtok(NULL, "\",");
-				float timeToShow = atof(strtok(NULL, ","));
+				std::string captionText = strtok(NULL, "\"");
+				float timeToShow = atof(strtok(NULL, "\","));
 				std::tuple<std::string, float>* packed = new std::tuple<std::string, float>(captionText, timeToShow);		
 				entry.data = packed;
 				break;
