@@ -124,8 +124,13 @@ class GameScene : public IScene
 		sf::Sprite energyBar;
 		sf::Sprite powerBar;
 
+		float totalPowerTime;
+		float currentPowerTime;
+
 		void updateHealthAndEnergy();
 		bool energyDecreaseDone;
 
 		SoundManager sManager;
+		
+		bool mousePressed;
 };

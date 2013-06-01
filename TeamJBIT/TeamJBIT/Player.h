@@ -35,7 +35,7 @@ class Player
 		void switchShot();
 		ShotType* getShotType();
 		MeleeType* getMeleeType();
-		void mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window);
+		void mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window, bool mousePressed);
 		void powerUP();
 		int currentWeaponLevel;
 		int currentPlayerMode;

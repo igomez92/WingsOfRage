@@ -8,7 +8,7 @@
 LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	:dam(dam), totalTime(timeLim), pos(pos), dir(dir)
 {
-	sf::Texture* image = _getTexture("media/greenLaserRay.png");
+	sf::Texture* image = _getTexture("media/blueLaser.png");
 	image->setSmooth(true);
 	laserSprite.setTexture(*image);
 	//sprite.scale(sf::Vector2f(3.5, 1));
@@ -32,7 +32,7 @@ LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	// Rotate the laser based on our direction
 	chargingSprite.setRotation((-atan2f(dir.x, dir.y) * (180 / 3.1415926f)) + 90.f);
 
-	chargeTime = 3.0f;
+	chargeTime = 1.0f;
 	continueCharging = true;
 }
 

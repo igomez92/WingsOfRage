@@ -308,7 +308,7 @@ MeleeType* Player::getMeleeType()
 	return meleeType;
 }
 
-void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window)
+void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& window, bool mouseDown)
 {
 
 // Get the Position of the mouse
@@ -328,7 +328,8 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 	}
 	if(powerUpFound && currentPlayerMode == GUNNER_MODE)
 	{
-		laserShot(window);
+		if(mouseDown == false)
+			laserShot(window);
 	}
 	else  if(currentPlayerMode == PLANE_MODE || currentPlayerMode == GUNNER_MODE)
 		shoot(playerBullets, dir);

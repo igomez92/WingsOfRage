@@ -10,7 +10,7 @@
 #include <tuple>
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
-currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false)
+currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(10.0f), currentPowerTime(0.0f), mousePressed(false)
 {
 	sManager.setMusic("media/crazy.ogg");
 	sManager.playMusic();
@@ -181,6 +181,17 @@ void GameScene::update(sf::RenderWindow& window) {
 	updateUpgrade();
 
 	updateScoreAndTime();
+
+	if(player.powerUpFound)
+	{
+		currentPowerTime += deltaTime;
+	}
+	if(currentPowerTime > totalPowerTime)
+	{
+		currentPowerTime = 0.0f;
+		player.powerUpFound = false;
+	}
+
 	player.update(deltaTime, playerBullets);
 	
 }
@@ -318,10 +329,20 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
 			//playerBullets.push_back(new Bullet("ball.png", player.pos, sf::Vector2f(0,-400)));
-			player.mouseShot(playerBullets, window);
+			player.mouseShot(playerBullets, window, mousePressed);
 			shotTimer = clock.getElapsedTime();
 		}
 	}
+	
+	if(sf::Event::MouseButtonPressed && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		mousePressed = true;
+	}
+	else if(sf::Event::MouseButtonReleased)
+	{
+		mousePressed = false;
+	}
+
 
 	if(player.isDoingABarrelRoll == false)
 	{
@@ -767,6 +788,14 @@ void GameScene::updateHealthAndEnergy()
 	float energyScale = (float) player.getEnergy()/player.getTotalHealth();
 	energyBar.setScale(energyScale, 1);
 
-	float powerScale = (float) player.getLevel()/3.0f;
-	powerBar.setScale(powerScale, 1);
+
+	if(currentPowerTime != 0.0f)
+	{
+		float powerScale = (totalPowerTime-currentPowerTime)/totalPowerTime;
+		powerBar.setScale(powerScale, 1);
+	}
+	else
+	{
+		powerBar.setScale(0, 1);
+	}
 }
