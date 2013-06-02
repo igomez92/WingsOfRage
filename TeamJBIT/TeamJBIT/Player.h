@@ -50,7 +50,7 @@ class Player
 		// For laser
 		bool laserShooting;
 		LaserShot* laser;
-		void laserShot(sf::RenderWindow& window);
+		void laserShot(sf::RenderWindow& window, sf::Vector2f dir);
 		float laserShotDelay;
 		bool allowLaser;
 		float accumDelayTime;
@@ -62,8 +62,10 @@ class Player
 		AnimSprite sprite;
 		// For melee
 		bool swordSwinging;
+		float swordDelay;
+		float currentSwordTime;
 		BeamSword* sword;
-		void swordSwing(sf::RenderWindow& window);
+		void swordSwing(sf::RenderWindow& window, sf::Vector2f dir);
 		bool allowSword;
 		bool powerUpFound;
 		void increaseHealth(int incrementation);

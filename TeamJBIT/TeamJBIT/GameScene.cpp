@@ -771,6 +771,12 @@ void GameScene::updateBomb(float deltaTime, std::list<Enemy*> enemList)
 				{
 					bomb->checkForDestruction(**it);
 				}
+
+				for(auto it = enemyBullets.begin(); it != enemyBullets.end(); it++)
+				{
+					delete (*it);
+				}
+				enemyBullets.clear();
 			}
 		}
 		else

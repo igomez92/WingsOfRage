@@ -4,7 +4,7 @@
 
 Player::Player(sf::Vector2f pos)
 	:health(1000), totalHealth(1000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
-	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000)
+	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000), currentSwordTime(0.0f), swordDelay(0.5f)
 {
 	planeImage = _getTexture("media/plane.png");
 	gunnerImage = _getTexture("media/gunSuit.png");
@@ -245,6 +245,16 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 			swordSwinging = false;
 		}
 	}
+
+	if(allowSword == false && swordSwinging == false)
+	{
+		currentSwordTime += deltaTime;
+		if(currentSwordTime >= swordDelay)
+		{
+			allowSword = true;
+			currentSwordTime = 0.0f;
+		}
+	}
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -290,6 +300,11 @@ void Player::switchShot()
 		delete shotType;
 		shotType = new MultiPhotonShot;
 	}
+	else if(!powerUpFound && currentPlayerMode == PLANE_MODE)
+	{
+		delete shotType;
+		shotType = new TriCannonShot;
+	}
 }
 
 void Player::powerUP()
@@ -329,14 +344,14 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 	if(powerUpFound && currentPlayerMode == GUNNER_MODE)
 	{
 		if(mouseDown == false)
-			laserShot(window);
+			laserShot(window, dir);
 	}
 	else  if(currentPlayerMode == PLANE_MODE || currentPlayerMode == GUNNER_MODE)
 		shoot(playerBullets, dir);
 	else
 	{
 		//do the melee attack
-			swordSwing(window);
+			swordSwing(window, dir);
 	}
 	//playerBullets.push_back(new Bullet("bullet.png", pos, sf::Vector2f(dir.x*400, dir.y*400)));
 
@@ -361,26 +376,14 @@ bool Player::isDead()
 	return(health <= 0);
 }
 
-void Player::laserShot(sf::RenderWindow& window)
+void Player::laserShot(sf::RenderWindow& window, sf::Vector2f dir)
 {
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	
-	// Get the Direction of the shot
-	sf::Vector2f dir;
-	dir.x = (float)mousePos.x - pos.x;
-	dir.y = (float)mousePos.y - pos.y;
-	float norm = sqrt((dir.x*dir.x)+(dir.y*dir.y));
-	
-	// Compute the direction of our shot
-	if(norm != 0.f)
-	{
-		dir.x = dir.x/norm;
-		dir.y = dir.y/norm;
-	}
-
-	laser = new LaserShot(pos, dir);
-	laserShooting = true;	
-	allowLaser = false;
+	//if(allowLaser)
+	//{
+		laser = new LaserShot(pos, dir);
+		laserShooting = true;	
+		allowLaser = false;
+	//}
 }
 
 signed int Player::getHealth()
@@ -418,25 +421,17 @@ bool Player::isTargetable()
 	return Targetable;
 }
 
-void Player::swordSwing(sf::RenderWindow& window)
+void Player::swordSwing(sf::RenderWindow& window, sf::Vector2f dir)
 {
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	
-	// Get the Direction of the shot
-	sf::Vector2f dir;
-	dir.x = (float)mousePos.x - pos.x;
-	dir.y = (float)mousePos.y - pos.y;
-	float norm = sqrt((dir.x*dir.x)+(dir.y*dir.y));
-	
-	// Compute the direction of our shot
-	if(norm != 0.f)
+	if(allowSword)
 	{
-		dir.x = dir.x/norm;
-		dir.y = dir.y/norm;
+		if(!powerUpFound)
+			sword = new BeamSword("media/newSword.png", 0, dir, pos, 30.f, 1000.f);
+		else
+			sword = new ShotSword("media/newSword.png", 0, dir, pos, 30.f, 1000.f);
+		swordSwinging = true;
+		allowSword = false;
 	}
-
-	sword = new BeamSword("media/newSword.png", 0, dir, pos, 30.f, 1000.f);
-	swordSwinging = true;
 }
 
 sf::FloatRect Player::getSize()
