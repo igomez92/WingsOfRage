@@ -17,7 +17,8 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 	// Initialize score info
 	initializeScoreAndTime();
 
-	entitySpawnQueue = LevelLoader::loadLevel("media/levels/testlevel.txt");
+	
+	entitySpawnQueue = LevelLoader::loadLevel("media/Levels/Level 1.txt"); 
 	bossSpawned = false;
 
 	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
@@ -194,6 +195,7 @@ void GameScene::update(sf::RenderWindow& window) {
 	}
 
 	player.update(deltaTime, playerBullets);
+	updatePowerUpMovement();
 	
 }
 
@@ -812,4 +814,10 @@ void GameScene::updateHealthAndEnergy()
 	{
 		powerBar.setScale(0, 1);
 	}
+}
+
+void GameScene::updatePowerUpMovement()
+{
+	for(PowerUp* currentPowerUp : powerUps)
+		(*currentPowerUp).update();
 }

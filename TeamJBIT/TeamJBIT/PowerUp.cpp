@@ -53,7 +53,10 @@ void PowerUp::setPosition(sf::Vector2f position)
 void PowerUp::update()
 {
 	currentTime++;
-	pos.y += 5;
+	float deltaPositionX = 3;
+	float deltaPositionY = 3;
+	pos.x += deltaPositionX;
+	pos.y += deltaPositionY;
 	sprite.setPosition(pos);
 }
 

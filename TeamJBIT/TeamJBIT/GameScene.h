@@ -101,6 +101,7 @@ class GameScene : public IScene
 		void updateSpawnQueue();
 		void spawnEntity(LevelLoader::EntitySpawnEntry& entry);
 		void updateParticleEffects(float deltaTime);
+		void updatePowerUpMovement();
 
 		// Number of bombs
 		int numOfBombs;

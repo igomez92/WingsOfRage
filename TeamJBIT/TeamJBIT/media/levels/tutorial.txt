@@ -11,4 +11,83 @@
 9, TextBox, 0, 0, "You are currently in Plane mode", 4
 14, TextBox, 0, 0, "Move around using your W,A,S,D keys", 5
 20, TextBox, 0, 0, "You are armed with a TriShot Blaster, which you can fire with your Left Mouse Button", 6
-27, TextBox, 0, 0, "jtfjgcghc", 100
+27, TextBox, 0, 0, "You use the TriShot to shoot enemies that are too quick to aim at", 6
+
+27.5, SliderEnemy, 750, 0
+28, SliderEnemy, 750, 0
+28.5, SliderEnemy, 750, 0
+
+
+34, TextBox, 0, 0, "To switch to other modes use either Q or E", 4
+39, TextBox, 0, 0, "Try switching to Gunner Mode", 6
+46, TextBox, 0, 0, "In Gunner Mode you are equiped with a high impact rail gun, but move at a slower pace", 5
+51, TextBox, 0, 0, "This gun is for high defense low speed enemies, and deals tons and tons of damage", 5
+
+51.5, TankEnemy, 350, 0
+52, TankEnemy, 450, 0
+
+57, TextBox, 0, 0, "Try switching to Fighter Mode next", 5
+63, TextBox, 0, 0, "In Fighter Mode you are equiped with a sword and have increased mobility", 6
+70, TextBox, 0, 0, "Use the sword for enemies that try to get too close to you or are uneffected by bullets", 7
+
+70.5, MeleeEnemy, 0, 0
+71, MeleeEnemy, 800, 0
+71.5, MeleeEnemy, 0, 800
+72, MeleeEnemy, 800, 800
+
+78, TextBox, 0, 0, "Each mode can use a secondary skill when Right Mouse Button is pressed", 5
+84, TextBox, 0, 0, "Plane Mode can use a barrel roll that reflects enemy bullets", 6
+91, TextBox, 0, 0, "Gunner Mode is able to use a warp drive to instantly move towards the mouse cursor", 6
+98, TextBox, 0, 0, "Fighter Mode has a shield that negates enemy attacks", 6
+105, TextBox, 0, 0, "Each of these secondary skills use energy which is represented by the blue bar", 5
+111, TextBox, 0, 0, "When you feel overwhelmed by enemies you have a certain amount of bombs that clear the screen by pressing SPACE bar", 6
+
+111, Enemy, 750, -100
+111, Enemy, 50, -100
+111, Enemy, 700, -100
+111, Enemy, 100, -100
+111, Enemy, 650, -100
+111, Enemy, 150, -100
+111, Enemy, 200, -100
+111, Enemy, 600, -100
+111, Enemy, 550, -100
+111, Enemy, 250, -100
+111, Enemy, 300, -100
+111, Enemy, 500, -100
+111, Enemy, 350, -100
+111, Enemy, 450, -100
+
+112, Enemy, 750, -100
+112, Enemy, 50, -100
+112, Enemy, 700, -100
+112, Enemy, 100, -100
+112, Enemy, 650, -100
+112, Enemy, 150, -100
+112, Enemy, 200, -100
+112, Enemy, 600, -100
+112, Enemy, 550, -100
+112, Enemy, 250, -100
+112, Enemy, 300, -100
+112, Enemy, 500, -100
+112, Enemy, 350, -100
+112, Enemy, 450, -100
+
+113, Enemy, 750, -100
+113, Enemy, 50, -100
+113, Enemy, 700, -100
+113, Enemy, 100, -100
+113, Enemy, 650, -100
+113, Enemy, 150, -100
+113, Enemy, 200, -100
+113, Enemy, 600, -100
+113, Enemy, 550, -100
+113, Enemy, 250, -100
+113, Enemy, 300, -100
+113, Enemy, 500, -100
+113, Enemy, 350, -100
+113, Enemy, 450, -100
+
+118, TextBox, 0, 0, "You are now ready to start the game", 5
+
+
+
