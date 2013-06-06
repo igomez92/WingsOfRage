@@ -71,7 +71,6 @@ std::queue<LevelLoader::EntitySpawnEntry> LevelLoader::loadLevel(std::string fil
 	char line[512]; //with current file format this is way, way more than enough space
 	while (!levelFile.eof()) {
 		levelFile.getline(line, 512);
-		//strip whitespace		
 		stripWhitespace(line, 512);
 
 		//is this line a comment?

@@ -6,9 +6,9 @@ Player::Player(sf::Vector2f pos)
 	:health(1000), totalHealth(1000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
 	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000), currentSwordTime(0.0f), swordDelay(0.5f)
 {
-	planeImage = _getTexture("media/plane.png");
-	gunnerImage = _getTexture("media/gunSuit.png");
-	fighterImage = _getTexture("media/swordSuit.png");
+	planeImage = _getTexture("media/planeMoveSS.png");
+	gunnerImage = _getTexture("media/gunSuitMoveSS.png");
+	fighterImage = _getTexture("media/swordSuitMoveSS.png");
 	sprite.setTexture(*planeImage);
 	sprite.setFrameSize(32,32);
 	sprite.setScale(1.5,1.5);
@@ -25,6 +25,9 @@ Player::Player(sf::Vector2f pos)
 	sprite.addAnim("F2", 63, 36, 1, 1, 1);
 	sprite.addAnim("R2", (32*6 - 1), 36, 1, 1, 1);
 	*/
+
+	sprite.addAnim("move", 0, 0, 4, 4, 10);
+
 	sprite.setOrigin(sprite.getLocalBounds().width/2, sprite.getLocalBounds().height/2);
 	powerUpFound = false;
 	playerSwitch = false;
@@ -163,27 +166,34 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 	if (isDoingABarrelRoll) movementVec = sf::Vector2f(); //zero it
 	
 	//play correct animation (if it isn't already playing)
-	if(currentPlayerMode == PLANE_MODE)
+	if (abs(vecLen2(movementVec)) > 0.1) {
+		if (sprite.getCurrentAnim() == "default") sprite.playAnim("move");
+	} else {
+		if (sprite.getCurrentAnim() == "move") sprite.playAnim("default");
+	}
+
+	/*if(currentPlayerMode == PLANE_MODE)
 	{
-		/*if (abs(movementVec.x) < 0.5) {
+		if (abs(movementVec.x) < 0.5) {
 			if (sprite.getCurrentAnim() != "F") sprite.playAnim("F");
 		} else if (movementVec.x > 0.5) {
 			if (sprite.getCurrentAnim() != "R") sprite.playAnim("R");
 		} else {
 			if (sprite.getCurrentAnim() != "L") sprite.playAnim("L");
-		}*/
+		}
 	}
 
 	if(currentPlayerMode == GUNNER_MODE || currentPlayerMode == FIGHTER_MODE)
 	{
-		/*if (abs(movementVec.x) < 0.5) {
+		if (abs(movementVec.x) < 0.5) {
 			if (sprite.getCurrentAnim() != "F2") sprite.playAnim("F2");
 		} else if (movementVec.x > 0.5) {
 			if (sprite.getCurrentAnim() != "R2") sprite.playAnim("R2");
 		} else {
 			if (sprite.getCurrentAnim() != "L2") sprite.playAnim("L2");
-		}*/
-	}
+		}
+	}*/
+
 	//apply the movement
 	pos += normalize(movementVec) * (300 * deltaTime);
 	sprite.setPosition(pos);
