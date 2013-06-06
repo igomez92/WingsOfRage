@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "LaserCharge.h"
 
+#include <cmath>
+
 LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	:dam(dam), totalTime(timeLim), pos(pos), dir(dir)
 {
@@ -21,11 +23,13 @@ LaserShot::LaserShot(sf::Vector2f pos, sf::Vector2f dir, float timeLim, int dam)
 	continueDraw = true;
 	accumTime = 0;
 
-
-	sf::Texture* image2 = _getTexture("media/charge.png");
+	sf::Texture* image2 = _getTexture("media/chargeUpSpriteSheet.png");
 	chargingSprite.setTexture(*image2);
 	//sprite.scale(sf::Vector2f(3.5, 1));
-	chargingSprite.setScale(sf::Vector2f(3, 3));  
+	//chargingSprite.setScale(sf::Vector2f(3, 3));
+	chargingSprite.setFrameSize(75, 75);
+	chargingSprite.addAnim("chargeUp", 0, 0, 7, 7, 15, true);
+	chargingSprite.playAnim("chargeUp");
 	chargingSprite.setOrigin(0, chargingSprite.getLocalBounds().height/2);
 	chargingSprite.setPosition(pos);
 	// Rotate the laser based on our direction
@@ -43,6 +47,8 @@ LaserShot::~LaserShot(void)
 void LaserShot::update(float deltaTime)
 {
 	accumTime += deltaTime;
+
+	chargingSprite.update(deltaTime);
 	
 	if(accumTime > chargeTime && continueCharging)
 	{

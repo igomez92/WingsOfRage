@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <cmath>
+#include "AnimSprite.h"
 
 class Enemy;
 
@@ -30,6 +30,6 @@ class LaserShot
 
 	private:
 		sf::Sprite laserSprite;
-		sf::Sprite chargingSprite;
+		AnimSprite chargingSprite;
 };
 
