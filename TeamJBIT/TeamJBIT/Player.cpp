@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(1000), totalHealth(1000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
+	:health(100000), totalHealth(100000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
 	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000), currentSwordTime(0.0f), swordDelay(0.5f)
 {
 	planeImage = _getTexture("media/planeMoveSS.png");
@@ -35,9 +35,9 @@ Player::Player(sf::Vector2f pos)
 	currentPlayerMode = PLANE_MODE;
 	Targetable = true;
 	canBlink = true;
+	blinkDelay = 0;
 	isDoingABarrelRoll = false;
 	shieldUp = false;
-
 	
 	buffer.loadFromFile("media/laser.wav");
 	sound.setBuffer(buffer);
@@ -56,12 +56,16 @@ Player::~Player()
 		 delete sword;
 }
 
-
 void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 {
 	sprite.update(deltaTime);
 
 	barrelRollSequence.update(deltaTime);
+
+	if(!canBlink)
+	{
+		blinkDelay += deltaTime;
+	}
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
@@ -148,18 +152,47 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 	{
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
+		if(currentPlayerMode = GUNNER_MODE)
 		movementVec.y += 1;
+
+		if(currentPlayerMode = FIGHTER_MODE)
+		movementVec.y += 4;
+
+		if(currentPlayerMode = PLANE_MODE)
+		movementVec.y += 2;
+
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
+		if(currentPlayerMode = GUNNER_MODE)
 		movementVec.y -= 1;
+
+		if(currentPlayerMode = FIGHTER_MODE)
+		movementVec.y -= 4;
+
+		if(currentPlayerMode = PLANE_MODE)
+		movementVec.y -= 2;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
+		if(currentPlayerMode = GUNNER_MODE)
+		movementVec.x -= 1;
+
+		if(currentPlayerMode = FIGHTER_MODE)
+		movementVec.x -= 4;
+
+		if(currentPlayerMode = PLANE_MODE)
 		movementVec.x -= 1;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
+		if(currentPlayerMode = GUNNER_MODE)
+		movementVec.x += 1;
+
+		if(currentPlayerMode = FIGHTER_MODE)
+		movementVec.x += 4;
+
+		if(currentPlayerMode = PLANE_MODE)
 		movementVec.x += 1;
 	}
 
@@ -367,6 +400,51 @@ void Player::mouseShot(std::list<Bullet*>& playerBullets, sf::RenderWindow& wind
 
 }
 
+void Player::doBlink(float deltaTime, sf::Vector2i mousePos)
+{
+	if(currentPlayerMode == GUNNER_MODE && canBlink && getEnergy() >= 100)
+		{
+			float distanceToBlink = 400;
+					sf::Vector2f dir;
+					dir.x = (float)mousePos.x - pos.x;
+					dir.y = (float)mousePos.y - pos.y;
+					float length = vecLen(dir);
+					dir = normalize(dir);
+					if(length <= distanceToBlink)
+					{
+						distanceToBlink = length;
+					}
+					dir = distanceToBlink*dir;
+					sf::Vector2f blinkLocation;
+					blinkLocation = pos + dir;
+
+					if(blinkLocation.x >= SCREEN_WIDTH)
+					{
+						blinkLocation.x = SCREEN_WIDTH - sprite.getFrameSize().x;
+					}
+					if(blinkLocation.x < 0)
+					{
+						blinkLocation.x = 0 + sprite.getFrameSize().x;
+					}
+					if(blinkLocation.y >= SCREEN_HEIGHT)
+					{
+						blinkLocation.y = SCREEN_HEIGHT - sprite.getFrameSize().y;
+					}
+					if(blinkLocation.y < 0)
+					{
+						blinkLocation.y = 0 + sprite.getFrameSize().y;
+					}	
+					pos = blinkLocation;
+					blinkDelay += deltaTime;
+					canBlink = false;
+					decreaseEnergy(100);
+	}
+	else if(!canBlink && blinkDelay > 1)
+	{
+		canBlink = true;
+		blinkDelay = 0.0;
+	}
+}
 void Player::doABarrelRoll(bool isLeft)
 {
 	if (!barrelRollSequence.isEmpty()) return;
@@ -419,6 +497,15 @@ signed int Player::getTotalEnergy()
 unsigned int Player::getLevel()
 {
 	return level;
+}
+
+void Player::setHealth(signed int newHealth)
+{
+	health = newHealth;
+}
+void Player::setEnergy(signed int newEnergy)
+{
+	energy = newEnergy;
 }
 
 void Player::setTargetable(bool targ)

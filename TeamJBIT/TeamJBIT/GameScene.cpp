@@ -8,17 +8,101 @@
 #include "CircleEnemy.h"
 #include "SpiralEnemy.h"
 #include <tuple>
+#include <string.h>
 
-GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(3), bombDelay(5.0f),
+GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(30), bombDelay(1.0f),
 currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(10.0f), currentPowerTime(0.0f), mousePressed(false)
 {
+	levelArray[0] = "media/Levels/Level 1.txt";
+	levelArray[1] = "media/Levels/Level 2.txt";
+	levelArray[2] = "media/Levels/Level 2.txt";
+	levelArray[3] = "media/Levels/Level 2.txt";
+	levelArray[4] = "media/Levels/Level 1.txt";
+	levelArray[5] = "media/Levels/Level 2.txt";
+	levelArray[6] = "media/Levels/Level 1.txt";
+	levelArray[7] = "media/Levels/Level 2.txt";
+	levelArray[8] = "media/Levels/Level 1.txt";
+	levelArray[9] = "media/Levels/Level 2.txt";
+
+	//max number of levels
+	lastLevel = 2;
+	//current level, defaulted to first one
+	currentLevel = 0;
+
 	sManager.setMusic("media/crazy.ogg");
 	sManager.playMusic();
 	// Initialize score info
 	initializeScoreAndTime();
+	entitySpawnQueue = LevelLoader::loadLevel(levelArray[currentLevel]); 
+	bossSpawned = false;
+
+	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
+	bgImage->setRepeated(true);
+	backgroundSpriteLow.setTexture(*bgImage);
+	backgroundSpriteLow.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
+	backgroundSpriteLow.setOrigin(0, SCREEN_HEIGHT);
+
+	bgImage = _getTexture("media/backgrounds/starsMed.png");
+	bgImage->setRepeated(true);
+	backgroundSpriteMed.setTexture(*bgImage);
+	backgroundSpriteMed.setTextureRect(sf::IntRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2));
+	backgroundSpriteMed.setOrigin(0, SCREEN_HEIGHT);
+
+	sf::Texture* health = _getTexture("media/HealthBar.png");
+	healthBar.setTexture(*health);
+	healthBar.setOrigin(0, healthBar.getLocalBounds().height/2);
+	healthBar.setPosition(10, 100);
+	healthBar.setColor(sf::Color(255, 255, 255, 160));
+
+	sf::Texture* energy = _getTexture("media/EnergyBar.png");
+	energyBar.setTexture(*energy);
+	energyBar.setOrigin(0, energyBar.getLocalBounds().height/2);
+	energyBar.setPosition(10, 125);
+	energyBar.setColor(sf::Color(255, 255, 255, 160));
+
+	sf::Texture* power = _getTexture("media/PowerBar.png");
+	powerBar.setTexture(*power);
+	powerBar.setOrigin(0, powerBar.getLocalBounds().height/2);
+	powerBar.setPosition(10, 150);
+	powerBar.setColor(sf::Color(255, 255, 255, 160));
+
+	sf::Texture* bomb = _getTexture("media/bombTemp.png");
+	bombImage.setTexture(*bomb);
+	bombImage.setOrigin(bombImage.getLocalBounds().width/2, bombImage.getLocalBounds().height/2);
+	bombImage.setPosition(1175, 55);
+	bombImage.setColor(sf::Color(255, 255, 255, 160));
+	bombText.setPosition(1200, 50);
+	bombText.setColor(sf::Color(255, 255, 255, 160));
+}
+
+GameScene::GameScene(signed int startingHealth, signed int startingEnergy,int level,unsigned int currentScoreNum,int currentNumOfBombs) : player( sf::Vector2f(400, 300)), backgroundOffsetLow(0), backgroundOffsetMed(0), bombDelay(5.0f),
+currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(10.0f), currentPowerTime(0.0f), mousePressed(false)
+{
 
 	
-	entitySpawnQueue = LevelLoader::loadLevel("media/Levels/Level 1.txt"); 
+	levelArray[0] = "media/Levels/Level 1.txt";
+	levelArray[1] = "media/Levels/Level 2.txt";
+	levelArray[2] = "media/Levels/Level 1.txt";
+	levelArray[3] = "media/Levels/Level 2.txt";
+	levelArray[4] = "media/Levels/Level 1.txt";
+	levelArray[5] = "media/Levels/Level 2.txt";
+	levelArray[6] = "media/Levels/Level 1.txt";
+	levelArray[7] = "media/Levels/Level 2.txt";
+	levelArray[8] = "media/Levels/Level 1.txt";
+	levelArray[9] = "media/Levels/Level 2.txt";
+
+	lastLevel = 2;
+	currentLevel = level;
+
+	player.setHealth(startingHealth);
+	player.setEnergy(startingEnergy);
+	scoreNum = currentScoreNum;
+	numOfBombs = currentNumOfBombs;
+	sManager.setMusic("media/crazy.ogg");
+	sManager.playMusic();
+	// Initialize score info
+	initializeScoreAndTime();
+	entitySpawnQueue = LevelLoader::loadLevel(levelArray[level]); 
 	bossSpawned = false;
 
 	sf::Texture* bgImage = _getTexture("media/backgrounds/starsLow.png");
@@ -120,9 +204,10 @@ void GameScene::update(sf::RenderWindow& window) {
 		}
 	}
 
+	//when is level finished
 
 	//shooting update
-	updateplayershot(window);
+	updateplayershot(deltaTime,window);
 	
 	//update bullets
 	updatePlayerBullets(deltaTime);
@@ -169,8 +254,16 @@ void GameScene::update(sf::RenderWindow& window) {
 	}
 	else if(enemyList.empty() && bossSpawned)
 	{
-		//SceneManager::getInstance().changeScene("end");
-		SceneManager::getInstance().changeScene("win");
+		if(currentLevel != lastLevel)
+			{
+				SceneManager::getInstance().addScene(levelArray[currentLevel+1],new GameScene(player.getHealth(),player.getEnergy(),currentLevel+1,scoreNum,numOfBombs));
+				SceneManager::getInstance().changeScene(levelArray[currentLevel+1]);
+
+			}else if(currentLevel == lastLevel)
+			{
+				SceneManager::getInstance().changeScene("win");
+				
+			}
 	}
 
 	//enemy to player collision
@@ -249,7 +342,7 @@ bool GameScene::handleEvent(sf::Event& event) {
 		SceneManager::getInstance().changeScene("pause");
 		return true;
 	}
-
+	
 	return false;
 }
 
@@ -327,7 +420,7 @@ void GameScene::printScoreAndTime(sf::RenderWindow& window)
 	window.draw(health);
 }
 
-void GameScene::updateplayershot(sf::RenderWindow& window)
+void GameScene::updateplayershot(float deltaTime, sf::RenderWindow& window)
 {
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.laserShooting == false){
 		if((clock.getElapsedTime() - shotTimer).asSeconds() > player.getShotType()->shotTime()){
@@ -346,56 +439,15 @@ void GameScene::updateplayershot(sf::RenderWindow& window)
 		mousePressed = false;
 	}
 
-
 	if(player.isDoingABarrelRoll == false)
 	{
 		energyDecreaseDone = false;
 	}
 
-
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.laserShooting == false){
-		if(player.currentPlayerMode == GUNNER_MODE && player.canBlink && player.getEnergy() != 0)
-		{
-			float distanceToBlink = 400;
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.laserShooting == false)
+	{
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-			sf::Vector2f dir;
-			dir.x = (float)mousePos.x - player.pos.x;
-			dir.y = (float)mousePos.y - player.pos.y;
-			float length = vecLen(dir);
-			dir = normalize(dir);
-			if(length <= distanceToBlink)
-			{
-				distanceToBlink = length;
-			}
-			dir = distanceToBlink*dir;
-			sf::Vector2f blinkLocation;
-			blinkLocation = player.pos + dir;
-
-			if(blinkLocation.x >= SCREEN_WIDTH)
-			{
-				blinkLocation.x = SCREEN_WIDTH - player.sprite.getFrameSize().x;
-			}
-			if(blinkLocation.x < 0)
-			{
-				blinkLocation.x = 0 + player.sprite.getFrameSize().x;
-			}
-			if(blinkLocation.y >= SCREEN_HEIGHT)
-			{
-				blinkLocation.y = SCREEN_HEIGHT - player.sprite.getFrameSize().y;
-			}
-			if(blinkLocation.y < 0)
-			{
-				blinkLocation.y = 0 + player.sprite.getFrameSize().y;
-			}	
-			player.pos = blinkLocation;
-			blinkDelay = clock.getElapsedTime();
-			player.canBlink = false;
-			player.decreaseEnergy(100);
-		}
-		else if((clock.getElapsedTime() - blinkDelay).asSeconds() > .2)
-		{
-			player.canBlink = true;
-		}
+			player.doBlink(deltaTime, mousePos);
 	}
 
 	if(player.currentPlayerMode == PLANE_MODE && sf::Mouse::isButtonPressed(sf::Mouse::Right) && player.getEnergy() != 0)

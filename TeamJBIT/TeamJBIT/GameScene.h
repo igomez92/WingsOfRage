@@ -34,6 +34,7 @@ class GameScene : public IScene
 {
 	public:
 		GameScene();
+		GameScene(signed int health, signed int energy, int level,unsigned int scoreNum,int numOfBombs);
 		~GameScene();
 		
 		virtual void enter();
@@ -49,6 +50,8 @@ class GameScene : public IScene
 		int enemyDisplacement;
 
 		std::queue<LevelLoader::EntitySpawnEntry> entitySpawnQueue;
+		int lastLevel;
+		int currentLevel;
 		ParticleManager ptManager;
 
 		std::list<Enemy*> enemyList;
@@ -57,19 +60,20 @@ class GameScene : public IScene
 		std::list<Particle*> allParticles; 
 		std::list<PowerUp*> powerUps;
 		std::list<IEntity*> entityList;
+		std::string levelArray[10];
+
 		MeleeType* currentMeleeAttack;
 
 		Clock clock;
 		sf::Time lastFrameTime;
 		sf::Time hitDelay;
-		sf::Time blinkDelay;
 
 		sf::Sprite backgroundSpriteLow;
 		sf::Sprite backgroundSpriteMed;
 		float backgroundOffsetLow;
 		float backgroundOffsetMed;
 
-		// Score stuff
+		//  stuff
 		std::stringstream scoreStr;
 		sf::Text score;
 		unsigned int scoreNum;
@@ -86,11 +90,12 @@ class GameScene : public IScene
 
 		//boss stuff
 		bool bossSpawned;
+		bool bossKilled;
 
 		void initializeScoreAndTime();
 		void updateScoreAndTime();
 		void printScoreAndTime(sf::RenderWindow& window);
-		void updateplayershot(sf::RenderWindow& window);
+		void updateplayershot(float deltaTime, sf::RenderWindow& window);
 		void updatePlayerBullets(float deltaTime);
 		void updateLaser();
 		void updateSword();

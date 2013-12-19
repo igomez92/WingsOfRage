@@ -25,7 +25,7 @@ enum upgradeState {STAGE_ONE, STAGE_TWO, STAGE_THREE};
 class Player
 {
 	public:
-		Player(sf::Vector2f pos);
+		Player(sf::Vector2f pos); 
 		~Player();
 
 		void update(float deltaTime, std::list<Bullet*>& playerBullets);
@@ -44,6 +44,7 @@ class Player
 		bool isDead();
 		bool isTargetable();
 		bool canBlink;
+		float blinkDelay;
 		void setTargetable(bool targetable);
 		sf::FloatRect getSize();
 
@@ -58,6 +59,8 @@ class Player
 		signed int getTotalHealth();
 		signed int getEnergy();
 		signed int getTotalEnergy();
+		void setHealth(signed int newHealth);
+		void setEnergy(signed int newEnergy);
 		unsigned int getLevel();
 		AnimSprite sprite;
 		// For melee
@@ -79,6 +82,7 @@ class Player
 		Sequence barrelRollSequence;
 		bool isDoingABarrelRoll;
 		void doABarrelRoll(bool isLeft); //yes I did just do that
+		void doBlink(float deltaTime, sf::Vector2i mousePos);
 
 	private:
 		signed int health;
