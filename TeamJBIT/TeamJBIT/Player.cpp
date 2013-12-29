@@ -152,50 +152,53 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 	{
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		if(currentPlayerMode = GUNNER_MODE)
+		if(currentPlayerMode == GUNNER_MODE)
 		movementVec.y += 1;
 
-		if(currentPlayerMode = FIGHTER_MODE)
-		movementVec.y += 4;
+		if(currentPlayerMode == FIGHTER_MODE)
+		movementVec.y += 3;
 
-		if(currentPlayerMode = PLANE_MODE)
-		movementVec.y += 2;
+		if(currentPlayerMode == PLANE_MODE)
+		movementVec.y += 1;
 
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		if(currentPlayerMode = GUNNER_MODE)
+		if(currentPlayerMode == GUNNER_MODE)
 		movementVec.y -= 1;
 
-		if(currentPlayerMode = FIGHTER_MODE)
-		movementVec.y -= 4;
+		if(currentPlayerMode == FIGHTER_MODE)
+		movementVec.y -= 3;
 
-		if(currentPlayerMode = PLANE_MODE)
-		movementVec.y -= 2;
+		if(currentPlayerMode == PLANE_MODE)
+		movementVec.y -= 1;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		if(currentPlayerMode = GUNNER_MODE)
+		if(currentPlayerMode == GUNNER_MODE)
 		movementVec.x -= 1;
 
-		if(currentPlayerMode = FIGHTER_MODE)
-		movementVec.x -= 4;
+		if(currentPlayerMode == FIGHTER_MODE)
+		movementVec.x -= 3;
 
-		if(currentPlayerMode = PLANE_MODE)
-		movementVec.x -= 1;
+		if(currentPlayerMode == PLANE_MODE)
+		movementVec.x -= 2;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		if(currentPlayerMode = GUNNER_MODE)
+		if(currentPlayerMode == GUNNER_MODE)
 		movementVec.x += 1;
 
-		if(currentPlayerMode = FIGHTER_MODE)
-		movementVec.x += 4;
+		if(currentPlayerMode == FIGHTER_MODE)
+		movementVec.x += 3;
 
-		if(currentPlayerMode = PLANE_MODE)
-		movementVec.x += 1;
+		if(currentPlayerMode == PLANE_MODE)
+		movementVec.x += 2;
 	}
-
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		movementVec = normalize(movementVec);
+	}
 	if (isDoingABarrelRoll) movementVec = sf::Vector2f(); //zero it
 	
 	//play correct animation (if it isn't already playing)
@@ -228,7 +231,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 	}*/
 
 	//apply the movement
-	pos += normalize(movementVec) * (300 * deltaTime);
+	pos += movementVec * (300*deltaTime);
 	sprite.setPosition(pos);
 
 	//Collide with borders

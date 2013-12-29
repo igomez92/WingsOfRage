@@ -1,9 +1,12 @@
 #include "PowerUp.h"
 #include "TextureManager.h"
+#include "Utility.h"
 
 PowerUp::PowerUp(sf::Vector2f pos, int startTime)
 	:pos(pos), startTime(startTime)
 {
+	deltaPos.x = 3;
+	deltaPos.y = 3;
 	float x = rand() % 10;
 	sf::Texture* image;
 	if(x < .5)
@@ -53,10 +56,16 @@ void PowerUp::setPosition(sf::Vector2f position)
 void PowerUp::update()
 {
 	currentTime++;
-	float deltaPositionX = 3;
-	float deltaPositionY = 3;
-	pos.x += deltaPositionX;
-	pos.y += deltaPositionY;
+	
+	if(pos.x >= SCREEN_WIDTH || pos.x <= 0 )
+	{
+		deltaPos.x = deltaPos.x * -1;
+	}
+	if(pos.y >= SCREEN_HEIGHT || pos.y <= 0 )
+	{
+		deltaPos.y = deltaPos.y* -1;
+	}
+	pos += deltaPos;
 	sprite.setPosition(pos);
 }
 
