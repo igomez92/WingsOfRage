@@ -11,7 +11,7 @@
 #include <string.h>
 
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(30), bombDelay(1.0f),
-currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(10.0f), currentPowerTime(0.0f), mousePressed(false)
+currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(20.0f), currentPowerTime(0.0f), mousePressed(false)
 {
 	levelArray[0] = "media/Levels/Level 1.txt";
 	levelArray[1] = "media/Levels/Level 2.txt";
@@ -249,7 +249,7 @@ void GameScene::update(sf::RenderWindow& window) {
 	//if no more enemies summon a boss
 	if(enemyList.empty() && !bossSpawned && entitySpawnQueue.empty())
 	{
-		enemyList.push_back(new Boss1("media/ball.png", sf::Vector2f(100, 0)));
+		enemyList.push_back(new Boss1("media/robot.png", sf::Vector2f(100, 0)));
 		bossSpawned = true;
 	}
 	else if(enemyList.empty() && bossSpawned)
@@ -505,7 +505,7 @@ void GameScene::updatePlayerBullets(float deltaTime)
 				
 				if((**enemyIt).type == Reflector)
 				{
-					if((**it).dam >= 500)
+					if((**it).dam >= 100)
 					{
 						(**enemyIt).takeDam((**it).dam);
 					}
@@ -514,6 +514,13 @@ void GameScene::updatePlayerBullets(float deltaTime)
 					aiming = aiming * .25f;
 					enemyBullets.push_back(new Bullet("media/bullet.png", (**it).pos ,aiming, 5, sf::Color(255, 50, 50)));
 					
+				}
+				else if((**enemyIt).type == Boss)
+				{
+					if((**it).dam >=100)
+					{
+						(**enemyIt).takeDam((**it).dam/2);
+					}
 				}
 				else
 				{
@@ -635,7 +642,7 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			}
 
 			//should we apply damage
-			if (!player.isShieldUp() && !player.isDoingABarrelRoll)
+			if (!player.isShieldUp() && !player.isDoingABarrelRoll && player.isTargetable())
 			{
 				player.damaged((**it).dam);
 			}
@@ -650,7 +657,19 @@ void GameScene::bulletToPlayerCollision(float deltaTime)
 			enemyBullets.erase(itToErase);
 			
 			if(player.isDead())
-				SceneManager::getInstance().changeScene("end");
+			{
+				if(player.lives == 0)
+				{
+					SceneManager::getInstance().changeScene("end");
+				}
+				else
+				{
+					player.lives--;
+					player.setHealth(player.getTotalHealth());
+					player.setLevelToZero();
+					player.setTargetable(false);
+				}
+			}
 
 			continue;
 		}
@@ -680,14 +699,26 @@ void GameScene::enemyToPlayerCollision(float deltaTime)
 		}
 	}else
 	{
-		if((clock.getElapsedTime() - hitDelay ).asSeconds() > 1.0f)
+		if((clock.getElapsedTime() - hitDelay ).asSeconds() > 2.0f)
 		{
 			player.setTargetable(true);
 		}
 	}
 	
 	if(player.isDead())
-		SceneManager::getInstance().changeScene("end");
+	{
+		if(player.lives == 0)
+		{
+			SceneManager::getInstance().changeScene("end");
+		}
+		else
+		{
+			player.lives--;
+			player.setHealth(player.getTotalHealth());
+			player.setLevelToZero();
+			player.setTargetable(false);
+		}
+	}
 }
 
 void GameScene::updateUpgrade()
@@ -853,7 +884,7 @@ void GameScene::updateHealthAndEnergy()
 	float healthScale = (float) player.getHealth()/player.getTotalHealth();
 	healthBar.setScale(healthScale, 1);
 
-	float energyScale = (float) player.getEnergy()/player.getTotalHealth();
+	float energyScale = (float) player.getEnergy()/player.getTotalEnergy();
 	energyBar.setScale(energyScale, 1);
 
 

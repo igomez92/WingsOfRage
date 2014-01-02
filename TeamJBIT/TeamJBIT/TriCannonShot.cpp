@@ -2,7 +2,7 @@
 #include "Utility.h"
 
 TriCannonShot::TriCannonShot()
-	:delay(0.25f)
+	:delay(0.2f)
 {
 
 }

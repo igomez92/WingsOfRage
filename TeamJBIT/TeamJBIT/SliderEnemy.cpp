@@ -43,7 +43,7 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<B
 	vel = pos - vel;
 	sprite.setRotation((-atan2f(vel.x, vel.y) * (180 / 3.1415926f)) + 180.f);
 
-	if (bulletClock.getElapsedTime().asSeconds() > .1)
+	if (bulletClock.getElapsedTime().asSeconds() > 1)
 	{
 		sf::Vector2f aiming;
 		sf::Vector2f temp = (pos - player.pos);
@@ -52,7 +52,7 @@ void SliderEnemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<B
 			aiming.x = temp.x * -400;
 			aiming.y = temp.y * -400;
 
-		eList.push_back(new Bullet("media/bullet.png", pos, aiming, 5, sf::Color(255, 50, 50)));
+		eList.push_back(new Bullet("media/bullet.png", pos, aiming, 10, sf::Color(255, 50, 50)));
 		
 		bulletClock.restart();
 	}

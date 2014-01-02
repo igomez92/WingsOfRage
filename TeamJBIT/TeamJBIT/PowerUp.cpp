@@ -9,12 +9,12 @@ PowerUp::PowerUp(sf::Vector2f pos, int startTime)
 	deltaPos.y = 3;
 	float x = rand() % 10;
 	sf::Texture* image;
-	if(x < .5)
+	if(x < 3)
 	{
 		image = _getTexture("media/power.png");
 		upgradeType = WEAPON_UPGRADE;
 	}
-	else if(x < 5)
+	else if(x < 6)
 	{
 		image = _getTexture("media/health.png");
 		upgradeType = HEALTH_UPGRADE;

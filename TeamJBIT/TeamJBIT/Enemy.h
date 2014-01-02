@@ -9,7 +9,7 @@ enum EnemyType {Normal , Reflector, Tank, Melee, Spiral, Boss};
 class Enemy
 {
 	public:
-		Enemy(std::string file, sf::Vector2f pos, int health = 100);
+		Enemy(std::string file, sf::Vector2f pos, int health = 20);
 		~Enemy(void);
 
 		virtual void update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*>& pList, Player& player);

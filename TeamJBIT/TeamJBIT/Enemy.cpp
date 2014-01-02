@@ -24,15 +24,14 @@ void Enemy::update(float deltaTime, std::list<Bullet*>& eList, std::list<Bullet*
 {
 	pos.y += 100 * deltaTime;
 	sprite.setPosition(pos);
-	if(pos.y > 600 + sprite.getLocalBounds().height)
+	if(pos.y > SCREEN_HEIGHT + sprite.getLocalBounds().height + 200)
 	{
-		pos.y -= 600 + sprite.getLocalBounds().height;
-		sprite.setPosition(pos);
+		health = 0;
 	}
 
-	if (bulletClock.getElapsedTime().asSeconds() > 0.2)
+	if (bulletClock.getElapsedTime().asSeconds() > 0.5)
 	{
-		eList.push_back(new Bullet("media/bullet.png", pos, sf::Vector2f(0, 400), 5, sf::Color(255, 50, 50)));
+		eList.push_back(new Bullet("media/bullet.png", pos, sf::Vector2f(0, 400), 10, sf::Color(255, 50, 50)));
 		bulletClock.restart();
 	}
 }

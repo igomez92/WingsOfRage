@@ -40,6 +40,7 @@ class Player
 		int currentWeaponLevel;
 		int currentPlayerMode;
 		int enemiesKilled;
+		int lives;
 		void damaged(int damagedealt);
 		bool isDead();
 		bool isTargetable();

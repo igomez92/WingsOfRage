@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 Player::Player(sf::Vector2f pos)
-	:health(100000), totalHealth(100000), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
+	:health(500), totalHealth(500), level(0), pos(pos), shotType(new TriCannonShot), laserShooting(false), laserShotDelay(3.0f), allowLaser(true),
 	accumDelayTime(0.0f), swordSwinging(false), allowSword(true), energy(1000), totalEnergy(1000), currentSwordTime(0.0f), swordDelay(0.5f)
 {
 	planeImage = _getTexture("media/planeMoveSS.png");
@@ -38,7 +38,7 @@ Player::Player(sf::Vector2f pos)
 	blinkDelay = 0;
 	isDoingABarrelRoll = false;
 	shieldUp = false;
-	
+	lives = 3;
 	buffer.loadFromFile("media/laser.wav");
 	sound.setBuffer(buffer);
 	sound.setVolume(100);
@@ -156,7 +156,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 		movementVec.y += 1;
 
 		if(currentPlayerMode == FIGHTER_MODE)
-		movementVec.y += 3;
+		movementVec.y += 2.5;
 
 		if(currentPlayerMode == PLANE_MODE)
 		movementVec.y += 1;
@@ -168,7 +168,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 		movementVec.y -= 1;
 
 		if(currentPlayerMode == FIGHTER_MODE)
-		movementVec.y -= 3;
+		movementVec.y -= 2.5;
 
 		if(currentPlayerMode == PLANE_MODE)
 		movementVec.y -= 1;
@@ -179,7 +179,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 		movementVec.x -= 1;
 
 		if(currentPlayerMode == FIGHTER_MODE)
-		movementVec.x -= 3;
+		movementVec.x -= 2.5;
 
 		if(currentPlayerMode == PLANE_MODE)
 		movementVec.x -= 2;
@@ -190,7 +190,7 @@ void Player::update(float deltaTime, std::list<Bullet*>& playerBullets)
 		movementVec.x += 1;
 
 		if(currentPlayerMode == FIGHTER_MODE)
-		movementVec.x += 3;
+		movementVec.x += 2.5;
 
 		if(currentPlayerMode == PLANE_MODE)
 		movementVec.x += 2;

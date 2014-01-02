@@ -5,7 +5,7 @@
 class Bullet
 {
 public:
-	Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam = 10, sf::Color bulletColor = sf::Color::White);
+	Bullet(std::string file, sf::Vector2f pos, sf::Vector2f vel, int dam = 20, sf::Color bulletColor = sf::Color::White);
 	~Bullet(void);
 
 	void update(float deltaTime);

@@ -1,5 +1,6 @@
 #include "Boss1.h"
 #include "Utility.h"
+#include "TextureManager.h"
 
 Boss1::Boss1(std::string file, sf::Vector2f pos, int health):Enemy(file,pos,health)
 {
@@ -7,6 +8,12 @@ Boss1::Boss1(std::string file, sf::Vector2f pos, int health):Enemy(file,pos,heal
 	type = Boss;
 	attackswitchtimer = 0;
 	sprite.rotate(180);
+	sf::Texture* image = _getTexture(file);
+	sprite.setTexture(*image);
+	//sprite.setOrigin(0, sprite.getLocalBounds().height/2);
+	sprite.setPosition(pos);
+	sprite.scale(0.3, 0.3);
+
 }
 
 
