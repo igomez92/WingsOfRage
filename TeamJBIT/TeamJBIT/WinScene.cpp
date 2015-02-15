@@ -8,15 +8,17 @@
 
 WinScene::WinScene() : bgTextureUpdated(false) {
 
-	//sf::Texture* animSpriteTexture = _getTexture("media/WinImagePlaceholder.jpg");
-	//animSpriteTexture->setSmooth(true);
+	sf::Texture* animSpriteTexture = _getTexture("media/yeah.jpg");
+	animSpriteTexture->setSmooth(true);
 
-	//winSprite.setTexture(*animSpriteTexture);
+	winSprite.setTexture(*animSpriteTexture);
+	winSprite.addAnim("yeah", 0, 0, 95, 10, 30, true);
+	winSprite.setFrameSize(200, 217);
+	winSprite.playAnim("yeah");
+	centerOrigin(winSprite);
+	winSprite.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	winSprite.setScale(SCREEN_WIDTH/200.f, SCREEN_HEIGHT/217.f);
 
-	//winSprite.setFrameSize(200, 217);
-	//centerOrigin(winSprite);
-	//winSprite.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-	//winSprite.setScale(SCREEN_WIDTH/200.f, SCREEN_HEIGHT/217.f);
 	backgroundTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	backgroundSprite.setTexture(backgroundTexture);
 
@@ -40,7 +42,7 @@ WinScene::WinScene() : bgTextureUpdated(false) {
 
 void WinScene::enter() {
 	bgTextureUpdated = false;
-
+	winSprite.playAnim("yeah");
 	blackScreen.setFillColor(sf::Color(0,0,0,0));
 	fadeTweener.addTween(&CDBTweener::TWEQ_QUADRATIC, CDBTweener::TWEA_INOUT, 0.3, 0, [&] (float alpha) {blackScreen.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)alpha));}, 200);
 }
@@ -72,18 +74,18 @@ void WinScene::update(sf::RenderWindow& window) {
 		else
 			button.setUnselected();
 	}
-
+	winSprite.update(deltaTime);
 	fadeTweener.step(deltaTime);
 }
 
 void WinScene::draw(sf::RenderWindow& window) {
 
-
+	window.draw(winSprite);
 	for (TextButton& button : buttons) {
 		window.draw(button.labelText);
 	}
 
-	window.draw(winSprite);
+	
 }
 
 bool WinScene::handleEvent(sf::Event& e) {

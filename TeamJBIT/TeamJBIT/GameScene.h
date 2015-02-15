@@ -60,7 +60,7 @@ class GameScene : public IScene
 		std::list<Particle*> allParticles; 
 		std::list<PowerUp*> powerUps;
 		std::list<IEntity*> entityList;
-		std::string levelArray[10];
+		std::string levelArray[2];
 
 		MeleeType* currentMeleeAttack;
 

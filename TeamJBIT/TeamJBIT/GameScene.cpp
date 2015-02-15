@@ -13,19 +13,12 @@
 GameScene::GameScene() : player( sf::Vector2f(400, 300)), scoreNum(0), backgroundOffsetLow(0), backgroundOffsetMed(0), numOfBombs(30), bombDelay(1.0f),
 currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDecreaseDone(false), totalPowerTime(20.0f), currentPowerTime(0.0f), mousePressed(false)
 {
-	levelArray[0] = "media/Levels/Level 1.txt";
-	levelArray[1] = "media/Levels/Level 2.txt";
-	levelArray[2] = "media/Levels/Level 2.txt";
-	levelArray[3] = "media/Levels/Level 2.txt";
-	levelArray[4] = "media/Levels/Level 1.txt";
-	levelArray[5] = "media/Levels/Level 2.txt";
-	levelArray[6] = "media/Levels/Level 1.txt";
-	levelArray[7] = "media/Levels/Level 2.txt";
-	levelArray[8] = "media/Levels/Level 1.txt";
-	levelArray[9] = "media/Levels/Level 2.txt";
+	levelArray[0] = "media/Levels/Level 2.txt";
+	levelArray[1] = "media/Levels/Level 1.txt";
+
 
 	//max number of levels
-	lastLevel = 2;
+	lastLevel = 1;
 	//current level, defaulted to first one
 	currentLevel = 0;
 
@@ -80,18 +73,11 @@ currBombTime(0.0f),bombRunning(false), bombWait(0.0f),bombReady(true), energyDec
 {
 
 	
-	levelArray[0] = "media/Levels/Level 1.txt";
-	levelArray[1] = "media/Levels/Level 2.txt";
-	levelArray[2] = "media/Levels/Level 1.txt";
-	levelArray[3] = "media/Levels/Level 2.txt";
-	levelArray[4] = "media/Levels/Level 1.txt";
-	levelArray[5] = "media/Levels/Level 2.txt";
-	levelArray[6] = "media/Levels/Level 1.txt";
-	levelArray[7] = "media/Levels/Level 2.txt";
-	levelArray[8] = "media/Levels/Level 1.txt";
-	levelArray[9] = "media/Levels/Level 2.txt";
+	levelArray[0] = "media/Levels/Level 2.txt";
+	levelArray[1] = "media/Levels/Level 1.txt";
 
-	lastLevel = 2;
+
+	lastLevel = 1;
 	currentLevel = level;
 
 	player.setHealth(startingHealth);

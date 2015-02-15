@@ -1,0 +1,61 @@
+// double forward slash = comment, whitespace(spaces/tabs/empty lines) ignored, comma delimited values, newline seperates entries
+//format: <spawn time>, <enemy type>, <x pos>, <y pos>
+//NOTE: While format allows free use of whitespace, empty lines, and comments, times MUST BE SEQUENTIAL
+//enemies with earlier times coming on lines after enemies of later times will not spawn until the later-timed enemies do
+
+
+0, TextBox, 0, 0, "Level 1  -  Return of the Revenge of the Attack of the Circles from Outer Space Part IV 1/2", 5
+0, MTankEnemy, 0, 100
+0, Enemy, 200, -100
+0, Enemy, 600, -100
+2, CircleEnemy, 400, -100
+6.5, SliderEnemy, 300, 10
+6.5, SliderEnemy, 500, 10
+9, TankEnemy, 400, -100
+11, SliderEnemy, 100, 10
+11, SliderEnemy, 700, 10
+
+//screen-wide V of basic enemies
+13, Enemy, 400, -100
+13.5, Enemy, 350, -100
+13.5, Enemy, 450, -100
+14, Enemy, 300, -100
+14, Enemy, 500, -100
+14.5, Enemy, 250, -100
+14.5, Enemy, 550, -100
+15, Enemy, 200, -100
+15, Enemy, 600, -100
+15.5, Enemy, 150, -100
+15.5, Enemy, 650, -100
+16, Enemy, 100, -100
+16, Enemy, 700, -100
+16.5, Enemy, 50, -100
+16.5, Enemy, 750, -100
+
+//...and 10 seconds later the same but an inverted V
+23, Enemy, 750, -100
+23, Enemy, 50, -100
+23.5, Enemy, 700, -100
+23.5, Enemy, 100, -100
+24, Enemy, 650, -100
+24, Enemy, 150, -100
+24.5, Enemy, 200, -100
+24.5, Enemy, 600, -100
+25, Enemy, 550, -100
+25, Enemy, 250, -100
+25.5, Enemy, 300, -100
+25.5, Enemy, 500, -100
+26, Enemy, 350, -100
+26, Enemy, 450, -100
+26.5, Enemy, 400, -100
+
+35, MTankEnemy, 0, 100
+35, Enemy, 200, -100
+35, Enemy, 600, -100
+37, Enemy, 400, -100
+43, CircleEnemy, 400, 10
+43.5, SliderEnemy, 300, 10
+43.5, SliderEnemy, 500, 10
+46, TankEnemy, 400, -100
+48, SliderEnemy, 100, 10
+48, SliderEnemy, 700, 10
