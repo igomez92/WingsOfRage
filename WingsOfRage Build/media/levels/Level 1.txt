@@ -1,0 +1,112 @@
+//sliders come in from the side one at a time
+0, MeleeEnemy, 0,0
+0, SliderEnemy, 750,0
+0.5, SliderEnemy, 750,0
+1, SliderEnemy, 750,0
+1.5, SliderEnemy, 750,0
+2, SliderEnemy, 750,0
+
+//ssame but from the other side
+5, SliderEnemy, 50,0
+5.5, SliderEnemy, 50,0
+6, SliderEnemy, 50,0
+6.5, SliderEnemy, 50,0
+7, SliderEnemy, 50,0
+
+//four tanks appear from each of the corners
+10, TankEnemy, 0,0
+10, TankEnemy,800,800
+10, TankEnemy, 0,800
+10, TankEnemy, 800,0
+
+//small V
+13  , Enemy, 400, -100
+13.5, Enemy, 350, -100
+13.5, Enemy, 450, -100
+14  , Enemy, 300, -100
+14  , Enemy, 500, -100
+14.5, Enemy, 250, -100
+14.5, Enemy, 550, -100
+15  , Enemy, 200, -100
+15  , Enemy, 600, -100
+
+//four mtanks apear from the sides
+
+18, MTankEnemy, 400,0
+18, MTankEnemy,400,800
+18, MTankEnemy, 0,400
+18, MTankEnemy, 800,400
+
+//Sliders from top and bottem
+24, SliderEnemy, 400,0
+24, SliderEnemy, 400,800
+
+24.5, SliderEnemy, 400,0
+24.5, SliderEnemy, 400,800
+
+25, SliderEnemy, 400,0
+25, SliderEnemy, 400,800
+
+25.5, SliderEnemy, 400,0
+25.5, SliderEnemy, 400,800
+
+26, SliderEnemy, 400,0
+26, SliderEnemy, 400,800
+
+//screen wide v of enemies
+30  , Enemy, 400, -100
+30.5, Enemy, 350, -100
+30.5, Enemy, 450, -100
+31  , Enemy, 300, -100
+31  , Enemy, 500, -100
+31.5, Enemy, 250, -100
+31.5, Enemy, 550, -100
+32  , Enemy, 200, -100
+32  , Enemy, 600, -100
+32.5, Enemy, 150, -100
+32.5, Enemy, 650, -100
+33  , Enemy, 100, -100
+33  , Enemy, 700, -100
+33.5, Enemy, 50, -100
+33.5, Enemy, 750, -100
+
+//circle enemies appear
+36  , CircleEnemy, 400, -100
+36.25, CircleEnemy, 400, -100
+36.5 , CircleEnemy, 400, -100
+36.75, CircleEnemy, 400, -100
+37  , CircleEnemy, 400, -100
+
+//A giant tank line
+40   , TankEnemy, 0,0
+40.25, TankEnemy, 0,0
+40.5 , TankEnemy, 0,0
+40.75, TankEnemy, 0,0
+41   , TankEnemy, 0,0
+41.25, TankEnemy, 0,0
+41.5 , TankEnemy, 0,0
+41.75, TankEnemy, 0,0
+
+//slider line
+45   , SliderEnemy, 800,0
+45.25, SliderEnemy, 800,0
+45.5 , SliderEnemy, 800,0
+45.75, SliderEnemy, 800,0
+46   , SliderEnemy, 800,0
+46.25, SliderEnemy, 800,0
+46.5 , SliderEnemy, 800,0
+46.75, SliderEnemy, 800,0
+
+50, MeleeEnemy, 0,0
+50, MeleeEnemy, 100,0
+50, MeleeEnemy, 200,0
+50, MeleeEnemy, 300,0
+50, MeleeEnemy, 400,0
+50, MeleeEnemy, 500,0
+50, MeleeEnemy, 600,0
+50, MeleeEnemy, 700,0
+
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
+60, SpiralEnemy, 0,0
